@@ -12,5 +12,6 @@ namespace CarServiceGame.Domain.Entities
         public decimal CashBalance { get; }
 
         public List<Worker> EmployeedWorkers { get; }
+        public List<CarPart> CarParts { get; }
     }
 }
