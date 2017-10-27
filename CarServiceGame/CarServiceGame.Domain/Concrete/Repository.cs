@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarServiceGame.Domain.Mock
+namespace CarServiceGame.Domain.Concrete
 {
-    public class MockRepository : IRepository
+    public class Repository : IRepository
     {
     }
 }
