@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
-namespace CarServiceGame.Desktop.Views
+namespace CarServiceGame.Desktop.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DashboardPage.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class DashboardPage : Page
     {
-        public MainWindow()
+        public DashboardPage()
         {
             InitializeComponent();
         }
