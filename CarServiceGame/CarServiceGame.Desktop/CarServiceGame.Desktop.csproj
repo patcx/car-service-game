@@ -123,6 +123,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewTest.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewTest.cs" />
     <Compile Include="Views\Pages\DashboardPage.xaml.cs">

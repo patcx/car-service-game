@@ -9,6 +9,25 @@
       Title="OrdersPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Available Orders"></TextBlock>
+        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding}" GridViewColumnHeader.Click="OrderListSort">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150" Header="Car Name"  DisplayMemberBinding="{Binding CarName}"/>
+                    <GridViewColumn Width="150" Header="Required Work" DisplayMemberBinding="{Binding RequiredWork}"/>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="AcceptOrderButton" Content="Accept Order" Click="AcceptOrderButton_Click"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

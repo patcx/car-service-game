@@ -13,32 +13,27 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             get
             {
-                return Worker.Name;
+                return worker.Name;
             }
         }
         public int Efficiency {
             get
             {
-                return Worker.Efficiency;
+                return worker.Efficiency;
             }
         }
         public decimal Salary {
             get
             {
-                return Worker.Salary;
+                return worker.Salary;
             }
         }
 
-        private Worker Worker;
-
-        public WorkerViewModel()
-        {
-
-        }
+        private Worker worker;
 
         public WorkerViewModel(Worker worker)
         {
-            this.Worker = worker;
+            this.worker = worker;
         }
 
     }

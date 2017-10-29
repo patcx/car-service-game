@@ -61,39 +61,36 @@ namespace CarServiceGame.Desktop.Views.Pages
             unemployedWorkers.Add(worker);
         }
 
-        private void WorkerListSort(object sender, RoutedEventArgs e)
+
+        private void HiredWorkerListSort(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
+            hiredWorkers = WorkerListSort(headerClicked, hiredWorkers);
+            hiredListView.DataContext = hiredWorkers;
+        }
 
-            if (headerClicked == null) return;
+        private void UnemployedWorkerListSort(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
+            unemployedWorkers = WorkerListSort(headerClicked, unemployedWorkers);
+            unemployedListView.DataContext = unemployedWorkers;
+        }
+
+        private ObservableCollection<WorkerViewTest> WorkerListSort(GridViewColumnHeader headerClicked, ObservableCollection<WorkerViewTest> workers)
+        {
+            if (headerClicked == null) return workers;
             switch (headerClicked.Content)
             {
                 case "Name":
-                    hiredWorkers =  SortWorkerList(hiredWorkers.OrderBy(x => x.Name));
-                    unemployedWorkers = SortWorkerList(unemployedWorkers.OrderBy(x => x.Name));
-                    break;
+                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Name));
                 case "Salary":
-                    hiredWorkers = SortWorkerList(hiredWorkers.OrderBy(x => x.Salary));
-                    unemployedWorkers = SortWorkerList(unemployedWorkers.OrderBy(x => x.Salary));
-                    break;
+                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Salary));
                 case "Efficiency":
-                    hiredWorkers = SortWorkerList(hiredWorkers.OrderBy(x => x.Efficiency));
-                    unemployedWorkers = SortWorkerList(unemployedWorkers.OrderBy(x => x.Efficiency));
-                    break;
+                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Efficiency));
                 default:
                     break;
             }
-
-        }
-
-        private ObservableCollection<WorkerViewTest> SortWorkerList(IOrderedEnumerable<WorkerViewTest> sortedList)
-        {
-            ObservableCollection<WorkerViewTest> newWorkerList = new ObservableCollection<WorkerViewTest>();
-            foreach (var v in sortedList)
-            {
-               newWorkerList.Add(v);
-            }
-            return newWorkerList;
+            return workers;
         }
     }
 
