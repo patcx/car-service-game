@@ -10,6 +10,16 @@ namespace CarServiceGame.Domain.Entities
 
         public string CarName { get; }
         public int RequiredWork { get; }
-        public IReadOnlyCollection<CarPart> RequiredParts { get; }
+        public int Reward { get; }
+        public string Description { get; }
+
+        public RepairOrder(Guid id, string carName, int requiredWork, int reward, string description)
+        {
+            RepairOrderId = id;
+            CarName = carName;
+            RequiredWork = requiredWork;
+            Reward = reward;
+            Description = description;
+        }
     }
 }

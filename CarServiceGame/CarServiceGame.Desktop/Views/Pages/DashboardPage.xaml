@@ -12,7 +12,6 @@
     <TabControl mahApps:TabControlHelper.Underlined="TabPanel">
         <TabItem Header="Garage"></TabItem>
         <TabItem Header="Orders"></TabItem>
-        <TabItem Header="Parts"></TabItem>
         <TabItem Header="Workers"></TabItem>
     </TabControl>
 </Page>

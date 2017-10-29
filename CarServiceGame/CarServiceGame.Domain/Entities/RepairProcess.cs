@@ -6,7 +6,16 @@ namespace CarServiceGame.Domain.Entities
 {
     public class RepairProcess
     {
-        private RepairOrder Order { get; }
-        private Worker AssignedWorker { get; }
+        public RepairOrder Order { get; }
+        public Worker AssignedWorker { get; }
+
+        public RepairProcess(RepairOrder order, Worker worker)
+        {
+            if(order == null || worker == null)
+                throw new ArgumentException("order or worker is null");
+
+            Order = order;
+            AssignedWorker = worker;
+        }
     }
 }
