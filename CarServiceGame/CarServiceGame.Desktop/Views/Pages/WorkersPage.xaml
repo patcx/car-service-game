@@ -1,0 +1,63 @@
+﻿<Page x:Class="CarServiceGame.Desktop.Views.Pages.WorkersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="WorkersPage">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Hired Workers"></TextBlock>
+            <ListView Name="hiredListView" Grid.Row="1" ItemsSource="{Binding}" GridViewColumnHeader.Click="WorkerListSort">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Efficiency" Width="Auto" DisplayMemberBinding="{Binding Efficiency}" />
+                        <GridViewColumn Header="Salary" Width="Auto" DisplayMemberBinding="{Binding Salary}" />
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="DismissButton" Content="Dismiss Worker" Click="DismissButton_Click" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Unemployed Workers"></TextBlock>
+            <ListView Name="unemployedListView" Grid.Row="1" ItemsSource="{Binding}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Efficiency" Width="Auto" DisplayMemberBinding="{Binding Efficiency}" />
+                        <GridViewColumn Header="Salary" Width="Auto" DisplayMemberBinding="{Binding Salary}" />
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="HireButton" Content="Hire Worker" Click="HireButton_Click" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

@@ -10,9 +10,15 @@
       Title="DashboardPage">
 
     <TabControl mahApps:TabControlHelper.Underlined="TabPanel">
-        <TabItem Header="Garage"></TabItem>
-        <TabItem Header="Orders"></TabItem>
-        <TabItem Header="Parts"></TabItem>
-        <TabItem Header="Workers"></TabItem>
+        <TabItem Header="Garage">
+            <Frame Source="GaragePage.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="Orders">
+            <Frame Source="OrdersPage.xaml"></Frame>
+        </TabItem>
+        <!--<TabItem Header="Parts"></TabItem>-->
+        <TabItem Header="Workers">
+            <Frame Source="WorkersPage.xaml"></Frame>
+        </TabItem>
     </TabControl>
 </Page>
