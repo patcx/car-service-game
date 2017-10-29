@@ -25,7 +25,7 @@
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Efficiency" Width="Auto" DisplayMemberBinding="{Binding Efficiency}" />
                         <GridViewColumn Header="Salary" Width="Auto" DisplayMemberBinding="{Binding Salary}" />
-                        <GridViewColumn>
+                        <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Name="DismissButton" Content="Dismiss Worker" Click="DismissButton_Click" />
@@ -48,7 +48,7 @@
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Efficiency" Width="Auto" DisplayMemberBinding="{Binding Efficiency}" />
                         <GridViewColumn Header="Salary" Width="Auto" DisplayMemberBinding="{Binding Salary}" />
-                        <GridViewColumn>
+                        <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Name="HireButton" Content="Hire Worker" Click="HireButton_Click" />

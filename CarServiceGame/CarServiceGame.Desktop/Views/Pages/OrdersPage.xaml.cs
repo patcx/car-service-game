@@ -41,22 +41,14 @@ namespace CarServiceGame.Desktop.Views.Pages
             }
         }
 
-        private ObservableCollection<OrderViewTest> orders;
+        private ObservableCollection<OrderViewModel> orders;
 
         public OrdersPage()
         {
             InitializeComponent();
-            ListViewTest();
+            orders = new ObservableCollection<OrderViewModel>();
         }
 
-        private void ListViewTest()
-        {
-            orders = new ObservableCollection<OrderViewTest>();
-            orders.Add(new OrderViewTest(6));
-            orders.Add(new OrderViewTest(1));
-            orders.Add(new OrderViewTest(11));
-            ordersListView.DataContext = orders;
-        }
 
         private void OrderListSort(object sender, RoutedEventArgs e)
         {
@@ -65,10 +57,10 @@ namespace CarServiceGame.Desktop.Views.Pages
             switch (headerClicked.Content)
             {
                 case carNameColumnName:
-                    orders = new ObservableCollection<OrderViewTest>(orders.OrderBy(x => x.CarName));
+                    orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.CarName));
                     break;
                 case requiredWorkColumnName:
-                    orders = new ObservableCollection<OrderViewTest>(orders.OrderBy(x => x.RequiredWork));
+                    orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.RequiredWork));
                     break;
                 default:
                     break;

@@ -22,41 +22,27 @@ namespace CarServiceGame.Desktop.Views.Pages
     /// </summary>
     public partial class WorkersPage : Page
     {
-        private ObservableCollection<WorkerViewTest> hiredWorkers;
+        private ObservableCollection<WorkerViewModel> hiredWorkers;
 
-        private ObservableCollection<WorkerViewTest> unemployedWorkers;
+        private ObservableCollection<WorkerViewModel> unemployedWorkers;
 
         public WorkersPage()
         {
             InitializeComponent();
-            ListViewTest();
-        }
-
-        private void ListViewTest()
-        {
-            hiredWorkers = new ObservableCollection<WorkerViewTest>();
-            unemployedWorkers = new ObservableCollection<WorkerViewTest>();
-            WorkerViewTest hw = new WorkerViewTest(1);
-            WorkerViewTest uw = new WorkerViewTest(2);
-            hiredWorkers.Add(hw);
-            unemployedWorkers.Add(uw);
-            hiredWorkers.Add(new WorkerViewTest(3));
-            unemployedWorkers.Add(new WorkerViewTest(5));
-            unemployedWorkers.Add(new WorkerViewTest(10));
-            hiredListView.DataContext = hiredWorkers;
-            unemployedListView.DataContext = unemployedWorkers;
+            hiredWorkers = new ObservableCollection<WorkerViewModel>();
+            unemployedWorkers = new ObservableCollection<WorkerViewModel>();
         }
 
         private void HireButton_Click(object sender, RoutedEventArgs e)
         {
-            var worker = (WorkerViewTest)((Button)sender).DataContext;
+            var worker = (WorkerViewModel)((Button)sender).DataContext;
             unemployedWorkers.Remove(worker);
             hiredWorkers.Add(worker);
         }
 
         private void DismissButton_Click(object sender, RoutedEventArgs e)
         {
-            var worker = (WorkerViewTest)((Button)sender).DataContext;
+            var worker = (WorkerViewModel)((Button)sender).DataContext;
             hiredWorkers.Remove(worker);
             unemployedWorkers.Add(worker);
         }
@@ -76,17 +62,17 @@ namespace CarServiceGame.Desktop.Views.Pages
             unemployedListView.DataContext = unemployedWorkers;
         }
 
-        private ObservableCollection<WorkerViewTest> WorkerListSort(GridViewColumnHeader headerClicked, ObservableCollection<WorkerViewTest> workers)
+        private ObservableCollection<WorkerViewModel> WorkerListSort(GridViewColumnHeader headerClicked, ObservableCollection<WorkerViewModel> workers)
         {
             if (headerClicked == null) return workers;
             switch (headerClicked.Content)
             {
                 case "Name":
-                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Name));
+                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Name));
                 case "Salary":
-                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Salary));
+                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Salary));
                 case "Efficiency":
-                    return new ObservableCollection<WorkerViewTest>(workers.OrderBy(x => x.Efficiency));
+                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Efficiency));
                 default:
                     break;
             }

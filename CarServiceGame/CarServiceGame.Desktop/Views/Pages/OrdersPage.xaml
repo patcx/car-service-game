@@ -19,7 +19,7 @@
                 <GridView>
                     <GridViewColumn Width="150" Header="Car Name"  DisplayMemberBinding="{Binding CarName}"/>
                     <GridViewColumn Width="150" Header="Required Work" DisplayMemberBinding="{Binding RequiredWork}"/>
-                    <GridViewColumn>
+                    <GridViewColumn Header="Action">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Name="AcceptOrderButton" Content="Accept Order" Click="AcceptOrderButton_Click"/>
