@@ -16,7 +16,6 @@
         <TabItem Header="Orders">
             <Frame Source="OrdersPage.xaml"></Frame>
         </TabItem>
-        <!--<TabItem Header="Parts"></TabItem>-->
         <TabItem Header="Workers">
             <Frame Source="WorkersPage.xaml"></Frame>
         </TabItem>
