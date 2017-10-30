@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarServiceGame.Desktop"
         xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:vm="clr-namespace:CarServiceGame.Desktop.ViewModels"
         mc:Ignorable="d"
         Title="Car Service" 
         WindowState="Maximized"
         BorderBrush="{StaticResource AccentBaseColorBrush}"
         BorderThickness="1">
-    
-    <Frame Source="Pages/DashboardPage.xaml">
+    <Frame NavigationUIVisibility="Hidden" Source="{Binding SelectedPage, Source={StaticResource mainViewModel}}">
         
     </Frame>
 </mahApps:MetroWindow>

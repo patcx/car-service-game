@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarServiceGame.Desktop.ViewModels
 {
-    class OrderViewModel
+    public class OrderViewModel
     {
         public string CarName
         {

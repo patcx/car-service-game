@@ -5,16 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.Pages"
       xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:b="clr-namespace:CarServiceGame.Desktop.Views.Behaviours"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Login">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center" MaxWidth="300">
+        <StackPanel VerticalAlignment="Center" MaxWidth="300" DataContext="{StaticResource mainViewModel}">
             <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Login"></TextBlock>
-            <TextBox Margin="3" mahApps:TextBoxHelper.Watermark="Warsztat"></TextBox>
-            <PasswordBox Margin="3"  mahApps:TextBoxHelper.Watermark="Hasło"></PasswordBox>
-            <Button Background="Crimson" Margin="3" Content="Login"></Button>
+            <TextBox Margin="3" mahApps:TextBoxHelper.Watermark="Warsztat" Text="{Binding LoginDetails.GarageName}"></TextBox>
+            <PasswordBox Margin="3"  mahApps:TextBoxHelper.Watermark="Hasło">
+                <i:Interaction.Behaviors>
+                    <b:PasswordBoxAccessor Password="{Binding LoginDetails.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></b:PasswordBoxAccessor>
+                </i:Interaction.Behaviors>
+            </PasswordBox>
+            <Button Background="Crimson" Margin="3" Content="Login" Command="{Binding Login}"></Button>
         </StackPanel>
     </Grid>
 </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarServiceGame.Desktop.ViewModels
 {
-    class WorkerViewModel
+    public class WorkerViewModel
     {
         public string Name
         {

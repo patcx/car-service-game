@@ -1,7 +1,8 @@
-﻿<Application x:Class="CarServiceGame.Desktop.App"
+<Application x:Class="CarServiceGame.Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CarServiceGame.Desktop"
+             xmlns:viewModels="clr-namespace:CarServiceGame.Desktop.ViewModels"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Crimson.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <viewModels:MainViewModel x:Key="mainViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
