@@ -14,15 +14,25 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Available Orders"></TextBlock>
-        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding}" GridViewColumnHeader.Click="OrderListSort">
+        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Orders, Source={StaticResource ordersViewModel}}" GridViewColumnHeader.Click="OrderListSort">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Car Name"  DisplayMemberBinding="{Binding CarName}"/>
-                    <GridViewColumn Width="150" Header="Required Work" DisplayMemberBinding="{Binding RequiredWork}"/>
+                    <GridViewColumn Width="150" Header="Required Work" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar Value="{Binding RequiredWork, Mode=OneWay}" Maximum="1000"></ProgressBar>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    <GridViewColumn Width="150" Header="Reward" DisplayMemberBinding="{Binding Reward, StringFormat=C}"/>
+                    <GridViewColumn Width="150" Header="Description" DisplayMemberBinding="{Binding Description}"/>
                     <GridViewColumn Header="Action">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="AcceptOrderButton" Content="Accept Order" Click="AcceptOrderButton_Click"/>
+                                <Button Margin="3" Name="AcceptOrderButton" Content="Accept Order" 
+                                        Command="{Binding AcceptOrder, Source={StaticResource ordersViewModel}}" 
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

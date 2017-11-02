@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <viewModels:MainViewModel x:Key="mainViewModel"/>
+            <viewModels:OrdersCollectionViewModel x:Key="ordersViewModel"/>
+            <viewModels:AvailableWorkersCollectionViewModel x:Key="availableWorkersViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

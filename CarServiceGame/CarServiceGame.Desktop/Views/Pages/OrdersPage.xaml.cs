@@ -22,25 +22,6 @@ namespace CarServiceGame.Desktop.Views.Pages
     /// </summary>
     public partial class OrdersPage : Page
     {
-        const string carNameColumnName = "Car Name";
-        const string requiredWorkColumnName = "Required Work";
-
-        public string CarNameColumnName
-        {
-            get
-            {
-                return carNameColumnName;
-            }
-        }
-
-        public string RequiredWorkColumnName
-        {
-            get
-            {
-                return requiredWorkColumnName;
-            }
-        }
-
         private ObservableCollection<OrderViewModel> orders;
 
         public OrdersPage()
@@ -54,12 +35,12 @@ namespace CarServiceGame.Desktop.Views.Pages
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
             if (headerClicked == null) return;
-            switch (headerClicked.Content)
+            switch ((string)headerClicked.Content)
             {
-                case carNameColumnName:
+                case "Car Name":
                     orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.CarName));
                     break;
-                case requiredWorkColumnName:
+                case "Required Work":
                     orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.RequiredWork));
                     break;
                 default:

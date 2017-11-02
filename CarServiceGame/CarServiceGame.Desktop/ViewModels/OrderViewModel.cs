@@ -24,6 +24,16 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
+        public int Reward
+        {
+            get { return repairOrder.Reward; }
+        }
+
+        public string Description
+        {
+            get { return repairOrder.Description; }
+        }
+
         private RepairOrder repairOrder;
 
         public OrderViewModel(RepairOrder repairOrder)

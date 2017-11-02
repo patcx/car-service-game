@@ -136,8 +136,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\AvailableWorkersCollectionViewModel.cs" />
+    <Compile Include="ViewModels\GarageViewModel.cs" />
     <Compile Include="ViewModels\LoginDetailsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrdersCollectionViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\Behaviours\PasswordBoxAccessor.cs" />

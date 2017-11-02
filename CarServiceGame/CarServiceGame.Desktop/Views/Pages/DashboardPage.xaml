@@ -13,10 +13,10 @@
         <TabItem Header="Garage">
             <Frame Source="GaragePage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Orders">
+        <TabItem Header="Orders" IsSelected="{Binding IsTabSelected, Source={StaticResource ordersViewModel}}">
             <Frame Source="OrdersPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Workers">
+        <TabItem Header="Workers" IsSelected="{Binding IsTabSelected, Source={StaticResource availableWorkersViewModel}}">
             <Frame Source="WorkersPage.xaml"></Frame>
         </TabItem>
     </TabControl>

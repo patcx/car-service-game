@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CarServiceGame.Domain.Entities;
 
@@ -38,6 +39,7 @@ namespace CarServiceGame.Domain.Mock
 
         public Garage GetGarage(string name, string password)
         {
+            Thread.Sleep(3000);
             return new Garage(garage.GarageId, garage.CashBalance, garage.EmployeedWorkers);
         }
 
@@ -48,6 +50,7 @@ namespace CarServiceGame.Domain.Mock
 
         public IEnumerable<RepairOrder> GetAvailableOrders(int skip, int take)
         {
+            Thread.Sleep(1000);
             return new List<RepairOrder>(availableOrders.Skip(skip).Take(take).ToArray());
         }
 
