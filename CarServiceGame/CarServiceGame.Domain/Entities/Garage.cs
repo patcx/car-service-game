@@ -20,6 +20,16 @@ namespace CarServiceGame.Domain.Entities
             RepairProcesses = repairProcesses == null ?  new List<RepairProcess>() : new List<RepairProcess>(repairProcesses);
         }
 
+        public void HireWorker(Worker worker)
+        {
+            EmployeedWorkers.Add(worker);
+        }
+
+        public void FireWorker(Worker worker)
+        {
+            EmployeedWorkers.Remove(worker);
+        }
+
         public void SetCashBalance(int value)
         {
             CashBalance = value;

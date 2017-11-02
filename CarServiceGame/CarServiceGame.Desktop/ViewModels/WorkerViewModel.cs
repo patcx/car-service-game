@@ -36,5 +36,9 @@ namespace CarServiceGame.Desktop.ViewModels
             this.worker = worker;
         }
 
+        public Worker GetModel()
+        {
+            return worker;
+        }
     }
 }

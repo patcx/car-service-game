@@ -39,7 +39,30 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public ICommand HireWorker => new RelayCommand<WorkerViewModel>(w =>
         {
-            
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Employeeing worker...", false);
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+                
+                workersRepository.EmployWorker(GlobalResources.Garage.GetModel().GarageId, w.GetModel().WorkerId);
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while employeeing worker").Wait();
+                }
+                else
+                {
+                    GlobalResources.Garage.HireWorker(w);
+                    AvailableWorkers.Remove(w);
+                }
+            }, scheduler);
         });
 
         public void Refresh()
@@ -67,9 +90,6 @@ namespace CarServiceGame.Desktop.ViewModels
                     RaisePropertyChanged("AvailableWorkers");
                 }
             });
-
-
-
         }
     }
 }

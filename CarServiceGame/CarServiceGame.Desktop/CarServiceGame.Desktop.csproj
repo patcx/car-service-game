@@ -136,6 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalResources.cs" />
     <Compile Include="ViewModels\AvailableWorkersCollectionViewModel.cs" />
     <Compile Include="ViewModels\GarageViewModel.cs" />
     <Compile Include="ViewModels\LoginDetailsViewModel.cs" />
