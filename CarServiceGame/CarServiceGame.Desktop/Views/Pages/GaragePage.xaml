@@ -3,12 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.Pages"
+      xmlns:stall="clr-namespace:CarServiceGame.Desktop.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="GaragePage">
 
-    <Grid>
+    <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -18,16 +20,26 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
-            <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Stall 1"></TextBlock>
+            <UserControl>
+                <stall:OrderTimer RepairProcess="{Binding Garage.stall1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></stall:OrderTimer>
+            </UserControl>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
-            <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Stall 2"></TextBlock>
+            <Grid>
+                <UserControl Name="test">
+                    <stall:OrderTimer RepairProcess="{Binding Garage.stall2, Mode=OneWay}"></stall:OrderTimer>
+                </UserControl>
+            </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Stall 3"></TextBlock>
+            <UserControl>
+                <stall:OrderTimer RepairProcess="{Binding Garage.stall3, Mode=OneWay}"></stall:OrderTimer>
+            </UserControl>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Stall 4"></TextBlock>
+            <UserControl>
+                <stall:OrderTimer RepairProcess="{Binding Garage.stall4}"></stall:OrderTimer>
+            </UserControl>
         </Grid>
     </Grid>
 </Page>

@@ -21,6 +21,11 @@ namespace CarServiceGame.Desktop.ViewModels
         private IWorkerRepository workersRepository;
         private Garage model;
 
+        public RepairProcessViewModel stall1 { get; set; }
+        public RepairProcessViewModel stall2 { get; set; }
+        public RepairProcessViewModel stall3 { get; set; }
+        public RepairProcessViewModel stall4 { get; set; }
+
         public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; }
 
         public GarageViewModel(Garage model)
@@ -30,6 +35,11 @@ namespace CarServiceGame.Desktop.ViewModels
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
+
+            stall1 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(),"Audi",1000,100,"Desc")), 
+                new WorkerViewModel(new Worker(Guid.NewGuid(),"Name",250,1000)));
+            stall2 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 3000, 100, "Car Broken")),
+                new WorkerViewModel(new Worker(Guid.NewGuid(), "Janusz", 500, 1000)));
         }
 
         public ICommand FireWorker => new RelayCommand<WorkerViewModel>(w =>

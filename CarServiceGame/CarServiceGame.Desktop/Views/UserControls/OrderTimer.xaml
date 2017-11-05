@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="CarServiceGame.Desktop.Views.UserControls.OrderTimer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="TitleBlock" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></TextBlock>
+        <Label Grid.Row="1" Name="clock" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" />
+        <Button Grid.Row="1" Name="EndButton" Content="Finish Order" Visibility="Hidden" Click="EndButton_Click"></Button>
+        <Label Grid.Row="1" Name="EmptyLabel" Content="Empty" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Name="CarNameLabel" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></Label>
+            <Label Grid.Column="1" Name="CarDescLabel" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></Label>
+            <Label Grid.Column="2" Name="WorkerNameLabel" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></Label>
+        </Grid>
+    </Grid>
+</UserControl>
