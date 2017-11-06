@@ -38,7 +38,7 @@ namespace CarServiceGame.Desktop.ViewModels
 
             stall1 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(),"Audi",1000,100,"Desc")), 
                 new WorkerViewModel(new Worker(Guid.NewGuid(),"Name",250,1000)));
-            stall2 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 3000, 100, "Car Broken")),
+            stall2 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 10000, 100, "Car Broken")),
                 new WorkerViewModel(new Worker(Guid.NewGuid(), "Janusz", 500, 1000)));
         }
 
@@ -83,7 +83,6 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             return model;
         }
-        
 
     }
 }

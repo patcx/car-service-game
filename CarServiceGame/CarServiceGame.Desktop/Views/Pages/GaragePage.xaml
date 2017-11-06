@@ -21,19 +21,19 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <UserControl>
-                <stall:OrderTimer RepairProcess="{Binding Garage.stall1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></stall:OrderTimer>
+                <stall:OrderTimer RepairProcess="{Binding Garage.stall1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></stall:OrderTimer>
             </UserControl>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
             <Grid>
                 <UserControl Name="test">
-                    <stall:OrderTimer RepairProcess="{Binding Garage.stall2, Mode=OneWay}"></stall:OrderTimer>
+                    <stall:OrderTimer RepairProcess="{Binding Garage.stall2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></stall:OrderTimer>
                 </UserControl>
             </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <UserControl>
-                <stall:OrderTimer RepairProcess="{Binding Garage.stall3, Mode=OneWay}"></stall:OrderTimer>
+                <stall:OrderTimer RepairProcess="{Binding Garage.stall3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></stall:OrderTimer>
             </UserControl>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">

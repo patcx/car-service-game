@@ -48,10 +48,5 @@ namespace CarServiceGame.Desktop.Views.Pages
             }
             ordersListView.DataContext = orders;
         }
-
-        private void AcceptOrderButton_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-        }
     }
 }

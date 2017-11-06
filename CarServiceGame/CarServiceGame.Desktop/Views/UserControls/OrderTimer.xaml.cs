@@ -34,8 +34,6 @@ namespace CarServiceGame.Desktop.Views.UserControls
 
         public string Title { get; set; }
 
-        private int timer;
-
         private bool working;
 
         public OrderTimer()
@@ -43,7 +41,6 @@ namespace CarServiceGame.Desktop.Views.UserControls
             InitializeComponent();
             if (RepairProcess != null)
             {
-                timer = RepairProcess.Order.RequiredWork / RepairProcess.AssignedWorker.Efficiency;
                 working = true;
             }
             Title = "Stall";
@@ -55,38 +52,44 @@ namespace CarServiceGame.Desktop.Views.UserControls
             dtClockTime.Start();
         }
 
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property.Name == "RepairProcess")
+            {
+                if (RepairProcess != null && !RepairProcess.Completed)
+                {
+                    CarNameLabel.Content = RepairProcess.Order.CarName;
+                    CarDescLabel.Content = RepairProcess.Order.Description;
+                    WorkerNameLabel.Content = RepairProcess.AssignedWorker.Name;
+                    clock.Visibility = Visibility.Visible;
+                    EndButton.Visibility = Visibility.Hidden;
+                    EmptyLabel.Visibility = Visibility.Hidden;
+                    working = true;
+                }
+            }
+        }
+
         private void dtClockTime_Tick(object sender, EventArgs e)
         {
-
-            if (RepairProcess != null && !working)
-            {
-                CarNameLabel.Content = RepairProcess.Order.CarName;
-                CarDescLabel.Content = RepairProcess.Order.Description;
-                WorkerNameLabel.Content = RepairProcess.AssignedWorker.Name;
-                timer = timer = RepairProcess.Order.RequiredWork / RepairProcess.AssignedWorker.Efficiency;
-                clock.Visibility = Visibility.Visible;
-                EndButton.Visibility = Visibility.Hidden;
-                EmptyLabel.Visibility = Visibility.Hidden;
-                working = true;
-            }
-            if (timer <= 0 && working)
+            if (RepairProcess?.SecondsToEnd <= 0 && working)
             {
                 clock.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Visible;
                 EmptyLabel.Visibility = Visibility.Hidden;
+                RepairProcess.Completed = true;
             }
-            else
+            else if (RepairProcess != null)
             {
-                clock.Content = TimeSpan.FromSeconds(--timer).ToString();
+                clock.Content = TimeSpan.FromSeconds(--RepairProcess.SecondsToEnd).ToString();
             }
         }
 
         private void EndButton_Click(object sender, RoutedEventArgs e)
         {
-            if (RepairProcess != null)
+            if (RepairProcess != null && !RepairProcess.Completed)
             {
                 working = true;
-                timer = RepairProcess.Order.RequiredWork / RepairProcess.AssignedWorker.Efficiency;
                 clock.Visibility = Visibility.Visible;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Hidden;

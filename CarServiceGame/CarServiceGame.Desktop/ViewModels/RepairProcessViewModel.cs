@@ -12,11 +12,15 @@ namespace CarServiceGame.Desktop.ViewModels
     {
         public OrderViewModel Order { get; }
         public WorkerViewModel AssignedWorker { get; }
+        public bool Completed { get; set; }
+        public int SecondsToEnd { get; set;}
 
         public RepairProcessViewModel(OrderViewModel order, WorkerViewModel worker)
         {
             Order = order;
             AssignedWorker = worker;
+            Completed = false;
+            SecondsToEnd = Order.RequiredWork / AssignedWorker.Efficiency;
         }
     }
 }
