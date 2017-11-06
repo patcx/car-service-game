@@ -40,7 +40,7 @@ namespace CarServiceGame.Desktop.ViewModels
         public ICommand AcceptOrder => new RelayCommand<OrderViewModel>(o =>
         {
             //todo
-            GlobalResources.Garage.stall3 = new RepairProcessViewModel(o, GlobalResources.Garage.EmployeedWorkers.First());
+            GlobalResources.Garage.Stall3 = new RepairProcessViewModel(o, GlobalResources.Garage.EmployeedWorkers.First());
         });
 
         public void Refresh()

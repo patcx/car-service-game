@@ -21,10 +21,50 @@ namespace CarServiceGame.Desktop.ViewModels
         private IWorkerRepository workersRepository;
         private Garage model;
 
-        public RepairProcessViewModel stall1 { get; set; }
-        public RepairProcessViewModel stall2 { get; set; }
-        public RepairProcessViewModel stall3 { get; set; }
-        public RepairProcessViewModel stall4 { get; set; }
+
+        private RepairProcessViewModel stall1;
+        private RepairProcessViewModel stall2;
+        private RepairProcessViewModel stall3;
+        private RepairProcessViewModel stall4;
+
+
+
+        public RepairProcessViewModel Stall1
+        {
+            get { return stall1; }
+            set
+            {
+                stall1 = value;
+                RaisePropertyChanged("Stall1");
+            }
+        }
+        public RepairProcessViewModel Stall2
+        {
+            get { return stall2; }
+            set
+            {
+                stall2 = value;
+                RaisePropertyChanged("Stall2");
+            }
+        }
+        public RepairProcessViewModel Stall3
+        {
+            get { return stall3; }
+            set
+            {
+                stall3 = value;
+                RaisePropertyChanged("Stall3");
+            }
+        }
+        public RepairProcessViewModel Stall4
+        {
+            get { return stall4; }
+            set
+            {
+                stall4 = value;
+                RaisePropertyChanged("Stall4");
+            }
+        }
 
         public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; }
 

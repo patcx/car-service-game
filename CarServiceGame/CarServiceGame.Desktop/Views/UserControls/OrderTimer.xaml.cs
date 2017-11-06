@@ -24,7 +24,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
     public partial class OrderTimer : UserControl
     {
         public static readonly DependencyProperty RepairProcessProperty =
-            DependencyProperty.Register("RepairProcess", typeof(RepairProcessViewModel), typeof(OrderTimer));
+            DependencyProperty.Register("RepairProcess", typeof(RepairProcessViewModel), typeof(OrderTimer), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnRepairProcessChanged)));
 
         public RepairProcessViewModel RepairProcess
         {
@@ -57,16 +57,22 @@ namespace CarServiceGame.Desktop.Views.UserControls
             base.OnPropertyChanged(e);
             if (e.Property.Name == "RepairProcess")
             {
-                if (RepairProcess != null && !RepairProcess.Completed)
-                {
-                    CarNameLabel.Content = RepairProcess.Order.CarName;
-                    CarDescLabel.Content = RepairProcess.Order.Description;
-                    WorkerNameLabel.Content = RepairProcess.AssignedWorker.Name;
-                    clock.Visibility = Visibility.Visible;
-                    EndButton.Visibility = Visibility.Hidden;
-                    EmptyLabel.Visibility = Visibility.Hidden;
-                    working = true;
-                }
+                
+            }
+        }
+
+        private static void OnRepairProcessChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var assosiatedObject = d as OrderTimer;
+            if (assosiatedObject.RepairProcess != null && !assosiatedObject.RepairProcess.Completed)
+            {
+                assosiatedObject.CarNameLabel.Content = assosiatedObject.RepairProcess.Order.CarName;
+                assosiatedObject.CarDescLabel.Content = assosiatedObject.RepairProcess.Order.Description;
+                assosiatedObject.WorkerNameLabel.Content = assosiatedObject.RepairProcess.AssignedWorker.Name;
+                assosiatedObject.clock.Visibility = Visibility.Visible;
+                assosiatedObject.EndButton.Visibility = Visibility.Hidden;
+                assosiatedObject.EmptyLabel.Visibility = Visibility.Hidden;
+                assosiatedObject.working = true;
             }
         }
 
