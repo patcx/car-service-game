@@ -21,7 +21,6 @@ namespace CarServiceGame.Desktop.ViewModels
         private IWorkerRepository workersRepository;
         private Garage model;
 
-
         private RepairProcessViewModel stall1;
         private RepairProcessViewModel stall2;
         private RepairProcessViewModel stall3;
@@ -76,8 +75,8 @@ namespace CarServiceGame.Desktop.ViewModels
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
 
-            stall1 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(),"Audi",1000,100,"Desc")), 
-                new WorkerViewModel(new Worker(Guid.NewGuid(),"Name",250,1000)));
+            stall1 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 1000, 100, "Desc")),
+                new WorkerViewModel(new Worker(Guid.NewGuid(), "Name", 250, 1000)));
             stall2 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 10000, 100, "Car Broken")),
                 new WorkerViewModel(new Worker(Guid.NewGuid(), "Janusz", 500, 1000)));
         }
@@ -109,9 +108,49 @@ namespace CarServiceGame.Desktop.ViewModels
                     EmployeedWorkers.Remove(w);
                 }
             }, scheduler);
-            
-        }, w=> model.RepairProcesses.All(x => x.AssignedWorker.WorkerId != w.GetModel().WorkerId));
 
+        }, w => model.RepairProcesses.All(x => x.AssignedWorker.WorkerId != w.GetModel().WorkerId));
+
+        public void AssignOrderToStall(int stallNumber, OrderViewModel order, WorkerViewModel worker)
+        {
+            RepairProcessViewModel repairProcess = new RepairProcessViewModel(order, worker);
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Accpeting order...", false);
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+
+                // TODO repository change
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while accepting order").Wait();
+                }
+                else
+                {
+                    switch (stallNumber)
+                    {
+                        case 1:
+                            Stall1 = repairProcess;
+                            break;
+                        case 2:
+                            Stall2 = repairProcess;
+                            break;
+                        case 3:
+                            Stall3 = repairProcess;
+                            break;
+                        case 4:
+                            Stall4 = repairProcess;
+                            break;
+                    }
+                }
+            }, scheduler);
+        }
 
         public void HireWorker(WorkerViewModel worker)
         {

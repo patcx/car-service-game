@@ -33,19 +33,19 @@ namespace CarServiceGame.Desktop.Views.Pages
             unemployedWorkers = new ObservableCollection<WorkerViewModel>();
         }
 
-        private void HireButton_Click(object sender, RoutedEventArgs e)
-        {
-            var worker = (WorkerViewModel)((Button)sender).DataContext;
-            unemployedWorkers.Remove(worker);
-            hiredWorkers.Add(worker);
-        }
+        //private void HireButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var worker = (WorkerViewModel)((Button)sender).DataContext;
+        //    unemployedWorkers.Remove(worker);
+        //    hiredWorkers.Add(worker);
+        //}
 
-        private void DismissButton_Click(object sender, RoutedEventArgs e)
-        {
-            var worker = (WorkerViewModel)((Button)sender).DataContext;
-            hiredWorkers.Remove(worker);
-            unemployedWorkers.Add(worker);
-        }
+        //private void DismissButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var worker = (WorkerViewModel)((Button)sender).DataContext;
+        //    hiredWorkers.Remove(worker);
+        //    unemployedWorkers.Add(worker);
+        //}
 
 
         private void HiredWorkerListSort(object sender, RoutedEventArgs e)

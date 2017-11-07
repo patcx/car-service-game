@@ -146,6 +146,9 @@
     <Compile Include="ViewModels\RepairProcessViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\Behaviours\PasswordBoxAccessor.cs" />
+    <Compile Include="Views\OrderAssignWindow.xaml.cs">
+      <DependentUpon>OrderAssignWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\OrderAssignWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

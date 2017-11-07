@@ -66,9 +66,6 @@ namespace CarServiceGame.Desktop.Views.UserControls
             var assosiatedObject = d as OrderTimer;
             if (assosiatedObject.RepairProcess != null && !assosiatedObject.RepairProcess.Completed)
             {
-                assosiatedObject.CarNameLabel.Content = assosiatedObject.RepairProcess.Order.CarName;
-                assosiatedObject.CarDescLabel.Content = assosiatedObject.RepairProcess.Order.Description;
-                assosiatedObject.WorkerNameLabel.Content = assosiatedObject.RepairProcess.AssignedWorker.Name;
                 assosiatedObject.clock.Visibility = Visibility.Visible;
                 assosiatedObject.EndButton.Visibility = Visibility.Hidden;
                 assosiatedObject.EmptyLabel.Visibility = Visibility.Hidden;
@@ -103,6 +100,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
             else
             {
                 working = false;
+
                 clock.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Visible;

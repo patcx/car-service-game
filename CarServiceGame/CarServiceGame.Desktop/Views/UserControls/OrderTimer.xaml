@@ -22,9 +22,12 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Name="CarNameLabel" HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
-            <Label Grid.Column="1" Name="CarDescLabel" HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
-            <Label Grid.Column="2" Name="WorkerNameLabel" HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
+            <Label Grid.Column="0" Name="CarNameLabel" Content="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess.Order.CarName }" 
+                   HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
+            <Label Grid.Column="1" Name="CarDescLabel" Content="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess.Order.Description }" 
+                   HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
+            <Label Grid.Column="2" Name="WorkerNameLabel" Content="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess.AssignedWorker.Name }" 
+                   HorizontalAlignment="Center" Margin="10" Foreground="LawnGreen" FontSize="34" FontWeight="Bold"></Label>
         </Grid>
     </Grid>
 </UserControl>

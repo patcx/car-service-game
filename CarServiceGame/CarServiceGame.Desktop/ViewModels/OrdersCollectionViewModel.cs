@@ -12,6 +12,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using CarServiceGame.Desktop.Views;
 
 namespace CarServiceGame.Desktop.ViewModels
 {
@@ -39,8 +40,8 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public ICommand AcceptOrder => new RelayCommand<OrderViewModel>(o =>
         {
-            //todo
-            GlobalResources.Garage.Stall3 = new RepairProcessViewModel(o, GlobalResources.Garage.EmployeedWorkers.First());
+            OrderAssignWindow orderAssignWindow = new OrderAssignWindow(o);
+            orderAssignWindow.ShowDialog();
         });
 
         public void Refresh()
