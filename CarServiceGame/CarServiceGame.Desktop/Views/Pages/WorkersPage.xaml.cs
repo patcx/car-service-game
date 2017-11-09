@@ -22,44 +22,20 @@ namespace CarServiceGame.Desktop.Views.Pages
     /// </summary>
     public partial class WorkersPage : Page
     {
-        private ObservableCollection<WorkerViewModel> hiredWorkers;
-
-        private ObservableCollection<WorkerViewModel> unemployedWorkers;
 
         public WorkersPage()
         {
             InitializeComponent();
-            hiredWorkers = new ObservableCollection<WorkerViewModel>();
-            unemployedWorkers = new ObservableCollection<WorkerViewModel>();
         }
-
-        //private void HireButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var worker = (WorkerViewModel)((Button)sender).DataContext;
-        //    unemployedWorkers.Remove(worker);
-        //    hiredWorkers.Add(worker);
-        //}
-
-        //private void DismissButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var worker = (WorkerViewModel)((Button)sender).DataContext;
-        //    hiredWorkers.Remove(worker);
-        //    unemployedWorkers.Add(worker);
-        //}
-
 
         private void HiredWorkerListSort(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-            hiredWorkers = WorkerListSort(headerClicked, hiredWorkers);
-            hiredListView.DataContext = hiredWorkers;
         }
 
         private void UnemployedWorkerListSort(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-            unemployedWorkers = WorkerListSort(headerClicked, unemployedWorkers);
-            unemployedListView.DataContext = unemployedWorkers;
         }
 
         private ObservableCollection<WorkerViewModel> WorkerListSort(GridViewColumnHeader headerClicked, ObservableCollection<WorkerViewModel> workers)

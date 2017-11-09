@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Entities;
 using CarServiceGame.Domain.Mock;
@@ -21,6 +22,7 @@ namespace CarServiceGame.Desktop.ViewModels
         private readonly int numberOfStalls = 4;
 
         private IWorkerRepository workersRepository;
+        private IOrderRepository ordersRepository;
         private Garage model;
 
         private RepairProcessViewModel[] stalls;
@@ -48,26 +50,49 @@ namespace CarServiceGame.Desktop.ViewModels
                {
                    foreach (var v in Stalls)
                    {
-                       if (v != null && v.AssignedWorker == x) return false;
+                       if (v != null && v.AssignedWorker.Equals(x)) return false;
                    }
                    return true;
                })).ToList());
             }
         }
 
-        public GarageViewModel(Garage model)
+        public GarageViewModel(Garage model, IWorkerRepository workerRepository)
         {
             this.model = model;
-            workersRepository = new MockRepository();
+            this.workersRepository = workerRepository;
+            ordersRepository = new OrderRepository();
+
+            EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
+            RaisePropertyChanged("EmployeedWorkers");
+
             Stalls = new RepairProcessViewModel[numberOfStalls];
 
             for (int i = 0; i < numberOfStalls && i < model.RepairProcesses.Count; i++)
             {
                 Stalls[i] = new RepairProcessViewModel(model.RepairProcesses[i], i);
             }
+            RaisePropertyChanged("Stalls");
+            RaisePropertyChanged("AvailableWorkers");
+        }
+
+        public GarageViewModel(Garage model)
+        {
+            this.model = model;
+            workersRepository = new WorkerRepository();
+            ordersRepository = new OrderRepository();
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
+
+            Stalls = new RepairProcessViewModel[numberOfStalls];
+
+            for (int i = 0; i < numberOfStalls && i < model.RepairProcesses.Count; i++)
+            {
+                Stalls[i] = new RepairProcessViewModel(model.RepairProcesses[i], i);
+            }
+            RaisePropertyChanged("Stalls");
+            RaisePropertyChanged("AvailableWorkers");
         }
 
         public ICommand FireWorker => new RelayCommand<WorkerViewModel>(w =>
@@ -111,7 +136,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                // TODO repository
+                ordersRepository.FinishOrder(rp.Order.GetModel().RepairOrderId);
 
                 progressDialog.Result.CloseAsync();
 
@@ -142,7 +167,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                // TODO repository change
+                ordersRepository.AssignOrder(model.GarageId, order.GetModel().RepairOrderId, worker.GetModel().WorkerId, stallNumber);
 
                 progressDialog.Result.CloseAsync();
 

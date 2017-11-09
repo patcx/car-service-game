@@ -6,8 +6,12 @@ namespace CarServiceGame.Domain.Entities
 {
     public class RepairProcess
     {
-        public RepairOrder Order { get; }
-        public Worker AssignedWorker { get; }
+        public RepairOrder Order { get; set; }
+        public Worker AssignedWorker { get; set; }
+        public int StallNumber { get; set; }
+        public DateTime CreadteDate { get; set; }
+
+        public RepairProcess() { }
 
         public RepairProcess(RepairOrder order, Worker worker)
         {

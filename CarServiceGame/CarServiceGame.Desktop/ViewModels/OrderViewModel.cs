@@ -13,32 +13,37 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             get
             {
-                return repairOrder.CarName; 
+                return model.CarName; 
             }
         }
         public int RequiredWork
         {
             get
             {
-                return repairOrder.RequiredWork;
+                return model.RequiredWork;
             }
         }
 
-        public int Reward
+        public decimal Reward
         {
-            get { return repairOrder.Reward; }
+            get { return model.Reward; }
         }
 
         public string Description
         {
-            get { return repairOrder.Description; }
+            get { return model.Description; }
         }
 
-        private RepairOrder repairOrder;
+        private RepairOrder model;
 
         public OrderViewModel(RepairOrder repairOrder)
         {
-            this.repairOrder = repairOrder;
+            this.model = repairOrder;
+        }
+
+        public RepairOrder GetModel()
+        {
+            return model;
         }
     }
 }

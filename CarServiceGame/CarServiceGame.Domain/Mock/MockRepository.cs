@@ -43,18 +43,13 @@ namespace CarServiceGame.Domain.Mock
             return new Garage(garage.GarageId, garage.CashBalance, garage.EmployeedWorkers);
         }
 
-        public void SetCashBalance(Guid garageId, int value)
-        {
-            garage.SetCashBalance(value);
-        }
-
         public IEnumerable<RepairOrder> GetAvailableOrders(int skip, int take)
         {
             Thread.Sleep(1000);
             return new List<RepairOrder>(availableOrders.Skip(skip).Take(take).ToArray());
         }
 
-        public void AssignOrder(Guid garageId, Guid orderId, Guid workerId)
+        public void AssignOrder(Guid garageId, Guid orderId, Guid workerId, int stallNumber)
         {
             var order = availableOrders.FirstOrDefault(x => x.RepairOrderId == orderId);
             availableOrders.RemoveAll(x => x.RepairOrderId == orderId);

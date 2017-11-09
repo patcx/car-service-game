@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Mock;
 using GalaSoft.MvvmLight;
@@ -33,9 +34,14 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public ObservableCollection<OrderViewModel> Orders { get; private set; }
 
+        public OrdersCollectionViewModel(IOrderRepository orderRepository)
+        {
+            this.ordersRepository = orderRepository;
+        }
+
         public OrdersCollectionViewModel()
         {
-            ordersRepository = new MockRepository();
+            ordersRepository = new OrderRepository();
         }
 
         public ICommand AcceptOrder => new RelayCommand<OrderViewModel>(o =>
