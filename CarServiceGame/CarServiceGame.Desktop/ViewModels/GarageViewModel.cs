@@ -40,6 +40,21 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; }
 
+        public ObservableCollection<WorkerViewModel> AvailableWorkers
+        {
+            get
+            {
+                return new ObservableCollection<WorkerViewModel>((EmployeedWorkers.Where(x =>
+               {
+                   foreach (var v in Stalls)
+                   {
+                       if (v != null && v.AssignedWorker == x) return false;
+                   }
+                   return true;
+               })).ToList());
+            }
+        }
+
         public GarageViewModel(Garage model)
         {
             this.model = model;
@@ -108,9 +123,9 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    
                     Stalls[rp.StallNumber] = null;
                     RaisePropertyChanged("Stalls");
+                    RaisePropertyChanged("AvailableWorkers");
                 }
             }, scheduler);
 
@@ -141,6 +156,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 {
                     Stalls[stallNumber] = repairProcess;
                     RaisePropertyChanged("Stalls");
+                    RaisePropertyChanged("AvailableWorkers");
                 }
             }, scheduler);
         }

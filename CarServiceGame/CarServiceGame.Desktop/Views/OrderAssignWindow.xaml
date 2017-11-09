@@ -23,7 +23,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Workers"></TextBlock>
-        <ListView Name="WorkersListView" Grid.Row="1" ItemsSource="{Binding Garage.EmployeedWorkers, Source={StaticResource mainViewModel}}" >
+        <ListView Name="WorkersListView" Grid.Row="1" ItemsSource="{Binding Garage.AvailableWorkers, Source={StaticResource mainViewModel}}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
@@ -52,10 +52,10 @@
             <Button Content="Stall 2" Grid.Row="1" Margin="25" Click="Button2_Click" IsEnabled="{Binding Garage.Stalls[1], Converter={StaticResource IsNotNull}}">
 
             </Button>
-            <Button Content="Stall 3" Grid.Row="2" Margin="25" Click="Button3_Click" IsEnabled="{Binding Garage.Stall3, Converter={StaticResource IsNotNull}}">
+            <Button Content="Stall 3" Grid.Row="2" Margin="25" Click="Button3_Click" IsEnabled="{Binding Garage.Stalls[2], Converter={StaticResource IsNotNull}}">
 
             </Button>
-            <Button Content="Stall 4" Grid.Row="3" Margin="25" Click="Button4_Click" IsEnabled="{Binding Garage.Stall4, Converter={StaticResource IsNotNull}}">
+            <Button Content="Stall 4" Grid.Row="3" Margin="25" Click="Button4_Click" IsEnabled="{Binding Garage.Stalls[3], Converter={StaticResource IsNotNull}}">
 
             </Button>
         </Grid>

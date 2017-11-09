@@ -57,22 +57,22 @@ namespace CarServiceGame.Desktop.Views
         private void Button_Click(int stallNumber)
         {
             WorkerViewModel worker = (WorkerViewModel)WorkersListView.SelectedItem;
-            if (worker != null)
+            if (worker == null)
             {
-                GlobalResources.Garage.AssignOrderToStall(stallNumber, order, worker);
-                this.Close();
-            } else
-            {
-                if (GlobalResources.Garage.EmployeedWorkers.Count == 0)
+                if (GlobalResources.Garage.AvailableWorkers.Count == 0)
                 {
-                    //TODO message
+                    MessageBox.Show("Hire new worker!", "No worker available", MessageBoxButton.OK);
+                    this.Close();
+                    return;
                 }
                 else
                 {
-                    GlobalResources.Garage.AssignOrderToStall(stallNumber, order, GlobalResources.Garage.EmployeedWorkers.First());
-                    this.Close();
+                    worker = GlobalResources.Garage.AvailableWorkers.First();
                 }
             }
+            if (MessageBox.Show("Work will take " + TimeSpan.FromSeconds(order.RequiredWork/worker.Efficiency), "Are you Sure?", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+            GlobalResources.Garage.AssignOrderToStall(stallNumber, order, worker);
+            this.Close();
         }
     }
 
