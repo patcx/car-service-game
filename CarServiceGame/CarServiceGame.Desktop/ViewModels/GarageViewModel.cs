@@ -18,50 +18,23 @@ namespace CarServiceGame.Desktop.ViewModels
 {
     public class GarageViewModel : ObservableObject
     {
+        private readonly int numberOfStalls = 4;
+
         private IWorkerRepository workersRepository;
         private Garage model;
 
-        private RepairProcessViewModel stall1;
-        private RepairProcessViewModel stall2;
-        private RepairProcessViewModel stall3;
-        private RepairProcessViewModel stall4;
+        private RepairProcessViewModel[] stalls;
 
-
-
-        public RepairProcessViewModel Stall1
+        public RepairProcessViewModel[] Stalls
         {
-            get { return stall1; }
-            set
+            get
             {
-                stall1 = value;
-                RaisePropertyChanged("Stall1");
+                return stalls;
             }
-        }
-        public RepairProcessViewModel Stall2
-        {
-            get { return stall2; }
             set
             {
-                stall2 = value;
-                RaisePropertyChanged("Stall2");
-            }
-        }
-        public RepairProcessViewModel Stall3
-        {
-            get { return stall3; }
-            set
-            {
-                stall3 = value;
-                RaisePropertyChanged("Stall3");
-            }
-        }
-        public RepairProcessViewModel Stall4
-        {
-            get { return stall4; }
-            set
-            {
-                stall4 = value;
-                RaisePropertyChanged("Stall4");
+                stalls = value;
+                RaisePropertyChanged("Stalls");
             }
         }
 
@@ -71,14 +44,15 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             this.model = model;
             workersRepository = new MockRepository();
+            Stalls = new RepairProcessViewModel[numberOfStalls];
+
+            for (int i = 0; i < numberOfStalls && i < model.RepairProcesses.Count; i++)
+            {
+                Stalls[i] = new RepairProcessViewModel(model.RepairProcesses[i], i);
+            }
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
-
-            stall1 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 1000, 100, "Desc")),
-                new WorkerViewModel(new Worker(Guid.NewGuid(), "Name", 250, 1000)));
-            stall2 = new RepairProcessViewModel(new OrderViewModel(new RepairOrder(Guid.NewGuid(), "Audi", 10000, 100, "Car Broken")),
-                new WorkerViewModel(new Worker(Guid.NewGuid(), "Janusz", 500, 1000)));
         }
 
         public ICommand FireWorker => new RelayCommand<WorkerViewModel>(w =>
@@ -111,9 +85,41 @@ namespace CarServiceGame.Desktop.ViewModels
 
         }, w => model.RepairProcesses.All(x => x.AssignedWorker.WorkerId != w.GetModel().WorkerId));
 
+
+        public ICommand FinishJob => new RelayCommand<RepairProcessViewModel>(rp =>
+        {
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Firing worker...", false);
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+
+                // TODO repository
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while firing worker").Wait();
+                }
+                else
+                {
+                    
+                    Stalls[rp.StallNumber] = null;
+                    RaisePropertyChanged("Stalls");
+                }
+            }, scheduler);
+
+        });
+
+
         public void AssignOrderToStall(int stallNumber, OrderViewModel order, WorkerViewModel worker)
         {
-            RepairProcessViewModel repairProcess = new RepairProcessViewModel(order, worker);
+            RepairProcessViewModel repairProcess = new RepairProcessViewModel(order, worker, stallNumber);
             var window = (Application.Current.MainWindow as MetroWindow);
             var progressDialog = window.ShowProgressAsync("Please wait...", "Accpeting order...", false);
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
@@ -133,21 +139,8 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    switch (stallNumber)
-                    {
-                        case 1:
-                            Stall1 = repairProcess;
-                            break;
-                        case 2:
-                            Stall2 = repairProcess;
-                            break;
-                        case 3:
-                            Stall3 = repairProcess;
-                            break;
-                        case 4:
-                            Stall4 = repairProcess;
-                            break;
-                    }
+                    Stalls[stallNumber] = repairProcess;
+                    RaisePropertyChanged("Stalls");
                 }
             }, scheduler);
         }

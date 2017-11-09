@@ -1,6 +1,7 @@
 ﻿using CarServiceGame.Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -57,7 +58,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
             base.OnPropertyChanged(e);
             if (e.Property.Name == "RepairProcess")
             {
-                
+
             }
         }
 
@@ -66,7 +67,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
             var assosiatedObject = d as OrderTimer;
             if (assosiatedObject.RepairProcess != null && !assosiatedObject.RepairProcess.Completed)
             {
-                assosiatedObject.clock.Visibility = Visibility.Visible;
+                assosiatedObject.Clock.Visibility = Visibility.Visible;
                 assosiatedObject.EndButton.Visibility = Visibility.Hidden;
                 assosiatedObject.EmptyLabel.Visibility = Visibility.Hidden;
                 assosiatedObject.working = true;
@@ -77,14 +78,14 @@ namespace CarServiceGame.Desktop.Views.UserControls
         {
             if (RepairProcess?.SecondsToEnd <= 0 && working)
             {
-                clock.Visibility = Visibility.Hidden;
+                RepairProcess.Completed = true;
+                Clock.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Visible;
                 EmptyLabel.Visibility = Visibility.Hidden;
-                RepairProcess.Completed = true;
             }
             else if (RepairProcess != null)
             {
-                clock.Content = TimeSpan.FromSeconds(--RepairProcess.SecondsToEnd).ToString();
+                Clock.Content = TimeSpan.FromSeconds(--RepairProcess.SecondsToEnd).ToString();
             }
         }
 
@@ -93,18 +94,54 @@ namespace CarServiceGame.Desktop.Views.UserControls
             if (RepairProcess != null && !RepairProcess.Completed)
             {
                 working = true;
-                clock.Visibility = Visibility.Visible;
+                Clock.Visibility = Visibility.Visible;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Hidden;
             }
             else
             {
                 working = false;
-
-                clock.Visibility = Visibility.Hidden;
+                Clock.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Visible;
             }
+        }
+    }
+
+    public class VisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string param = parameter as string;
+            if (value == DependencyProperty.UnsetValue || value == null)
+            {
+                if (param.Equals("Empty"))
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Hidden;
+                }
+            }
+
+            RepairProcessViewModel repairProcess = value as RepairProcessViewModel;
+            if (repairProcess.Completed && param.Equals("End"))
+            {
+                return Visibility.Visible;
+            }
+
+            if (!repairProcess.Completed && param.Equals("Clock"))
+            {
+                return Visibility.Visible;
+            }
+
+            return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
         }
     }
 }

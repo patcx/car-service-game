@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:VisibilityConverter x:Key="Visibility"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -13,9 +16,13 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <TextBlock Name="TitleBlock" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></TextBlock>
-        <Label Grid.Row="1" Name="clock" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" />
-        <Button Grid.Row="1" Name="EndButton" Content="Finish Order" Visibility="Hidden" Click="EndButton_Click"></Button>
-        <Label Grid.Row="1" Name="EmptyLabel" Content="Empty" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Grid.Row="1" Name="Clock" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" 
+              Visibility="Hidden" />
+        <Button Grid.Row="1" Name="EndButton" Content="Finish Order" Click="EndButton_Click"
+                 Visibility="Hidden"
+                 Command="{Binding Garage.FinishJob, Source={StaticResource mainViewModel}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess }"></Button>
+        <Label Grid.Row="1" Name="EmptyLabel" Content="Empty" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Visibility="Visible"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

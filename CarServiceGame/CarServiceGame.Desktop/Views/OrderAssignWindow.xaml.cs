@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace CarServiceGame.Desktop.Views
 {
@@ -38,19 +39,19 @@ namespace CarServiceGame.Desktop.Views
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(1);
+            Button_Click(0);
         }
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(2);
+            Button_Click(1);
         }
         private void Button3_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(3);
+            Button_Click(2);
         }
         private void Button4_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(4);
+            Button_Click(3);
         }
 
         private void Button_Click(int stallNumber)
@@ -72,6 +73,27 @@ namespace CarServiceGame.Desktop.Views
                     this.Close();
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Convert unset property to false
+    /// </summary>
+    public class ObjectToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool returnValue = false;
+            if (value == DependencyProperty.UnsetValue || value == null)
+            {
+                returnValue = true;
+            }
+            return returnValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
         }
     }
 }

@@ -10,6 +10,9 @@
         WindowState="Maximized"
         BorderBrush="{StaticResource AccentBaseColorBrush}"
         BorderThickness="1">
+    <Window.Resources>
+        <local:ObjectToBoolConverter x:Key="IsNotNull"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -36,23 +39,23 @@
             </ListView.View>
         </ListView>
         <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Garage"></TextBlock>
-        <Grid Grid.Column="1" Grid.Row="1" DataContext="{Binding }">
+        <Grid Grid.Column="1" Grid.Row="1" DataContext="{StaticResource mainViewModel}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Content="Stall 1" Grid.Row="0" Margin="25" Click="Button1_Click">
+            <Button Content="Stall 1" Grid.Row="0" Margin="25" Click="Button1_Click" IsEnabled="{Binding Garage.Stalls[0], Converter={StaticResource IsNotNull}}">
 
             </Button>
-            <Button Content="Stall 2" Grid.Row="1" Margin="25" Click="Button2_Click">
+            <Button Content="Stall 2" Grid.Row="1" Margin="25" Click="Button2_Click" IsEnabled="{Binding Garage.Stalls[1], Converter={StaticResource IsNotNull}}">
 
             </Button>
-            <Button Content="Stall 3" Grid.Row="2" Margin="25" Click="Button3_Click">
+            <Button Content="Stall 3" Grid.Row="2" Margin="25" Click="Button3_Click" IsEnabled="{Binding Garage.Stall3, Converter={StaticResource IsNotNull}}">
 
             </Button>
-            <Button Content="Stall 4" Grid.Row="3" Margin="25" Click="Button4_Click">
+            <Button Content="Stall 4" Grid.Row="3" Margin="25" Click="Button4_Click" IsEnabled="{Binding Garage.Stall4, Converter={StaticResource IsNotNull}}">
 
             </Button>
         </Grid>
