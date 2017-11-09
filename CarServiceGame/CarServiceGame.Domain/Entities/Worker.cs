@@ -6,12 +6,16 @@ namespace CarServiceGame.Domain.Entities
 {
     public class Worker
     {
-        public Guid WorkerId { get; }
+        public Guid WorkerId { get; set; }
 
-        public string Name { get; }
-        public int Efficiency { get; }
-        public decimal Salary { get; }
+        public string Name { get; set; }
+        public int Efficiency { get; set; }
+        public decimal Salary { get; set; }
 
+        public Worker()
+        {
+            
+        }
         public Worker(Guid id, string name, int efficiency, decimal salary)
         {
             WorkerId = id;

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Mock;
 using GalaSoft.MvvmLight;
@@ -32,9 +33,14 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public ObservableCollection<WorkerViewModel> AvailableWorkers { get; private set; }
 
+        public AvailableWorkersCollectionViewModel(IWorkerRepository workerRepository)
+        {
+            this.workersRepository = workerRepository;
+        }
+
         public AvailableWorkersCollectionViewModel()
         {
-            workersRepository = new MockRepository();
+            workersRepository = new WorkerRepository();
         }
 
         public ICommand HireWorker => new RelayCommand<WorkerViewModel>(w =>

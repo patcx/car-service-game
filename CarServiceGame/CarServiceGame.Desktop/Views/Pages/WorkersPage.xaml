@@ -27,7 +27,7 @@
                         <GridViewColumn Header="Efficiency" Width="Auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                   <ProgressBar Value="{Binding Efficiency, Mode=OneWay}" Maximum="500"></ProgressBar>
+                                   <ProgressBar Value="{Binding Efficiency, Mode=OneWay}" Maximum="100"></ProgressBar>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -59,7 +59,7 @@
                         <GridViewColumn Header="Efficiency" Width="Auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                   <ProgressBar Value="{Binding Efficiency, Mode=OneWay}" Maximum="500"></ProgressBar>
+                                   <ProgressBar Value="{Binding Efficiency, Mode=OneWay}" Maximum="100"></ProgressBar>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                             </GridViewColumn>

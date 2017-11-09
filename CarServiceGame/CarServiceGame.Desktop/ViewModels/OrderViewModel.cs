@@ -24,7 +24,7 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public int Reward
+        public decimal Reward
         {
             get { return repairOrder.Reward; }
         }

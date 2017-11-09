@@ -11,7 +11,5 @@
         WindowState="Maximized"
         BorderBrush="{StaticResource AccentBaseColorBrush}"
         BorderThickness="1">
-    <Frame NavigationUIVisibility="Hidden" Source="{Binding SelectedPage, Source={StaticResource mainViewModel}}">
-        
-    </Frame>
+    <Frame NavigationUIVisibility="Hidden" Source="{Binding SelectedPage, Source={StaticResource mainViewModel}}"/>
 </mahApps:MetroWindow>

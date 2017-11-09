@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Mock;
 using GalaSoft.MvvmLight;
@@ -24,9 +25,14 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public string SelectedPage { get; set; } = "Pages/LoginPage.xaml";
 
+        public MainViewModel(IGarageRepository garageRepository)
+        {
+            this.garageRepository = garageRepository;
+        }
+
         public MainViewModel()
         {
-            garageRepository = new MockRepository();
+            garageRepository = new GarageRepository();
         }
 
         public ICommand Login => new RelayCommand(() =>
@@ -47,7 +53,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 if (x.Result == null)
                 {
-                    window.ShowMessageAsync("", "Login error").Wait();
+                    window.ShowMessageAsync("", "Login error");
                 }
                 else
                 {
@@ -57,7 +63,7 @@ namespace CarServiceGame.Desktop.ViewModels
                     RaisePropertyChanged("SelectedPage");
                 }
                 LoginDetails.IsLoginButtonEnabled = true;
-            });
+            }, scheduler);
            
 
            

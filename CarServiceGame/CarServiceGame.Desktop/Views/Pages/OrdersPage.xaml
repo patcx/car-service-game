@@ -21,7 +21,7 @@
                     <GridViewColumn Width="150" Header="Required Work" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="{Binding RequiredWork, Mode=OneWay}" Maximum="1000"></ProgressBar>
+                                <ProgressBar Value="{Binding RequiredWork, Mode=OneWay}" Maximum="10000"></ProgressBar>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                         </GridViewColumn>
