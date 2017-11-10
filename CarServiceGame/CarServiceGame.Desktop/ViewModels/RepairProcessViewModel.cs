@@ -31,7 +31,7 @@ namespace CarServiceGame.Desktop.ViewModels
             Order = new OrderViewModel(repairProcess.Order);
             AssignedWorker = new WorkerViewModel(repairProcess.AssignedWorker);
             Completed = false;
-            SecondsToEnd = Order.RequiredWork / AssignedWorker.Efficiency;
+            SecondsToEnd = (int) repairProcess.CreadteDate.Subtract(DateTime.Now).TotalSeconds;
             StallNumber = stall;
         }
     }

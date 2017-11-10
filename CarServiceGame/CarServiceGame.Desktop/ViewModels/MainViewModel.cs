@@ -40,7 +40,7 @@ namespace CarServiceGame.Desktop.ViewModels
             LoginDetails.IsLoginButtonEnabled = false;
             var window = (Application.Current.MainWindow as MetroWindow);
             var progressDialog = window.ShowProgressAsync("Please wait...", "Logging...", false);
-            
+
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Run(() =>
             {

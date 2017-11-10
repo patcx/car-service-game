@@ -1,5 +1,6 @@
 ﻿using CarServiceGame.Desktop.ViewModels;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,14 +55,16 @@ namespace CarServiceGame.Desktop.Views
             Button_Click(3);
         }
 
-        private void Button_Click(int stallNumber)
+        private async void Button_Click(int stallNumber)
         {
+            var window = (Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as MetroWindow);
             WorkerViewModel worker = (WorkerViewModel)WorkersListView.SelectedItem;
             if (worker == null)
             {
                 if (GlobalResources.Garage.AvailableWorkers.Count == 0)
                 {
-                    MessageBox.Show("Hire new worker!", "No worker available", MessageBoxButton.OK);
+                    //var window = (Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as MetroWindow);
+                    window.ShowMessageAsync("There are no workers available.", "Hire new worker!");
                     this.Close();
                     return;
                 }
@@ -70,7 +73,13 @@ namespace CarServiceGame.Desktop.Views
                     worker = GlobalResources.Garage.AvailableWorkers.First();
                 }
             }
-            if (MessageBox.Show("Work will take " + TimeSpan.FromSeconds(order.RequiredWork/worker.Efficiency), "Are you Sure?", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+            var result = await window.ShowMessageAsync("Work will take " + TimeSpan.FromSeconds(order.RequiredWork / worker.Efficiency), "Are you Sure?",
+                MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings { AffirmativeButtonText = "Yes", NegativeButtonText = "No" });
+
+            if (result == MessageDialogResult.Negative)
+            {
+                return;
+            }
             GlobalResources.Garage.AssignOrderToStall(stallNumber, order, worker);
             this.Close();
         }
