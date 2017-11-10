@@ -67,11 +67,12 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
 
             Stalls = new RepairProcessViewModel[numberOfStalls];
-
-            for (int i = 0; i < numberOfStalls && i < model.RepairProcesses.Count; i++)
+            int i = 0;
+            foreach (var v in model.RepairProcesses)
             {
-                Stalls[i] = new RepairProcessViewModel(model.RepairProcesses[i], i);
+                Stalls[i++] = new RepairProcessViewModel(v, v.StallNumber);
             }
+
             RaisePropertyChanged("Stalls");
             RaisePropertyChanged("AvailableWorkers");
         }
@@ -86,10 +87,10 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
 
             Stalls = new RepairProcessViewModel[numberOfStalls];
-
-            for (int i = 0; i < numberOfStalls && i < model.RepairProcesses.Count; i++)
-            {
-                Stalls[i] = new RepairProcessViewModel(model.RepairProcesses[i], i);
+            int i = 0;
+            foreach(var v in model.RepairProcesses)
+            { 
+                Stalls[v.StallNumber] = new RepairProcessViewModel(v, v.StallNumber);
             }
             RaisePropertyChanged("Stalls");
             RaisePropertyChanged("AvailableWorkers");
@@ -129,7 +130,7 @@ namespace CarServiceGame.Desktop.ViewModels
         public ICommand FinishJob => new RelayCommand<RepairProcessViewModel>(rp =>
         {
             var window = (Application.Current.MainWindow as MetroWindow);
-            var progressDialog = window.ShowProgressAsync("Please wait...", "Firing worker...", false);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Finishing job...", false);
 
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Run(() =>
@@ -144,7 +145,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 if (x.Exception != null)
                 {
-                    window.ShowMessageAsync("", "Error while firing worker").Wait();
+                    window.ShowMessageAsync("", "Error while finishing job").Wait();
                 }
                 else
                 {
