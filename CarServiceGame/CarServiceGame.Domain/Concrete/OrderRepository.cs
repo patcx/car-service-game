@@ -47,7 +47,7 @@ namespace CarServiceGame.Domain.Concrete
                               where rp.GarageId == garageId && rp.IsPickedUp == true
                               select new RepairProcess
                               {
-                                  CreadteDate = rp.CreatedDate,
+                                  CreatedDate = rp.CreatedDate,
                                   StallNumber = rp.StallNumber,
                                   Order = new RepairOrder
                                   {

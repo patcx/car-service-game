@@ -60,7 +60,7 @@ namespace CarServiceGame.Domain.Concrete
                                                                           Efficiency = repairProcess.Worker.Efficiency,
                                                                           Name = repairProcess.Worker.Name
                                                                       },
-                                                                      CreadteDate = repairProcess.CreatedDate,
+                                                                      CreatedDate = repairProcess.CreatedDate,
                                                                       StallNumber = repairProcess.StallNumber
                                                                   })).ToList(),
                         CashBalance = (from rp in x.RepairProcess
