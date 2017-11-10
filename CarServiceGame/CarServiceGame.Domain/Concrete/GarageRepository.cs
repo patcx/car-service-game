@@ -43,6 +43,7 @@ namespace CarServiceGame.Domain.Concrete
                             Name = worker.Name
                         }),
                         RepairProcesses = new List<RepairProcess>((from repairProcess in x.RepairProcess
+                                                                   where repairProcess.IsPickedUp == false
                                                                   select new RepairProcess
                                                                   {
                                                                       Order = new RepairOrder()
