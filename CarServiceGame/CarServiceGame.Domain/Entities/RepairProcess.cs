@@ -24,7 +24,7 @@ namespace CarServiceGame.Domain.Entities
 
         public int GetRequiredTime()
         {
-            return (int) CreadteDate.Subtract(DateTime.Now).TotalSeconds;
+            return (int) CreatedDate.Subtract(DateTime.Now).TotalSeconds;
         }
     }
 }
