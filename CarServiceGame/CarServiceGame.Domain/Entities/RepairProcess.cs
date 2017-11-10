@@ -21,5 +21,10 @@ namespace CarServiceGame.Domain.Entities
             Order = order;
             AssignedWorker = worker;
         }
+
+        public int GetRequiredTime()
+        {
+            return (int) CreadteDate.Subtract(DateTime.Now).TotalSeconds;
+        }
     }
 }
