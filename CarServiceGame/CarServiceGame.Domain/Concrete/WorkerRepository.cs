@@ -10,9 +10,20 @@ namespace CarServiceGame.Domain.Concrete
 {
     public class WorkerRepository : IWorkerRepository
     {
+
+        private Func<Db.CarServiceContext> GetContext;
+
+        public WorkerRepository(Func<Db.CarServiceContext> contextFactory = null)
+        {
+            if (contextFactory == null)
+                GetContext = () => new Db.CarServiceContext();
+            else
+                GetContext = contextFactory;
+        }
+
         public IEnumerable<Worker> GetUnemployedWorkers(int skip, int take)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var workers = (from w in context.Worker
                                where w.GarageId == null
@@ -31,7 +42,7 @@ namespace CarServiceGame.Domain.Concrete
 
         public void FireWorker(Guid workerId)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
                     where w.WorkerId == workerId
@@ -44,7 +55,7 @@ namespace CarServiceGame.Domain.Concrete
 
         public void EmployWorker(Guid garageId, Guid workerId)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
                               where w.WorkerId == workerId

@@ -11,6 +11,16 @@ namespace CarServiceGame.Domain.Concrete
 {
     public class GarageRepository : IGarageRepository
     {
+        private Func<Db.CarServiceContext> GetContext;
+
+        public GarageRepository(Func<Db.CarServiceContext> contextFactory = null)
+        {
+            if (contextFactory == null)
+                GetContext = () => new Db.CarServiceContext();
+            else
+                GetContext = contextFactory;
+        }
+
         public Garage GetGarage(string name, string password)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
@@ -18,7 +28,7 @@ namespace CarServiceGame.Domain.Concrete
 
             var hashedPassword = GetSha256FromString(password);
 
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var garage = (from x in context.Garage
                     where x.Name == name && x.Password == hashedPassword

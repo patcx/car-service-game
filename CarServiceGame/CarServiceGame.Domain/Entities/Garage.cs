@@ -43,9 +43,5 @@ namespace CarServiceGame.Domain.Entities
             EmployeedWorkers.Remove(worker);
         }
 
-        public void SetCashBalance(int value)
-        {
-            CashBalance = value;
-        }
     }
 }
