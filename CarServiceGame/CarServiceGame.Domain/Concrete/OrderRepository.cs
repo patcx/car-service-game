@@ -10,9 +10,19 @@ namespace CarServiceGame.Domain.Concrete
 {
     public class OrderRepository : IOrderRepository
     {
+        private Func<Db.CarServiceContext> GetContext;
+
+        public OrderRepository(Func<Db.CarServiceContext> contextFactory = null)
+        {
+            if (contextFactory == null)
+                GetContext = () => new Db.CarServiceContext();
+            else
+                GetContext = contextFactory;
+        }
+
         public IEnumerable<RepairOrder> GetAvailableOrders(int skip, int take)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var orders = (from o in context.RepairOrder
                     where o.RepairProcess == null
@@ -31,7 +41,7 @@ namespace CarServiceGame.Domain.Concrete
 
         public IEnumerable<RepairProcess> GetHistoryOrders(Guid garageId, int skip, int take)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var repairProcesses = (from rp in context.RepairProcess
                               where rp.GarageId == garageId && rp.IsPickedUp == true
@@ -75,7 +85,7 @@ namespace CarServiceGame.Domain.Concrete
                 StallNumber = stallNumber,
             };
 
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 context.RepairProcess.Add(repairProcess);
                 context.SaveChanges();
@@ -84,7 +94,7 @@ namespace CarServiceGame.Domain.Concrete
 
         public void FinishOrder(Guid orderId)
         {
-            using (var context = new Db.CarServiceContext())
+            using (var context = GetContext())
             {
                 var repairProcess = (from rp in context.RepairProcess
                                      where rp.RepairOrderId == orderId
