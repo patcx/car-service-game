@@ -63,7 +63,6 @@ namespace CarServiceGame.Desktop.Views
             {
                 if (GlobalResources.Garage.AvailableWorkers.Count == 0)
                 {
-                    //var window = (Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as MetroWindow);
                     window.ShowMessageAsync("There are no workers available.", "Hire new worker!");
                     this.Close();
                     return;

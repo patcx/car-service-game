@@ -19,7 +19,7 @@
         <TabItem Header="Workers" IsSelected="{Binding IsTabSelected, Source={StaticResource availableWorkersViewModel}}">
             <Frame Source="WorkersPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Statistic" IsSelected="{Binding StatTabSelected, Source={StaticResource ordersViewModel}}">
+        <TabItem Header="Statistic" IsSelected="{Binding IsTabSelected, Source={StaticResource historyOrdersCollectionViewModel}}">
             <Frame Source="StatisticPage.xaml"></Frame>
         </TabItem>
     </TabControl>

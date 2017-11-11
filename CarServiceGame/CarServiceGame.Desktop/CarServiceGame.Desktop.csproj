@@ -139,6 +139,7 @@
     <Compile Include="GlobalResources.cs" />
     <Compile Include="ViewModels\AvailableWorkersCollectionViewModel.cs" />
     <Compile Include="ViewModels\GarageViewModel.cs" />
+    <Compile Include="ViewModels\HistoryOrdersCollectionViewModel.cs" />
     <Compile Include="ViewModels\LoginDetailsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrdersCollectionViewModel.cs" />

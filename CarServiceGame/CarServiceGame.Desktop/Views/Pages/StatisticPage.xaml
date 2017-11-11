@@ -11,15 +11,29 @@
     <Grid DataContext="{StaticResource mainViewModel }">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Account Balance:" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
-            <Label Grid.Column="1" Content="{Binding Garage.Balance}" Margin="10" Foreground="Goldenrod" FontSize="34" FontWeight="Bold"/>
+            <Label Grid.Column="0" Content="Account Balance:" Margin="10" HorizontalAlignment="Right" 
+                   Foreground="LawnGreen" FontSize="34" FontWeight="Bold"/>
+            <Label Grid.Column="1" Content="{Binding Garage.Balance, StringFormat=C}" Margin="10" HorizontalAlignment="Left"
+                   Foreground="Goldenrod" FontSize="34" FontWeight="Bold"/>
         </Grid>
+        <Label Grid.Row="1" Content="Completed Orders" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
+        <ListView Name="ordersListView" Grid.Row="2" ItemsSource="{Binding Orders, Source={StaticResource historyOrdersCollectionViewModel}}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150" Header="Profit" DisplayMemberBinding="{Binding Profit, StringFormat=C}"/>
+                    <GridViewColumn Width="150" Header="Car Name"  DisplayMemberBinding="{Binding Order.CarName}"/>
+                    <GridViewColumn Width="150" Header="Description" DisplayMemberBinding="{Binding Order.Description}"/>
+                    <GridViewColumn Width="150" Header="Reponsible worker" DisplayMemberBinding="{Binding AssignedWorker.Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

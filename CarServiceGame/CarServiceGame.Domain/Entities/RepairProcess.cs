@@ -26,5 +26,10 @@ namespace CarServiceGame.Domain.Entities
         {
             return  Order.RequiredWork/AssignedWorker.Efficiency - (int) DateTime.Now.Subtract(CreatedDate).TotalSeconds;
         }
+
+        public decimal CalculateProfit()
+        {
+            return Order.Reward - AssignedWorker.Salary;
+        }
     }
 }

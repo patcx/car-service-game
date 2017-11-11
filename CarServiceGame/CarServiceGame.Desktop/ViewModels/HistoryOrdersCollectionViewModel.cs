@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using CarServiceGame.Domain.Concrete;
-using CarServiceGame.Domain.Contracts;
-using CarServiceGame.Domain.Mock;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections.ObjectModel;
+using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using CarServiceGame.Desktop.Views;
+using CarServiceGame.Domain.Contracts;
+using CarServiceGame.Domain.Concrete;
 
 namespace CarServiceGame.Desktop.ViewModels
 {
-    public class OrdersCollectionViewModel : ObservableObject
+    public class HistoryOrdersCollectionViewModel : ObservableObject
     {
         private IOrderRepository ordersRepository;
 
@@ -32,25 +29,19 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public ObservableCollection<OrderViewModel> Orders { get; private set; }
+        public ObservableCollection<RepairProcessViewModel> Orders { get; private set; }
 
-        public OrdersCollectionViewModel(IOrderRepository orderRepository)
+        public HistoryOrdersCollectionViewModel(IOrderRepository orderRepository)
         {
             this.ordersRepository = orderRepository;
         }
 
-        public OrdersCollectionViewModel()
+        public HistoryOrdersCollectionViewModel()
         {
             ordersRepository = new OrderRepository();
         }
 
-        public ICommand AcceptOrder => new RelayCommand<OrderViewModel>(o =>
-        {
-            OrderAssignWindow orderAssignWindow = new OrderAssignWindow(o);
-            orderAssignWindow.ShowDialog();
-        });
-
-        public void Refresh(bool isHistory = false)
+        public void Refresh()
         {
             var window = (Application.Current.MainWindow as MetroWindow);
             var progressDialog = window.ShowProgressAsync("Please wait...", "Refreshing...", false);
@@ -59,7 +50,7 @@ namespace CarServiceGame.Desktop.ViewModels
             Task.Run(() =>
             {
                 progressDialog.Result.SetIndeterminate();
-                var orders = ordersRepository.GetAvailableOrders(0, 20);
+                var orders = ordersRepository.GetHistoryOrders(GlobalResources.Garage.GetModel().GarageId, 0, 20);
                 progressDialog.Result.CloseAsync();
                 return orders;
 
@@ -71,12 +62,10 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    Orders = new ObservableCollection<OrderViewModel>(from o in x.Result select new OrderViewModel(o));
+                    Orders = new ObservableCollection<RepairProcessViewModel>(from rp in x.Result select new RepairProcessViewModel(rp));
                     RaisePropertyChanged("Orders");
                 }
             });
-
         }
-
     }
 }

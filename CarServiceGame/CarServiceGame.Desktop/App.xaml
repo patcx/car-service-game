@@ -18,6 +18,7 @@
             <viewModels:MainViewModel x:Key="mainViewModel"/>
             <viewModels:OrdersCollectionViewModel x:Key="ordersViewModel"/>
             <viewModels:AvailableWorkersCollectionViewModel x:Key="availableWorkersViewModel"/>
+            <viewModels:HistoryOrdersCollectionViewModel x:Key="historyOrdersCollectionViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
