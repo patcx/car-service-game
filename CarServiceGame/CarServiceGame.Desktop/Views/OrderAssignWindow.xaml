@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:CarServiceGame.Desktop.Views"
         mc:Ignorable="d"
         Title="Assign Order" 
-        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
         BorderBrush="{StaticResource AccentBaseColorBrush}"
         BorderThickness="1">
     <Window.Resources>
