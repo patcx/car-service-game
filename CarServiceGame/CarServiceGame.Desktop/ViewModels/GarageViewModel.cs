@@ -60,7 +60,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 return
                     new ObservableCollection<WorkerViewModel>(
-                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker != x))));
+                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker.GetModel().WorkerId != x.GetModel().WorkerId ))));
             }
         }
 

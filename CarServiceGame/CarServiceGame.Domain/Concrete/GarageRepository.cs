@@ -80,12 +80,30 @@ namespace CarServiceGame.Domain.Concrete
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
                 return null;
             var hashedPassword = GetSha256FromString(password);
+
+            using (var context = GetContext())
+            {
+                {
+                    var garage = (from x in context.Garage
+                                  where x.Name == name && x.Password == hashedPassword
+                                  select new Garage
+                                  {
+                                      GarageId = x.GarageId
+                                  });
+                    if (garage.ToArray().Length != 0)
+                    {
+                        return null;
+                    }
+            }
+            }
+
             using (var context = GetContext())
             {
                 Db.Garage garage = new Db.Garage
                 {
                     Name = name,
                     Password = hashedPassword,
+                    GarageId = Guid.NewGuid(),
                 };
                 context.Garage.Add(garage);
                 context.SaveChanges();

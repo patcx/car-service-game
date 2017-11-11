@@ -48,6 +48,7 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             OrderAssignWindow orderAssignWindow = new OrderAssignWindow(o);
             orderAssignWindow.ShowDialog();
+            Refresh();
         });
 
         public void Refresh(bool isHistory = false)

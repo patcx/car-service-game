@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Entities;
-using Db=CarServiceGame.Domain.Database;
+using Db = CarServiceGame.Domain.Database;
 
 namespace CarServiceGame.Domain.Concrete
 {
@@ -35,8 +35,31 @@ namespace CarServiceGame.Domain.Concrete
                                    Name = w.Name
 
                                }).Skip(skip).Take(take).ToArray();
-
+                if (workers.Length < 3) GenerateNewWorkers();
                 return workers;
+            }
+        }
+
+        private void GenerateNewWorkers()
+        {
+            String[] names = { "Karol", "Patryk", "Adam", "Mateusz", "Wojciech", "Zenon", "Wincenty", "Donald", "Paweł", "Maciej", "Klaudia", "Anna", "Patrycja", "Jakub", "Ewelina" };
+
+            Random r = new Random();
+
+            using (var context = GetContext())
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    Db.Worker worker = new Db.Worker
+                    {
+                        Name = names[r.Next(names.Length)],
+                        Efficiency = r.Next(10, 101),
+                        Salary = r.Next(5, 100) * 10,
+                        WorkerId = Guid.NewGuid(),
+                    };
+                    context.Worker.Add(worker);
+                }
+                context.SaveChanges();
             }
         }
 
@@ -45,8 +68,8 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
-                    where w.WorkerId == workerId
-                    select w).FirstOrDefault();
+                              where w.WorkerId == workerId
+                              select w).FirstOrDefault();
 
                 worker.GarageId = null;
                 context.SaveChanges();

@@ -10,6 +10,7 @@ namespace CarServiceGame.Domain.Concrete
 {
     public class OrderRepository : IOrderRepository
     {
+        private readonly int generatingCount = 5;
         private Func<Db.CarServiceContext> GetContext;
 
         public OrderRepository(Func<Db.CarServiceContext> contextFactory = null)
@@ -25,17 +26,42 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var orders = (from o in context.RepairOrder
-                    where o.RepairProcess == null
-                    select new RepairOrder
-                    {
-                        RequiredWork = o.RequiredWork,
-                        RepairOrderId = o.RepairOrderId,
-                        Description = o.Description,
-                        Reward = o.Reward,
-                        CarName = o.CarName
-                    }).Skip(skip).Take(take).ToArray();
+                              where o.RepairProcess == null
+                              select new RepairOrder
+                              {
+                                  RequiredWork = o.RequiredWork,
+                                  RepairOrderId = o.RepairOrderId,
+                                  Description = o.Description,
+                                  Reward = o.Reward,
+                                  CarName = o.CarName
+                              }).Skip(skip).Take(take).ToArray();
 
+                if (orders.Length < 3) GenerateNewOrders();
                 return orders;
+            }
+        }
+
+        private void GenerateNewOrders()
+        {
+            String[] names = { "Seat Ibiza", "Audi A4", "BMW M5", "Opel Insignia", "BMW X6", "Ford Focus", "Fiat Punto", "Fiat Multipla", "Citroen C4" , "Toyota Auris" };
+            String[] desctiptions = { "Broken Engine", "Need to replace brakes", "Need to replace gearbox", "Broken Wheel", "Cannot start the car" };
+
+            Random r = new Random();
+            using (var context = GetContext())
+            {
+                for (int i = 0; i < generatingCount; i++)
+                {
+                    Db.RepairOrder order = new Db.RepairOrder
+                    {
+                        RepairOrderId = Guid.NewGuid(),
+                        Reward = r.Next(2, 101) * 100,
+                        CarName = names[r.Next(names.Length)],
+                        Description = desctiptions[r.Next(desctiptions.Length)],
+                        RequiredWork = r.Next(10001) ,
+                    };
+                    context.RepairOrder.Add(order);
+                }
+                context.SaveChanges();
             }
         }
 
@@ -44,28 +70,28 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var repairProcesses = (from rp in context.RepairProcess
-                              where rp.GarageId == garageId && rp.IsPickedUp == true
-                              select new RepairProcess
-                              {
-                                  CreatedDate = rp.CreatedDate,
-                                  StallNumber = rp.StallNumber,
-                                  Order = new RepairOrder
-                                  {
-                                      RequiredWork = rp.RepairOrder.RequiredWork,
-                                      RepairOrderId = rp.RepairOrder.RepairOrderId,
-                                      Description = rp.RepairOrder.Description,
-                                      Reward = rp.RepairOrder.Reward,
-                                      CarName = rp.RepairOrder.CarName
-                                  },
-                                  AssignedWorker = new Worker
-                                  {
-                                      WorkerId = rp.WorkerId,
-                                      Salary = rp.Worker.Salary,
-                                      Efficiency = rp.Worker.Efficiency,
-                                      Name = rp.Worker.Name
-                                  }
-                              }
-                              
+                                       where rp.GarageId == garageId && rp.IsPickedUp == true
+                                       select new RepairProcess
+                                       {
+                                           CreatedDate = rp.CreatedDate,
+                                           StallNumber = rp.StallNumber,
+                                           Order = new RepairOrder
+                                           {
+                                               RequiredWork = rp.RepairOrder.RequiredWork,
+                                               RepairOrderId = rp.RepairOrder.RepairOrderId,
+                                               Description = rp.RepairOrder.Description,
+                                               Reward = rp.RepairOrder.Reward,
+                                               CarName = rp.RepairOrder.CarName
+                                           },
+                                           AssignedWorker = new Worker
+                                           {
+                                               WorkerId = rp.WorkerId,
+                                               Salary = rp.Worker.Salary,
+                                               Efficiency = rp.Worker.Efficiency,
+                                               Name = rp.Worker.Name
+                                           }
+                                       }
+
                              ).Skip(skip).Take(take).ToArray();
 
                 return repairProcesses;
@@ -96,7 +122,7 @@ namespace CarServiceGame.Domain.Concrete
         {
             using (var context = GetContext())
             {
-                var repairProcess = (from rp in context.RepairProcess   
+                var repairProcess = (from rp in context.RepairProcess
                                      where rp.RepairOrderId == orderId
                                      select rp).FirstOrDefault();
 
