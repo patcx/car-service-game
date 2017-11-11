@@ -102,6 +102,6 @@ namespace CarServiceGame.Desktop.ViewModels
 
 
 
-        }, () => false);
+        }, () => LoginDetails.IsLoginButtonEnabled);
     }
 }

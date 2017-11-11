@@ -58,14 +58,9 @@ namespace CarServiceGame.Desktop.ViewModels
         {
             get
             {
-                return new ObservableCollection<WorkerViewModel>((EmployeedWorkers.Where(x =>
-               {
-                   foreach (var v in Stalls)
-                   {
-                       if (v != null && v.AssignedWorker.Equals(x)) return false;
-                   }
-                   return true;
-               })).ToList());
+                return
+                    new ObservableCollection<WorkerViewModel>(
+                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker != x))));
             }
         }
 
@@ -160,6 +155,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 else
                 {
                     Stalls[rp.StallNumber] = null;
+                    model.FinishOrder(rp.Order.GetModel().RepairOrderId);
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
                 }
@@ -191,6 +187,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 else
                 {
                     Stalls[stallNumber] = repairProcess;
+                    model.AddRepairProcess(repairProcess.GetModel());
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
                 }

@@ -43,5 +43,17 @@ namespace CarServiceGame.Domain.Entities
             EmployeedWorkers.Remove(worker);
         }
 
+        public void FinishOrder(Guid orderId)
+        {
+            RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
+        }
+
+        public void AddRepairProcess(RepairProcess rp)
+        {
+            if(RepairProcesses == null)
+                RepairProcesses = new List<RepairProcess>();
+
+            RepairProcesses.Add(rp);
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace CarServiceGame.Desktop.ViewModels
 {
     public class RepairProcessViewModel : ObservableObject
     {
+        private RepairProcess model;
+
         public OrderViewModel Order { get; }
         public WorkerViewModel AssignedWorker { get; }
         public bool Completed { get; set; }
@@ -26,6 +28,11 @@ namespace CarServiceGame.Desktop.ViewModels
             SecondsToEnd = Order.RequiredWork / AssignedWorker.Efficiency;
             StallNumber = stall;
             Profit = Order.Reward - AssignedWorker.Salary;
+            model = new RepairProcess(order.GetModel(), worker.GetModel())
+            {
+                CreatedDate = DateTime.Now,
+                StallNumber = stall
+            };
         }
 
         public RepairProcessViewModel(RepairProcess repairProcess)
@@ -36,6 +43,11 @@ namespace CarServiceGame.Desktop.ViewModels
             SecondsToEnd = repairProcess.GetRequiredTime();
             Profit = repairProcess.CalculateProfit();
             StallNumber = repairProcess.StallNumber;
+        }
+
+        public RepairProcess GetModel()
+        {
+            return model;
         }
     }
 }
