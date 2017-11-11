@@ -26,13 +26,13 @@ namespace CarServiceGame.Desktop.ViewModels
             StallNumber = stall;
         }
 
-        public RepairProcessViewModel(RepairProcess repairProcess, int stall)
+        public RepairProcessViewModel(RepairProcess repairProcess)
         {
             Order = new OrderViewModel(repairProcess.Order);
             AssignedWorker = new WorkerViewModel(repairProcess.AssignedWorker);
             Completed = false;
             SecondsToEnd = repairProcess.GetRequiredTime();
-            StallNumber = stall;
+            StallNumber = repairProcess.StallNumber;
         }
     }
 }

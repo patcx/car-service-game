@@ -64,9 +64,44 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 LoginDetails.IsLoginButtonEnabled = true;
             }, scheduler);
-           
 
-           
+
+
         }, () => LoginDetails.IsLoginButtonEnabled);
+
+
+        public ICommand CreateAccount => new RelayCommand(() =>
+        {
+            LoginDetails.IsLoginButtonEnabled = false;
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Creating Account...", false);
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+                var garage = garageRepository.CreateGarage(LoginDetails.GarageName, LoginDetails.Password);
+                progressDialog.Result.CloseAsync();
+                return garage;
+
+            }).ContinueWith(x =>
+            {
+                if (x.Result == null)
+                {
+                    window.ShowMessageAsync("", "Creating account error");
+                }
+                else
+                {
+                    Garage = new GarageViewModel(x.Result);
+                    RaisePropertyChanged("Garage");
+                    SelectedPage = "Pages/DashboardPage.xaml";
+                    RaisePropertyChanged("SelectedPage");
+                }
+                LoginDetails.IsLoginButtonEnabled = true;
+            }, scheduler);
+
+
+
+        }, () => false);
     }
 }

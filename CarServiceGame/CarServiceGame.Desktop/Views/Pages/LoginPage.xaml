@@ -21,6 +21,7 @@
                 </i:Interaction.Behaviors>
             </PasswordBox>
             <Button Background="Crimson" Margin="3" Content="Login" Command="{Binding Login}"></Button>
+            <Button Background="Crimson" Margin="3" Content="Create Account" Command="{Binding CreateAccount}"></Button>
         </StackPanel>
     </Grid>
 </Page>

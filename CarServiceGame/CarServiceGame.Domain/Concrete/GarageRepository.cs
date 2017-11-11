@@ -31,47 +31,72 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var garage = (from x in context.Garage
-                    where x.Name == name && x.Password == hashedPassword
-                    select new Garage()
-                    {
-                        GarageId = x.GarageId,
-                        EmployeedWorkers = new List<Worker>(from worker in x.Worker select new Worker()
-                        {
-                            WorkerId = worker.WorkerId,
-                            Salary = worker.Salary,
-                            Efficiency = worker.Efficiency,
-                            Name = worker.Name
-                        }),
-                        RepairProcesses = new List<RepairProcess>((from repairProcess in x.RepairProcess
-                                                                   where repairProcess.IsPickedUp == false
-                                                                  select new RepairProcess
-                                                                  {
-                                                                      Order = new RepairOrder()
+                              where x.Name == name && x.Password == hashedPassword
+                              select new Garage()
+                              {
+                                  GarageId = x.GarageId,
+                                  EmployeedWorkers = new List<Worker>(from worker in x.Worker
+                                                                      select new Worker()
                                                                       {
-                                                                          RepairOrderId = repairProcess.RepairOrderId,
-                                                                          RequiredWork = repairProcess.RepairOrder.RequiredWork,
-                                                                          Description = repairProcess.RepairOrder.Description,
-                                                                          Reward = repairProcess.RepairOrder.Reward,
-                                                                          CarName = repairProcess.RepairOrder.CarName,
-                                                                      },
-                                                                      AssignedWorker = new Worker()
-                                                                      {
-                                                                          WorkerId = repairProcess.WorkerId,
-                                                                          Salary = repairProcess.Worker.Salary,
-                                                                          Efficiency = repairProcess.Worker.Efficiency,
-                                                                          Name = repairProcess.Worker.Name
-                                                                      },
-                                                                      CreatedDate = repairProcess.CreatedDate,
-                                                                      StallNumber = repairProcess.StallNumber
-                                                                  })).ToList(),
-                        CashBalance = (from rp in x.RepairProcess
-                                       where rp.IsPickedUp == true
-                                       select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()
-                    }).AsEnumerable();
+                                                                          WorkerId = worker.WorkerId,
+                                                                          Salary = worker.Salary,
+                                                                          Efficiency = worker.Efficiency,
+                                                                          Name = worker.Name
+                                                                      }),
+                                  RepairProcesses = new List<RepairProcess>((from repairProcess in x.RepairProcess
+                                                                             where repairProcess.IsPickedUp == false
+                                                                             select new RepairProcess
+                                                                             {
+                                                                                 Order = new RepairOrder()
+                                                                                 {
+                                                                                     RepairOrderId = repairProcess.RepairOrderId,
+                                                                                     RequiredWork = repairProcess.RepairOrder.RequiredWork,
+                                                                                     Description = repairProcess.RepairOrder.Description,
+                                                                                     Reward = repairProcess.RepairOrder.Reward,
+                                                                                     CarName = repairProcess.RepairOrder.CarName,
+                                                                                 },
+                                                                                 AssignedWorker = new Worker()
+                                                                                 {
+                                                                                     WorkerId = repairProcess.WorkerId,
+                                                                                     Salary = repairProcess.Worker.Salary,
+                                                                                     Efficiency = repairProcess.Worker.Efficiency,
+                                                                                     Name = repairProcess.Worker.Name
+                                                                                 },
+                                                                                 CreatedDate = repairProcess.CreatedDate,
+                                                                                 StallNumber = repairProcess.StallNumber
+                                                                             })).ToList(),
+                                  CashBalance = (from rp in x.RepairProcess
+                                                 where rp.IsPickedUp == true
+                                                 select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()
+                              }).AsEnumerable();
 
                 return garage.FirstOrDefault();
             }
 
+        }
+
+        public Garage CreateGarage(string name, string password)
+        {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
+                return null;
+            var hashedPassword = GetSha256FromString(password);
+            using (var context = GetContext())
+            {
+                Db.Garage garage = new Db.Garage
+                {
+                    Name = name,
+                    Password = hashedPassword,
+                };
+                context.Garage.Add(garage);
+                context.SaveChanges();
+                return new Garage
+                {
+                    GarageId = garage.GarageId,
+                    EmployeedWorkers = new List<Worker>(),
+                    RepairProcesses = new List<RepairProcess>(),
+                    CashBalance = 5000
+                };
+            }
         }
 
         public static string GetSha256FromString(string strData)

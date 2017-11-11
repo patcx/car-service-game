@@ -9,5 +9,6 @@ namespace CarServiceGame.Domain.Contracts
     public interface IGarageRepository
     {
         Garage GetGarage(string name, string password);
+        Garage CreateGarage(string name, string password);
     }
 }

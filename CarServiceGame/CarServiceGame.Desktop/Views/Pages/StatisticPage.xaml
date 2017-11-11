@@ -1,0 +1,25 @@
+﻿<Page x:Class="CarServiceGame.Desktop.Views.Pages.StatisticPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="StatisticPage">
+
+    <Grid DataContext="{StaticResource mainViewModel }">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Account Balance:" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
+            <Label Grid.Column="1" Content="{Binding Garage.Balance}" Margin="10" Foreground="Goldenrod" FontSize="34" FontWeight="Bold"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -40,6 +40,18 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
+        public decimal Balance {
+            get
+            {
+                return model.CashBalance;
+            }
+            set
+            {
+                model.CashBalance = value;
+                RaisePropertyChanged("Balance");
+            }
+        }
+
         public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; }
 
         public ObservableCollection<WorkerViewModel> AvailableWorkers
@@ -67,10 +79,9 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
 
             Stalls = new RepairProcessViewModel[numberOfStalls];
-            int i = 0;
             foreach (var v in model.RepairProcesses)
             {
-                Stalls[i++] = new RepairProcessViewModel(v, v.StallNumber);
+                Stalls[v.StallNumber] = new RepairProcessViewModel(v);
             }
 
             RaisePropertyChanged("Stalls");
@@ -87,10 +98,9 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
 
             Stalls = new RepairProcessViewModel[numberOfStalls];
-            int i = 0;
             foreach(var v in model.RepairProcesses)
             { 
-                Stalls[v.StallNumber] = new RepairProcessViewModel(v, v.StallNumber);
+                Stalls[v.StallNumber] = new RepairProcessViewModel(v);
             }
             RaisePropertyChanged("Stalls");
             RaisePropertyChanged("AvailableWorkers");

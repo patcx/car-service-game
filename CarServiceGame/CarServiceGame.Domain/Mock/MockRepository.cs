@@ -43,6 +43,11 @@ namespace CarServiceGame.Domain.Mock
             return new Garage(garage.GarageId, garage.CashBalance, garage.EmployeedWorkers);
         }
 
+        public Garage CreateGarage(string name, string password)
+        {
+            return GetGarage(name, password);
+        }
+
         public IEnumerable<RepairOrder> GetAvailableOrders(int skip, int take)
         {
             Thread.Sleep(1000);
