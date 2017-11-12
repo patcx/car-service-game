@@ -53,15 +53,6 @@ namespace CarServiceGame.Desktop.Views.UserControls
             dtClockTime.Start();
         }
 
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
-            if (e.Property.Name == "RepairProcess")
-            {
-
-            }
-        }
-
         private static void OnRepairProcessChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var assosiatedObject = d as OrderTimer;
@@ -105,43 +96,6 @@ namespace CarServiceGame.Desktop.Views.UserControls
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Visible;
             }
-        }
-    }
-
-    public class VisibilityConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string param = parameter as string;
-            if (value == DependencyProperty.UnsetValue || value == null)
-            {
-                if (param.Equals("Empty"))
-                {
-                    return Visibility.Visible;
-                }
-                else
-                {
-                    return Visibility.Hidden;
-                }
-            }
-
-            RepairProcessViewModel repairProcess = value as RepairProcessViewModel;
-            if (repairProcess.Completed && param.Equals("End"))
-            {
-                return Visibility.Visible;
-            }
-
-            if (!repairProcess.Completed && param.Equals("Clock"))
-            {
-                return Visibility.Visible;
-            }
-
-            return Visibility.Hidden;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
         }
     }
 }

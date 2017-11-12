@@ -6,9 +6,6 @@
              xmlns:local="clr-namespace:CarServiceGame.Desktop.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <local:VisibilityConverter x:Key="Visibility"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
