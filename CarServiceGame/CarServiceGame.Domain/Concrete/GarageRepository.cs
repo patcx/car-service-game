@@ -75,6 +75,20 @@ namespace CarServiceGame.Domain.Concrete
 
         }
 
+        public decimal GetGarageBalance(Guid garageId)
+        {
+            using (var context = new Db.CarServiceContext())
+            {
+                var balance = (from x in context.Garage
+                    where x.GarageId == garageId
+                    select (from rp in x.RepairProcess
+                        where rp.IsPickedUp == true
+                        select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()).FirstOrDefault();
+
+                return balance;
+            }
+        }
+
         public Garage CreateGarage(string name, string password)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))

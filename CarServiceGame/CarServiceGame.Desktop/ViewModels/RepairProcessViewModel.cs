@@ -13,6 +13,7 @@ namespace CarServiceGame.Desktop.ViewModels
     {
         private RepairProcess model;
 
+        public DateTime CreateDate => model.CreatedDate;
         public OrderViewModel Order { get; }
         public WorkerViewModel AssignedWorker { get; }
         public bool Completed { get; set; }
@@ -37,6 +38,7 @@ namespace CarServiceGame.Desktop.ViewModels
 
         public RepairProcessViewModel(RepairProcess repairProcess)
         {
+            this.model = repairProcess;
             Order = new OrderViewModel(repairProcess.Order);
             AssignedWorker = new WorkerViewModel(repairProcess.AssignedWorker);
             Completed = false;

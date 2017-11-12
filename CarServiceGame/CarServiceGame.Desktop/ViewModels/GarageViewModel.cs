@@ -23,6 +23,7 @@ namespace CarServiceGame.Desktop.ViewModels
 
         private IWorkerRepository workersRepository;
         private IOrderRepository ordersRepository;
+        private IGarageRepository garageRepository;
         private Garage model;
 
         private RepairProcessViewModel[] stalls;
@@ -64,11 +65,12 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public GarageViewModel(Garage model, IWorkerRepository workerRepository)
+        public GarageViewModel(Garage model, IWorkerRepository workerRepository, IOrderRepository orderRepository, IGarageRepository garageRepository)
         {
             this.model = model;
             this.workersRepository = workerRepository;
-            ordersRepository = new OrderRepository();
+            this.ordersRepository = orderRepository;
+            this.garageRepository = garageRepository;
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
@@ -88,6 +90,7 @@ namespace CarServiceGame.Desktop.ViewModels
             this.model = model;
             workersRepository = new WorkerRepository();
             ordersRepository = new OrderRepository();
+            garageRepository = new GarageRepository();
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
@@ -143,6 +146,8 @@ namespace CarServiceGame.Desktop.ViewModels
                 progressDialog.Result.SetIndeterminate();
 
                 ordersRepository.FinishOrder(rp.Order.GetModel().RepairOrderId);
+                var newBalance = garageRepository.GetGarageBalance(model.GarageId);
+                model.SetCashBalance(newBalance);
 
                 progressDialog.Result.CloseAsync();
 
@@ -158,6 +163,7 @@ namespace CarServiceGame.Desktop.ViewModels
                     model.FinishOrder(rp.Order.GetModel().RepairOrderId);
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
+                    RaisePropertyChanged("Balance");
                 }
             }, scheduler);
 

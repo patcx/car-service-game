@@ -92,5 +92,10 @@ namespace CarServiceGame.Domain.Mock
             finishedProcesses.Add(order);
             garage.RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
         }
+
+        public decimal GetGarageBalance(Guid garageId)
+        {
+            return garage.CashBalance;
+        }
     }
 }

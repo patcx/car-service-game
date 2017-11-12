@@ -62,7 +62,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    Orders = new ObservableCollection<RepairProcessViewModel>(from rp in x.Result select new RepairProcessViewModel(rp));
+                    Orders = new ObservableCollection<RepairProcessViewModel>(from rp in x.Result orderby rp.CreatedDate descending select new RepairProcessViewModel(rp));
                     RaisePropertyChanged("Orders");
                 }
             });
