@@ -27,33 +27,6 @@ namespace CarServiceGame.Desktop.Views.Pages
         {
             InitializeComponent();
         }
-
-        private void HiredWorkerListSort(object sender, RoutedEventArgs e)
-        {
-            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-        }
-
-        private void UnemployedWorkerListSort(object sender, RoutedEventArgs e)
-        {
-            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-        }
-
-        private ObservableCollection<WorkerViewModel> WorkerListSort(GridViewColumnHeader headerClicked, ObservableCollection<WorkerViewModel> workers)
-        {
-            if (headerClicked == null) return workers;
-            switch (headerClicked.Content)
-            {
-                case "Name":
-                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Name));
-                case "Salary":
-                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Salary));
-                case "Efficiency":
-                    return new ObservableCollection<WorkerViewModel>(workers.OrderBy(x => x.Efficiency));
-                default:
-                    break;
-            }
-            return workers;
-        }
     }
 
 }

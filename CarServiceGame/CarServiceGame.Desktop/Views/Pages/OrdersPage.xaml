@@ -14,7 +14,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Available Orders"></TextBlock>
-        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Orders, Source={StaticResource ordersViewModel}}" GridViewColumnHeader.Click="OrderListSort">
+        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Orders, Source={StaticResource ordersViewModel}}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Car Name"  DisplayMemberBinding="{Binding CarName}"/>
