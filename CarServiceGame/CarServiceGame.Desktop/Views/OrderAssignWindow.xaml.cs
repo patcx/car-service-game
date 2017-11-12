@@ -26,10 +26,13 @@ namespace CarServiceGame.Desktop.Views
     {
         private OrderViewModel order;
 
+        public bool IsAssigned { get; private set; }
+
         public OrderAssignWindow(OrderViewModel _order)
         {
             InitializeComponent();
             order = _order;
+            IsAssigned = false;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -80,6 +83,7 @@ namespace CarServiceGame.Desktop.Views
                 return;
             }
             GlobalResources.Garage.AssignOrderToStall(stallNumber, order, worker);
+            IsAssigned = true;
             this.Close();
         }
     }
