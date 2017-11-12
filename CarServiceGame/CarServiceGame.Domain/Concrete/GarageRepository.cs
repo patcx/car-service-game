@@ -94,7 +94,7 @@ namespace CarServiceGame.Domain.Concrete
                     {
                         return null;
                     }
-            }
+                }
             }
 
             using (var context = GetContext())
@@ -106,7 +106,15 @@ namespace CarServiceGame.Domain.Concrete
                     GarageId = Guid.NewGuid(),
                 };
                 context.Garage.Add(garage);
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
                 return new Garage
                 {
                     GarageId = garage.GarageId,

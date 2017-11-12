@@ -19,8 +19,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Hired Workers"></TextBlock>
-            <ListView Name="hiredListView" Grid.Row="1" ItemsSource="{Binding Garage.EmployeedWorkers, Source={StaticResource mainViewModel}}" 
-                      GridViewColumnHeader.Click="HiredWorkerListSort">
+            <ListView Name="hiredListView" Grid.Row="1" ItemsSource="{Binding Garage.EmployeedWorkers, Source={StaticResource mainViewModel}}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
@@ -51,8 +50,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Unemployed Workers"></TextBlock>
-            <ListView Name="unemployedListView" Grid.Row="1" ItemsSource="{Binding AvailableWorkers, Source={StaticResource availableWorkersViewModel}}" 
-                      GridViewColumnHeader.Click="UnemployedWorkerListSort">
+            <ListView Name="unemployedListView" Grid.Row="1" ItemsSource="{Binding AvailableWorkers, Source={StaticResource availableWorkersViewModel}}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />

@@ -22,31 +22,9 @@ namespace CarServiceGame.Desktop.Views.Pages
     /// </summary>
     public partial class OrdersPage : Page
     {
-        private ObservableCollection<OrderViewModel> orders;
-
         public OrdersPage()
         {
             InitializeComponent();
-            orders = new ObservableCollection<OrderViewModel>();
-        }
-
-
-        private void OrderListSort(object sender, RoutedEventArgs e)
-        {
-            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-            if (headerClicked == null) return;
-            switch ((string)headerClicked.Content)
-            {
-                case "Car Name":
-                    orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.CarName));
-                    break;
-                case "Required Work":
-                    orders = new ObservableCollection<OrderViewModel>(orders.OrderBy(x => x.RequiredWork));
-                    break;
-                default:
-                    break;
-            }
-            ordersListView.DataContext = orders;
         }
     }
 }
