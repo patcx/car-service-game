@@ -19,6 +19,7 @@
             <viewModels:OrdersCollectionViewModel x:Key="ordersViewModel"/>
             <viewModels:AvailableWorkersCollectionViewModel x:Key="availableWorkersViewModel"/>
             <viewModels:HistoryOrdersCollectionViewModel x:Key="historyOrdersCollectionViewModel"/>
+            <viewModels:RankingViewModel x:Key="rankingViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

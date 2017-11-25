@@ -41,7 +41,8 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public decimal Balance {
+        public decimal Balance
+        {
             get
             {
                 return model.CashBalance;
@@ -61,7 +62,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 return
                     new ObservableCollection<WorkerViewModel>(
-                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker.GetModel().WorkerId != x.GetModel().WorkerId ))));
+                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker.GetModel().WorkerId != x.GetModel().WorkerId))));
             }
         }
 
@@ -96,8 +97,8 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
 
             Stalls = new RepairProcessViewModel[numberOfStalls];
-            foreach(var v in model.RepairProcesses)
-            { 
+            foreach (var v in model.RepairProcesses)
+            {
                 Stalls[v.StallNumber] = new RepairProcessViewModel(v);
             }
             RaisePropertyChanged("Stalls");
@@ -133,6 +134,43 @@ namespace CarServiceGame.Desktop.ViewModels
             }, scheduler);
 
         }, w => model.RepairProcesses.All(x => x.AssignedWorker.WorkerId != w.GetModel().WorkerId));
+
+
+        public ICommand UpgradeWorker => new RelayCommand<WorkerViewModel>(w =>
+        {
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading worker...", false);
+
+            var cost = w.Efficiency * 50;
+
+            if (cost > GlobalResources.Garage.Balance)
+            {
+                window.ShowMessageAsync("", "Not enough money to upgrade worker").Wait();
+                return;
+            }
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+
+                workersRepository.UpgradeWorker(w.GetModel().WorkerId);
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while upgrading worker").Wait();
+                }
+                else
+                {
+                    w.Efficiency += 10;
+                }
+            }, scheduler);
+
+        }, w => model.RepairProcesses.All(x => x.AssignedWorker.WorkerId != w.GetModel().WorkerId) && w.Efficiency < 90);
 
 
         public ICommand FinishJob => new RelayCommand<RepairProcessViewModel>(rp =>

@@ -22,5 +22,8 @@
         <TabItem Header="Statistic" IsSelected="{Binding IsTabSelected, Source={StaticResource historyOrdersCollectionViewModel}}">
             <Frame Source="StatisticPage.xaml"></Frame>
         </TabItem>
+        <TabItem Header="Ranking" IsSelected="{Binding IsTabSelected, Source={StaticResource rankingViewModel}}">
+            <Frame Source="RankingPage.xaml"></Frame>
+        </TabItem>
     </TabControl>
 </Page>

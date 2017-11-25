@@ -21,15 +21,6 @@
         <Label Grid.Row="1" Name="EmptyLabel" Content="Empty" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"
                Visibility="Visible"/>
         <Grid Grid.Row="2">
-            <Grid.Resources>
-                <Style x:Key="DetailLabel" TargetType="{x:Type TextBlock}" BasedOn="{x:Null}">
-                    <Setter Property="HorizontalAlignment" Value="Center" />
-                    <Setter Property="Foreground" Value="LawnGreen"/>
-                    <Setter Property="Margin" Value="10"/>
-                    <Setter Property="FontSize" Value="24"/>
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
-                </Style>
-            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

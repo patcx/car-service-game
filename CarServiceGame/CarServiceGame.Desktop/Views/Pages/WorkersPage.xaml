@@ -40,6 +40,15 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Header="Upgrade">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Margin="3" Content="Upgrade Worker" 
+                                            Command="{Binding Garage.UpgradeWorker, Source={StaticResource mainViewModel}}" 
+                                            CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

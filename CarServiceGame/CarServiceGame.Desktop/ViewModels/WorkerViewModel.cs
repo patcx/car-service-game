@@ -21,6 +21,10 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 return worker.Efficiency;
             }
+            set
+            {
+                worker.Efficiency = value;
+            }
         }
         public decimal Salary {
             get

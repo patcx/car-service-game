@@ -54,7 +54,7 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         });
 
-        public void Refresh(bool isHistory = false)
+        public void Refresh()
         {
             var window = (Application.Current.MainWindow as MetroWindow);
             var progressDialog = window.ShowProgressAsync("Please wait...", "Refreshing...", false);

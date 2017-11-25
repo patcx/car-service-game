@@ -97,5 +97,11 @@ namespace CarServiceGame.Domain.Mock
         {
             return garage.CashBalance;
         }
+
+        public void UpgradeWorker(Guid workerId)
+        {
+            Worker worker = garage.EmployeedWorkers.FirstOrDefault(x => x.WorkerId == workerId);
+            worker.Efficiency += 10;
+        }
     }
 }
