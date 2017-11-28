@@ -103,5 +103,10 @@ namespace CarServiceGame.Domain.Mock
             Worker worker = garage.EmployeedWorkers.FirstOrDefault(x => x.WorkerId == workerId);
             worker.Efficiency += 10;
         }
+
+        public IEnumerable<GarageRanking> GetGaragesRanking(int count)
+        {
+            return new List<GarageRanking>();
+        }
     }
 }

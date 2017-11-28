@@ -11,5 +11,6 @@ namespace CarServiceGame.Domain.Contracts
         Garage GetGarage(string name, string password);
         Garage CreateGarage(string name, string password);
         decimal GetGarageBalance(Guid garageId);
+        IEnumerable<GarageRanking> GetGaragesRanking(int count);
     }
 }

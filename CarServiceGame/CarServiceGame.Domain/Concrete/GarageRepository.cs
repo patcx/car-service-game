@@ -80,10 +80,10 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = new Db.CarServiceContext())
             {
                 var balance = (from x in context.Garage
-                    where x.GarageId == garageId
-                    select (from rp in x.RepairProcess
-                        where rp.IsPickedUp == true
-                        select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()).FirstOrDefault();
+                               where x.GarageId == garageId
+                               select (from rp in x.RepairProcess
+                                       where rp.IsPickedUp == true
+                                       select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()).FirstOrDefault();
 
                 return balance;
             }
@@ -136,6 +136,20 @@ namespace CarServiceGame.Domain.Concrete
                     RepairProcesses = new List<RepairProcess>(),
                     CashBalance = 0
                 };
+            }
+        }
+
+        public IEnumerable<GarageRanking> GetGaragesRanking(int count)
+        {
+            using (var context = GetContext())
+            {
+                return new List<GarageRanking>(from garage in context.Garage
+                                                                     orderby garage.Name
+                                                                     select new GarageRanking()
+                                                                     {
+                                                                         GarageId = garage.GarageId,
+                                                                         Name = garage.Name,
+                                                                     }).Take(count);
             }
         }
 

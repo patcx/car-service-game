@@ -8,7 +8,19 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="RankingPage">
 
-    <Grid>
-        
+    <Grid DataContext="{StaticResource mainViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Garages"></TextBlock>
+        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Garages, Source={StaticResource rankingViewModel}}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150" Header="Garage Name"  DisplayMemberBinding="{Binding GarageName}"/>
+                    <GridViewColumn Width="150" Header="Cash Balance" DisplayMemberBinding="{Binding GarageCashBalance, StringFormat=C}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>
