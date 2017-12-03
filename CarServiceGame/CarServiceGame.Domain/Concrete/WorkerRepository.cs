@@ -76,15 +76,29 @@ namespace CarServiceGame.Domain.Concrete
             }
         }
 
-        public void UpgradeWorker(Guid workerId)
+        public void UpgradeWorker(Guid garageId, Guid workerId, decimal cost)
         {
             using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
-                              where w.WorkerId == workerId
+                              where w.WorkerId == workerId && w.GarageId == garageId
                               select w).FirstOrDefault();
 
                 worker.Efficiency += 10;
+                context.SaveChanges();
+            }
+
+            using (var context = GetContext())
+            {
+                Db.WorkerUpgrade wu = new Db.WorkerUpgrade
+                {
+                    WorkerUpgradeId = Guid.NewGuid(),
+                    Cost = cost,
+                    EfficiencyIncrease = 10,
+                    GarageId = garageId,
+                    WorkerId = workerId,
+                };
+                context.WorkerUpgrade.Add(wu);
                 context.SaveChanges();
             }
         }

@@ -93,7 +93,7 @@ namespace CarServiceGame.Domain.Mock
             garage.RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
         }
 
-        public void CancelOrder(Guid orderId)
+        public void CancelOrder(Guid garageId, Guid orderId)
         {
             var order = garage.RepairProcesses.FirstOrDefault(x => x.Order.RepairOrderId == orderId);
             finishedProcesses.Add(order);
@@ -105,7 +105,7 @@ namespace CarServiceGame.Domain.Mock
             return garage.CashBalance;
         }
 
-        public void UpgradeWorker(Guid workerId)
+        public void UpgradeWorker(Guid garageId, Guid workerId, decimal cost)
         {
             Worker worker = garage.EmployeedWorkers.FirstOrDefault(x => x.WorkerId == workerId);
             worker.Efficiency += 10;
@@ -115,5 +115,6 @@ namespace CarServiceGame.Domain.Mock
         {
             return new List<GarageRanking>();
         }
+
     }
 }

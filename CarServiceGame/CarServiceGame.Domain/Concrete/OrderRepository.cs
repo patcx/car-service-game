@@ -145,12 +145,12 @@ namespace CarServiceGame.Domain.Concrete
 
         }
 
-        public void CancelOrder(Guid orderId)
+        public void CancelOrder(Guid garageId, Guid orderId)
         {
             using (var context = GetContext())
             {
                 var repairProcess = (from rp in context.RepairProcess
-                                     where rp.RepairOrderId == orderId
+                                     where rp.RepairOrderId == orderId && rp.GarageId == garageId
                                      select rp).FirstOrDefault();
 
                 repairProcess.IsCancelled = true;

@@ -79,11 +79,9 @@ namespace CarServiceGame.Domain.Concrete
         {
             using (var context = new Db.CarServiceContext())
             {
-                var balance = (from x in context.Garage
-                               where x.GarageId == garageId
-                               select (from rp in x.RepairProcess
-                                       where rp.IsPickedUp == true
-                                       select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()).FirstOrDefault();
+                var balance = (from gb in context.GarageBalance
+                               where gb.GarageId == garageId
+                               select gb.Balance).FirstOrDefault();
 
                 return balance;
             }
@@ -143,13 +141,16 @@ namespace CarServiceGame.Domain.Concrete
         {
             using (var context = GetContext())
             {
-                return new List<GarageRanking>(from garage in context.Garage
-                                                                     orderby garage.Name
+                var ranking =  new List<GarageRanking>(from garage in context.Garage
                                                                      select new GarageRanking()
                                                                      {
                                                                          GarageId = garage.GarageId,
                                                                          Name = garage.Name,
+                                                                         CashBalance = (from gb in context.GarageBalance
+                                                                                        where gb.GarageId == garage.GarageId
+                                                                                        select gb.Balance).FirstOrDefault()
                                                                      }).Take(count);
+                return ranking.OrderByDescending(x => x.CashBalance);
             }
         }
 

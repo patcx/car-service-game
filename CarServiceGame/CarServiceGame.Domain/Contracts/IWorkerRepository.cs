@@ -10,7 +10,7 @@ namespace CarServiceGame.Domain.Contracts
     {
         IEnumerable<Worker> GetUnemployedWorkers(int skip, int take);
         void FireWorker(Guid garageId, Guid workerId);
-        void UpgradeWorker(Guid workerId);
         void EmployWorker(Guid garageId, Guid workerId);
+        void UpgradeWorker(Guid garageId, Guid workerId, decimal cost);
     }
 }

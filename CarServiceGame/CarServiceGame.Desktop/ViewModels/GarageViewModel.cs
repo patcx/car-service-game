@@ -54,7 +54,7 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; }
+        public ObservableCollection<WorkerViewModel> EmployeedWorkers { get; private set; }
 
         public ObservableCollection<WorkerViewModel> AvailableWorkers
         {
@@ -115,7 +115,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                workersRepository.FireWorker(w.GetModel().WorkerId);
+                workersRepository.FireWorker(model.GarageId, w.GetModel().WorkerId);
 
                 progressDialog.Result.CloseAsync();
 
@@ -154,7 +154,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                workersRepository.UpgradeWorker(w.GetModel().WorkerId);
+                workersRepository.UpgradeWorker(model.GarageId, w.GetModel().WorkerId, cost);
 
                 progressDialog.Result.CloseAsync();
 
@@ -167,6 +167,8 @@ namespace CarServiceGame.Desktop.ViewModels
                 else
                 {
                     w.Efficiency += 10;
+                    EmployeedWorkers.Remove(w);
+                    EmployeedWorkers.Add(w);
                 }
             }, scheduler);
 
@@ -183,7 +185,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                ordersRepository.FinishOrder(rp.Order.GetModel().RepairOrderId);
+                ordersRepository.FinishOrder(model.GarageId, rp.Order.GetModel().RepairOrderId);
                 var newBalance = garageRepository.GetGarageBalance(model.GarageId);
                 model.SetCashBalance(newBalance);
 
@@ -217,7 +219,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
 
-                ordersRepository.CancelOrder(rp.Order.GetModel().RepairOrderId);
+                ordersRepository.CancelOrder(model.GarageId, rp.Order.GetModel().RepairOrderId);
                 var newBalance = garageRepository.GetGarageBalance(model.GarageId);
                 model.SetCashBalance(newBalance);
 
@@ -232,7 +234,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 else
                 {
                     Stalls[rp.StallNumber] = null;
-                    model.FinishOrder(rp.Order.GetModel().RepairOrderId);
+                    model.CancelOrder(rp.Order.GetModel().RepairOrderId);
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
                     RaisePropertyChanged("Balance");
