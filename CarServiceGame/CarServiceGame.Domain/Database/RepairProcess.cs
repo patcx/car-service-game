@@ -12,6 +12,7 @@ namespace CarServiceGame.Domain.Database
         public int StallNumber { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool? IsPickedUp { get; set; }
+        public bool IsCancelled { get; set; }
 
         public Garage Garage { get; set; }
         public RepairOrder RepairOrder { get; set; }

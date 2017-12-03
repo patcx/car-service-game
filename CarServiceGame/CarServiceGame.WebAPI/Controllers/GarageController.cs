@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CarServiceGame.Domain.Contracts;
+using CarServiceGame.Domain.Database;
 using CarServiceGame.WebAPI.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,8 @@ namespace CarServiceGame.WebAPI.Controllers
                     string token = GetToken(garage);
                     result.status = "ok";
                     result.token = token;
+                    result.garage = garage;
+
                     return Ok(JsonConvert.SerializeObject(result));
                 }
                 else
@@ -74,6 +77,7 @@ namespace CarServiceGame.WebAPI.Controllers
 
                     result.status = "ok";
                     result.token = token;
+                    result.garage = garage;
                     return Ok(JsonConvert.SerializeObject(result));
                 }
                 else
@@ -93,7 +97,7 @@ namespace CarServiceGame.WebAPI.Controllers
 
         private string GetToken(Domain.Entities.Garage garage)
         {
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("secret_key"));
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("secret_key_car_service_game@!"));
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             var jwt = new JwtSecurityToken(

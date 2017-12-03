@@ -67,7 +67,7 @@ namespace CarServiceGame.Domain.Mock
             return new List<Worker>(availableWorkers.Skip(skip).Take(take).ToArray());
         }
 
-        public void FireWorker(Guid workerId)
+        public void FireWorker(Guid garageId, Guid workerId)
         {
             Worker worker = garage.EmployeedWorkers.FirstOrDefault(x => x.WorkerId == workerId);
             garage.EmployeedWorkers.Remove(worker);
@@ -86,7 +86,7 @@ namespace CarServiceGame.Domain.Mock
             return new List<RepairProcess>(finishedProcesses.Skip(skip).Take(take).ToArray());
         }
 
-        public void FinishOrder(Guid orderId)
+        public void FinishOrder(Guid garageId, Guid orderId)
         {
             var order = garage.RepairProcesses.FirstOrDefault(x => x.Order.RepairOrderId == orderId);
             finishedProcesses.Add(order);

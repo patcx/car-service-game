@@ -12,6 +12,6 @@ namespace CarServiceGame.Domain.Contracts
         IEnumerable<RepairProcess> GetHistoryOrders(Guid garageId, int skip, int take);
 
         void AssignOrder(Guid garageId, Guid orderId, Guid workerId, int stallNumber);
-        void FinishOrder(Guid orderId);
+        void FinishOrder(Guid garageId, Guid orderId);
     }
 }

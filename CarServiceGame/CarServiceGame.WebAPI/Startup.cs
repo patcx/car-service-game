@@ -6,10 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
+using CarServiceGame.Domain.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,11 +20,9 @@ namespace CarServiceGame.WebAPI
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var secretKey = "secret_key";
+            var secretKey = "secret_key_car_service_game@!";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
 
             var tokenValidationParameters = new TokenValidationParameters
@@ -45,6 +46,7 @@ namespace CarServiceGame.WebAPI
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IGarageRepository, GarageRepository>();
             services.AddTransient<IWorkerRepository, WorkerRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
