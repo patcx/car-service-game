@@ -10,6 +10,7 @@ namespace CarServiceGame.Domain.Entities
         public Worker AssignedWorker { get; set; }
         public int StallNumber { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool IsCancelled { get; set; }
 
         public RepairProcess() { }
 

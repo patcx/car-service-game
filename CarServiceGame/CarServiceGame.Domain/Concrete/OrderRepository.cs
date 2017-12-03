@@ -70,7 +70,7 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var repairProcesses = (from rp in context.RepairProcess
-                                       where rp.GarageId == garageId && rp.IsPickedUp == true
+                                       where rp.GarageId == garageId && rp.IsPickedUp == true && !rp.IsCancelled
                                        select new RepairProcess
                                        {
                                            CreatedDate = rp.CreatedDate,
@@ -134,8 +134,15 @@ namespace CarServiceGame.Domain.Concrete
 
         public void CancelOrder(Guid orderId)
         {
-            
+            using (var context = GetContext())
+            {
+                var repairProcess = (from rp in context.RepairProcess
+                                     where rp.RepairOrderId == orderId
+                                     select rp).FirstOrDefault();
 
+                repairProcess.IsCancelled = true;
+                context.SaveChanges();
+            }
         }
     }
 }
