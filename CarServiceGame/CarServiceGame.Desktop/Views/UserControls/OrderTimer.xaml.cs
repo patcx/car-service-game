@@ -58,7 +58,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
             var assosiatedObject = d as OrderTimer;
             if (assosiatedObject.RepairProcess != null && !assosiatedObject.RepairProcess.Completed)
             {
-                assosiatedObject.Clock.Visibility = Visibility.Visible;
+                assosiatedObject.ClockGrid.Visibility = Visibility.Visible;
                 assosiatedObject.EndButton.Visibility = Visibility.Hidden;
                 assosiatedObject.EmptyLabel.Visibility = Visibility.Hidden;
                 assosiatedObject.working = true;
@@ -70,7 +70,7 @@ namespace CarServiceGame.Desktop.Views.UserControls
             if (RepairProcess?.SecondsToEnd <= 0 && working)
             {
                 RepairProcess.Completed = true;
-                Clock.Visibility = Visibility.Hidden;
+                ClockGrid.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Visible;
                 EmptyLabel.Visibility = Visibility.Hidden;
             }
@@ -85,17 +85,25 @@ namespace CarServiceGame.Desktop.Views.UserControls
             if (RepairProcess != null && !RepairProcess.Completed)
             {
                 working = true;
-                Clock.Visibility = Visibility.Visible;
+                ClockGrid.Visibility = Visibility.Visible;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Hidden;
             }
             else
             {
                 working = false;
-                Clock.Visibility = Visibility.Hidden;
+                ClockGrid.Visibility = Visibility.Hidden;
                 EndButton.Visibility = Visibility.Hidden;
                 EmptyLabel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void CancelButton_Click(object sedner, RoutedEventArgs e)
+        {
+            working = false;
+            ClockGrid.Visibility = Visibility.Hidden;
+            EndButton.Visibility = Visibility.Hidden;
+            EmptyLabel.Visibility = Visibility.Visible;
         }
     }
 }

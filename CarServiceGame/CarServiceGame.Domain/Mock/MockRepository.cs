@@ -93,6 +93,11 @@ namespace CarServiceGame.Domain.Mock
             garage.RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
         }
 
+        public void CancelOrder(Guid orderId)
+        {
+            
+        }
+
         public decimal GetGarageBalance(Guid garageId)
         {
             return garage.CashBalance;

@@ -131,5 +131,11 @@ namespace CarServiceGame.Domain.Concrete
             }
 
         }
+
+        public void CancelOrder(Guid orderId)
+        {
+            
+
+        }
     }
 }

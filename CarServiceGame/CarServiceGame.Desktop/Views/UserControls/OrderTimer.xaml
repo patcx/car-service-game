@@ -13,11 +13,20 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <TextBlock Name="TitleBlock" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"></TextBlock>
-        <Label Grid.Row="1" Name="Clock" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" 
-              Visibility="Hidden" />
-        <Button Margin="20" Grid.Row="1" Name="EndButton" Content="Finish Order" Click="EndButton_Click"
-                 Visibility="Hidden"
-                 Command="{Binding Garage.FinishJob, Source={StaticResource mainViewModel}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess }"></Button>
+        <Grid Grid.Row="1" Name="ClockGrid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Name="Clock" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" 
+               />
+            <Button Margin="20" Grid.Row="1" Name="StopButton" Content="Cancel Order" Click="CancelButton_Click"
+                 Command="{Binding Garage.CancelJob, Source={StaticResource mainViewModel}}" 
+                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess }"></Button>
+        </Grid>
+        <Button Margin="20" Grid.Row="1" Name="EndButton" Content="Finish Order" Click="EndButton_Click" Visibility="Hidden"
+                 Command="{Binding Garage.FinishJob, Source={StaticResource mainViewModel}}" 
+                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:OrderTimer}, Path=RepairProcess }"></Button>
         <Label Grid.Row="1" Name="EmptyLabel" Content="Empty" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"
                Visibility="Visible"/>
         <Grid Grid.Row="2">

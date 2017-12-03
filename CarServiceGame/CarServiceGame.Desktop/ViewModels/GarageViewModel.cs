@@ -207,6 +207,40 @@ namespace CarServiceGame.Desktop.ViewModels
 
         });
 
+        public ICommand CancelJob => new RelayCommand<RepairProcessViewModel>(rp =>
+        {
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Canceling job...", false);
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+
+                ordersRepository.CancelOrder(rp.Order.GetModel().RepairOrderId);
+                var newBalance = garageRepository.GetGarageBalance(model.GarageId);
+                model.SetCashBalance(newBalance);
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while canceling job").Wait();
+                }
+                else
+                {
+                    Stalls[rp.StallNumber] = null;
+                    model.FinishOrder(rp.Order.GetModel().RepairOrderId);
+                    RaisePropertyChanged("Stalls");
+                    RaisePropertyChanged("AvailableWorkers");
+                    RaisePropertyChanged("Balance");
+                }
+            }, scheduler);
+
+        });
+
 
         public void AssignOrderToStall(int stallNumber, OrderViewModel order, WorkerViewModel worker)
         {

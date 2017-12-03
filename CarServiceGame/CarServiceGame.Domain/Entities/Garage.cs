@@ -48,6 +48,11 @@ namespace CarServiceGame.Domain.Entities
             RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
         }
 
+        public void CancelOrder(Guid orderId)
+        {
+            //TODO
+        }
+
         public void SetCashBalance(decimal balance)
         {
             CashBalance = balance;

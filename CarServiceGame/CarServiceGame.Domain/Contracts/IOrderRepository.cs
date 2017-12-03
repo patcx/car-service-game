@@ -13,5 +13,6 @@ namespace CarServiceGame.Domain.Contracts
 
         void AssignOrder(Guid garageId, Guid orderId, Guid workerId, int stallNumber);
         void FinishOrder(Guid orderId);
+        void CancelOrder(Guid orderId);
     }
 }
