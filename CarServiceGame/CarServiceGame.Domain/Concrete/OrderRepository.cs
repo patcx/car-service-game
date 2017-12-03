@@ -123,7 +123,7 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var models = (from rp in context.RepairProcess
-                                     where rp.RepairOrderId == orderId && rp.GarageId == garageId
+                                     where rp.RepairOrderId == orderId && rp.GarageId == garageId && rp.IsCancelled == false
                                      select new
                                      {
                                          repairProcess = rp,
