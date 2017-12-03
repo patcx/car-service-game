@@ -88,7 +88,7 @@ namespace CarServiceGame.WebAPI.Controllers
 
             try
             {
-                orderRepository.FinishOrder(orderId);
+                orderRepository.FinishOrder(garageId, orderId);
                 result.status = "ok";
                 return Ok(JsonConvert.SerializeObject(result));
             }

@@ -63,12 +63,12 @@ namespace CarServiceGame.Domain.Concrete
             }
         }
 
-        public void FireWorker(Guid workerId)
+        public void FireWorker(Guid garageId, Guid workerId)
         {
             using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
-                              where w.WorkerId == workerId
+                              where w.WorkerId == workerId && w.GarageId == garageId
                               select w).FirstOrDefault();
 
                 worker.GarageId = null;
@@ -95,7 +95,7 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var worker = (from w in context.Worker
-                              where w.WorkerId == workerId
+                              where w.WorkerId == workerId && w.GarageId == null
                               select w).FirstOrDefault();
 
                 worker.GarageId = garageId;

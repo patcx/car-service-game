@@ -65,9 +65,9 @@ namespace CarServiceGame.Domain.Concrete
                                                                                  CreatedDate = repairProcess.CreatedDate,
                                                                                  StallNumber = repairProcess.StallNumber
                                                                              })).ToList(),
-                                  CashBalance = (from rp in x.RepairProcess
-                                                 where rp.IsPickedUp == true
-                                                 select rp.RepairOrder.Reward - rp.Worker.Salary).Sum()
+                                  CashBalance = (from gb in context.GarageBalance
+                                                 where gb.GarageId == x.GarageId
+                                                 select gb.Balance).FirstOrDefault()
                               }).AsEnumerable();
 
                 return garage.FirstOrDefault();

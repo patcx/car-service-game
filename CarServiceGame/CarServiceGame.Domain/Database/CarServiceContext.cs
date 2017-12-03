@@ -10,13 +10,14 @@ namespace CarServiceGame.Domain.Database
         public virtual DbSet<RepairOrder> RepairOrder { get; set; }
         public virtual DbSet<RepairProcess> RepairProcess { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
+        public virtual DbSet<WorkerUpgrade> WorkerUpgrade { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=145.239.86.224;User id = cargame; Password=Car0game; Database=CarServiceGame");
+                optionsBuilder.UseSqlServer(@"Server=145.239.86.224; User id = cargame; Password=Car0game; Database=CarServiceGame");
             }
         }
 
@@ -24,6 +25,10 @@ namespace CarServiceGame.Domain.Database
         {
             modelBuilder.Entity<Garage>(entity =>
             {
+                entity.HasIndex(e => e.Name)
+                    .HasName("UQ__Garage__737584F6E7442689")
+                    .IsUnique();
+
                 entity.Property(e => e.GarageId).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
@@ -91,6 +96,27 @@ namespace CarServiceGame.Domain.Database
                     .WithMany(p => p.Worker)
                     .HasForeignKey(d => d.GarageId)
                     .HasConstraintName("FK__Worker__GarageId__3D5E1FD2");
+            });
+
+            modelBuilder.Entity<WorkerUpgrade>(entity =>
+            {
+                entity.Property(e => e.WorkerUpgradeId).ValueGeneratedNever();
+
+                entity.Property(e => e.Cost).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.EfficiencyIncrease).HasColumnType("decimal(18, 0)");
+
+                entity.HasOne(d => d.Garage)
+                    .WithMany(p => p.WorkerUpgrade)
+                    .HasForeignKey(d => d.GarageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__WorkerUpg__Garag__5812160E");
+
+                entity.HasOne(d => d.Worker)
+                    .WithMany(p => p.WorkerUpgrade)
+                    .HasForeignKey(d => d.WorkerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__WorkerUpg__Worke__59063A47");
             });
         }
     }

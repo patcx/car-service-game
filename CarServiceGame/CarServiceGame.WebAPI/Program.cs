@@ -20,6 +20,7 @@ namespace CarServiceGame.WebAPI
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseUrls("http://localhost:5100")
                 .Build();
     }
 }

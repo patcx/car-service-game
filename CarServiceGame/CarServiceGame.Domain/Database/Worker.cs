@@ -8,6 +8,7 @@ namespace CarServiceGame.Domain.Database
         public Worker()
         {
             RepairProcess = new HashSet<RepairProcess>();
+            WorkerUpgrade = new HashSet<WorkerUpgrade>();
         }
 
         public Guid WorkerId { get; set; }
@@ -18,5 +19,6 @@ namespace CarServiceGame.Domain.Database
 
         public Garage Garage { get; set; }
         public ICollection<RepairProcess> RepairProcess { get; set; }
+        public ICollection<WorkerUpgrade> WorkerUpgrade { get; set; }
     }
 }

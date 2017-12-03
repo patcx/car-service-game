@@ -40,13 +40,13 @@ namespace CarServiceGame.WebAPI.Controllers
             }
         }
 
-        [HttpGet("api/v{version:apiVersion}/Workers/Fire")]
-        public IActionResult FireWorker(Guid workerId)
+        [HttpPost("api/v{version:apiVersion}/Workers/Fire")]
+        public IActionResult FireWorker([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId, Guid workerId)
         {
             dynamic result = new ExpandoObject();
             try
             {
-                workerRepository.FireWorker(workerId);
+                workerRepository.FireWorker(garageId, workerId);
                 result.status = "ok";
                 return Ok(JsonConvert.SerializeObject(result));
             }
@@ -58,13 +58,13 @@ namespace CarServiceGame.WebAPI.Controllers
             }
         }
 
-        [HttpGet("api/v{version:apiVersion}/Workers/Employ")]
+        [HttpPost("api/v{version:apiVersion}/Workers/Employ")]
         public IActionResult EmployWorker([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId, Guid workerId)
         {
             dynamic result = new ExpandoObject();
             try
             {
-                workerRepository.EmployWorker(workerId, workerId);
+                workerRepository.EmployWorker(garageId, workerId);
                 result.status = "ok";
                 return Ok(JsonConvert.SerializeObject(result));
             }

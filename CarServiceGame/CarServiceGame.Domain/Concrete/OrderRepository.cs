@@ -118,16 +118,29 @@ namespace CarServiceGame.Domain.Concrete
             }
         }
 
-        public void FinishOrder(Guid orderId)
+        public void FinishOrder(Guid garageId, Guid orderId)
         {
             using (var context = GetContext())
             {
-                var repairProcess = (from rp in context.RepairProcess
-                                     where rp.RepairOrderId == orderId
-                                     select rp).FirstOrDefault();
+                var models = (from rp in context.RepairProcess
+                                     where rp.RepairOrderId == orderId && rp.GarageId == garageId && rp.IsCancelled == false
+                                     select new
+                                     {
+                                         repairProcess = rp,
+                                         worker = rp.Worker,
+                                         order = rp.RepairOrder
+                                     }).FirstOrDefault();
 
-                repairProcess.IsPickedUp = true;
-                context.SaveChanges();
+                if (models.order.RequiredWork / models.worker.Efficiency >
+                    (int) DateTime.Now.Subtract(models.repairProcess.CreatedDate).TotalSeconds)
+                {
+                    throw new Exception("Order cannot be finished");
+                }
+                else
+                {
+                    models.repairProcess.IsPickedUp = true;
+                    context.SaveChanges();
+                }
             }
 
         }

@@ -7,6 +7,8 @@ namespace CarServiceGame.Domain.Database
 {
     public partial class CarServiceContext
     {
+        public virtual DbSet<GarageBalance> GarageBalance { get; set; }
+
         public CarServiceContext()
         {
             

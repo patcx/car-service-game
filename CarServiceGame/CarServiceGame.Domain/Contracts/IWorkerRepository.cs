@@ -9,7 +9,7 @@ namespace CarServiceGame.Domain.Contracts
     public interface IWorkerRepository
     {
         IEnumerable<Worker> GetUnemployedWorkers(int skip, int take);
-        void FireWorker(Guid workerId);
+        void FireWorker(Guid garageId, Guid workerId);
         void UpgradeWorker(Guid workerId);
         void EmployWorker(Guid garageId, Guid workerId);
     }
