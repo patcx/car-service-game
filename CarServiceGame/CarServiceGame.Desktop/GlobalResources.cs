@@ -11,8 +11,8 @@ namespace CarServiceGame.Desktop
 {
     public static class GlobalResources
     {
-        public static GarageViewModel Garage => (Application.Current.FindResource("mainViewModel") as MainViewModel)?.Garage;
+        public static GarageViewModel Garage => (Application.Current.FindResource("viewModelsLocator") as ViewModelsLocator)?.MainViewModel?.Garage;
         public static ObservableCollection<WorkerViewModel> AvailableWorkers => 
-            (Application.Current.FindResource("availableWorkersViewModel") as AvailableWorkersCollectionViewModel)?.AvailableWorkers;
+            (Application.Current.FindResource("viewModelsLocator") as ViewModelsLocator)?.AvailableWorkersCollection?.AvailableWorkers;
     }
 }

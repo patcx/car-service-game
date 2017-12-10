@@ -23,7 +23,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Workers"></TextBlock>
-        <ListView Name="WorkersListView" Grid.Row="1" ItemsSource="{Binding Garage.AvailableWorkers, Source={StaticResource mainViewModel}}" >
+        <ListView Name="WorkersListView" Grid.Row="1" ItemsSource="{Binding MainViewModel.Garage.AvailableWorkers, Source={StaticResource viewModelsLocator}}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
@@ -39,7 +39,7 @@
             </ListView.View>
         </ListView>
         <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Garage"></TextBlock>
-        <Grid Grid.Column="1" Grid.Row="1" DataContext="{StaticResource mainViewModel}">
+        <Grid Grid.Column="1" Grid.Row="1" DataContext="{Binding MainViewModel, Source={StaticResource viewModelsLocator}}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />

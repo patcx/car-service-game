@@ -39,11 +39,6 @@ namespace CarServiceGame.Desktop.ViewModels
             this.ordersRepository = orderRepository;
         }
 
-        public OrdersCollectionViewModel()
-        {
-            ordersRepository = new OrderRepository();
-        }
-
         public ICommand AcceptOrder => new RelayCommand<OrderViewModel>(o =>
         {
             OrderAssignWindow orderAssignWindow = new OrderAssignWindow(o);
@@ -64,21 +59,21 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
                 var orders = ordersRepository.GetAvailableOrders(0, 20);
-                progressDialog.Result.CloseAsync();
                 return orders;
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                progressDialog.Result.CloseAsync();
+                if (x.Exception != null || x.Result == null)
                 {
-                    window.ShowMessageAsync("", "Error while refreshing data").Wait();
+                    window.ShowMessageAsync("", "Error while refreshing data");
                 }
                 else
                 {
                     Orders = new ObservableCollection<OrderViewModel>(from o in x.Result select new OrderViewModel(o));
                     RaisePropertyChanged("Orders");
                 }
-            });
+            }, scheduler);
 
         }
 

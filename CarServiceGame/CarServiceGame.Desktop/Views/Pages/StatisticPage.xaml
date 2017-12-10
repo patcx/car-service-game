@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="StatisticPage">
 
-    <Grid DataContext="{StaticResource mainViewModel }">
+    <Grid DataContext="{Binding MainViewModel,Source={StaticResource viewModelsLocator}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -21,7 +21,7 @@
                    Foreground="Goldenrod" FontSize="34" FontWeight="Bold"/>
         </StackPanel>
         <Label Grid.Row="1" Content="Completed Orders" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
-        <ListView Name="ordersListView" Grid.Row="2" ItemsSource="{Binding Orders, Source={StaticResource historyOrdersCollectionViewModel}}">
+        <ListView Name="ordersListView" Grid.Row="2" ItemsSource="{Binding HistoryOrdersCollection.Orders, Source={StaticResource viewModelsLocator}}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Data" DisplayMemberBinding="{Binding CreateDate}"/>

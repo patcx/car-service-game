@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarServiceGame.Desktop.Helpers;
 using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Mock;
@@ -30,11 +31,6 @@ namespace CarServiceGame.Desktop.ViewModels
             this.garageRepository = garageRepository;
         }
 
-        public MainViewModel()
-        {
-            garageRepository = new GarageRepository();
-        }
-
         public ICommand Login => new RelayCommand(() =>
         {
             LoginDetails.IsLoginButtonEnabled = false;
@@ -46,18 +42,22 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
                 var garage = garageRepository.GetGarage(LoginDetails.GarageName, LoginDetails.Password);
-                progressDialog.Result.CloseAsync();
                 return garage;
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                progressDialog.Result.CloseAsync();
+                if (x.Exception != null)
                 {
-                    window.ShowMessageAsync("", "Login error");
+                    window.ShowMessageAsync("", "Connection error");
+                }
+                else if (x.Result == null)
+                {
+                    window.ShowMessageAsync("", "Wrong login data");
                 }
                 else
                 {
-                    Garage = new GarageViewModel(x.Result);
+                    Garage = new GarageViewModel(x.Result, NinjectBinder.Get<IWorkerRepository>(), NinjectBinder.Get<IOrderRepository>(), NinjectBinder.Get<GarageRepository>());
                     RaisePropertyChanged("Garage");
                     SelectedPage = "Pages/DashboardPage.xaml";
                     RaisePropertyChanged("SelectedPage");
@@ -81,18 +81,23 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
                 var garage = garageRepository.CreateGarage(LoginDetails.GarageName, LoginDetails.Password);
-                progressDialog.Result.CloseAsync();
                 return garage;
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                progressDialog.Result.CloseAsync();
+
+                if (x.Exception != null)
                 {
-                    window.ShowMessageAsync("", "Creating account error");
+                    window.ShowMessageAsync("", "Connection error");
+                }
+                else if (x.Result == null)
+                {
+                    window.ShowMessageAsync("", "Login already exists");
                 }
                 else
                 {
-                    Garage = new GarageViewModel(x.Result);
+                    Garage = new GarageViewModel(x.Result, NinjectBinder.Get<IWorkerRepository>(), NinjectBinder.Get<IOrderRepository>(), NinjectBinder.Get<GarageRepository>());
                     RaisePropertyChanged("Garage");
                     SelectedPage = "Pages/DashboardPage.xaml";
                     RaisePropertyChanged("SelectedPage");

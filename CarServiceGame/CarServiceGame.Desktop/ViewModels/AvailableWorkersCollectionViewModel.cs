@@ -38,11 +38,6 @@ namespace CarServiceGame.Desktop.ViewModels
             this.workersRepository = workerRepository;
         }
 
-        public AvailableWorkersCollectionViewModel()
-        {
-            workersRepository = new WorkerRepository();
-        }
-
         public ICommand HireWorker => new RelayCommand<WorkerViewModel>(w =>
         {
             var window = (Application.Current.MainWindow as MetroWindow);
@@ -86,16 +81,16 @@ namespace CarServiceGame.Desktop.ViewModels
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                if (x.Exception != null || x.Result == null)
                 {
-                    window.ShowMessageAsync("", "Error while refreshing data").Wait();
+                    window.ShowMessageAsync("", "Error while refreshing data");
                 }
                 else
                 {
                     AvailableWorkers = new ObservableCollection<WorkerViewModel>(from w in x.Result select new WorkerViewModel(w));
                     RaisePropertyChanged("AvailableWorkers");
                 }
-            });
+            }, scheduler);
         }
     }
 }

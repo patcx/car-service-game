@@ -13,6 +13,8 @@ namespace CarServiceGame.Domain.Concrete
     {
         private Func<Db.CarServiceContext> GetContext;
 
+        public GarageRepository() { }
+
         public GarageRepository(Func<Db.CarServiceContext> contextFactory = null)
         {
             if (contextFactory == null)

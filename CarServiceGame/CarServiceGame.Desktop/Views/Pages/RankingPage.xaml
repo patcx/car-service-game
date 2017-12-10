@@ -8,13 +8,13 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="RankingPage">
 
-    <Grid DataContext="{StaticResource mainViewModel}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Garages"></TextBlock>
-        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Garages, Source={StaticResource rankingViewModel}}">
+        <ListView Name="ordersListView" Grid.Row="1" ItemsSource="{Binding Ranking.Garages, Source={StaticResource viewModelsLocator}}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Garage Name"  DisplayMemberBinding="{Binding GarageName}"/>

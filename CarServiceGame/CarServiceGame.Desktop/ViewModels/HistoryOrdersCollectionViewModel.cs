@@ -36,11 +36,6 @@ namespace CarServiceGame.Desktop.ViewModels
             this.ordersRepository = orderRepository;
         }
 
-        public HistoryOrdersCollectionViewModel()
-        {
-            ordersRepository = new OrderRepository();
-        }
-
         public void Refresh()
         {
             var window = (Application.Current.MainWindow as MetroWindow);
@@ -51,21 +46,22 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
                 var orders = ordersRepository.GetHistoryOrders(GlobalResources.Garage.GetModel().GarageId, 0, 20);
-                progressDialog.Result.CloseAsync();
                 return orders;
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                progressDialog.Result.CloseAsync();
+
+                if (x.Exception != null || x.Result == null)
                 {
-                    window.ShowMessageAsync("", "Error while refreshing data").Wait();
+                    window.ShowMessageAsync("", "Error while refreshing data");
                 }
                 else
                 {
                     Orders = new ObservableCollection<RepairProcessViewModel>(from rp in x.Result orderby rp.CreatedDate descending select new RepairProcessViewModel(rp));
                     RaisePropertyChanged("Orders");
                 }
-            });
+            }, scheduler);
         }
     }
 }

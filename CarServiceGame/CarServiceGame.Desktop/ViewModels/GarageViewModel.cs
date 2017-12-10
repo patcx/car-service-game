@@ -86,24 +86,6 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("AvailableWorkers");
         }
 
-        public GarageViewModel(Garage model)
-        {
-            this.model = model;
-            workersRepository = new WorkerRepository();
-            ordersRepository = new OrderRepository();
-            garageRepository = new GarageRepository();
-
-            EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
-            RaisePropertyChanged("EmployeedWorkers");
-
-            Stalls = new RepairProcessViewModel[numberOfStalls];
-            foreach (var v in model.RepairProcesses)
-            {
-                Stalls[v.StallNumber] = new RepairProcessViewModel(v);
-            }
-            RaisePropertyChanged("Stalls");
-            RaisePropertyChanged("AvailableWorkers");
-        }
 
         public ICommand FireWorker => new RelayCommand<WorkerViewModel>(w =>
         {

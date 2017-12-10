@@ -13,16 +13,16 @@
         <TabItem Header="Garage">
             <Frame Source="GaragePage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Orders" IsSelected="{Binding IsTabSelected, Source={StaticResource ordersViewModel}}">
+        <TabItem Header="Orders" IsSelected="{Binding OrdersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="OrdersPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Workers" IsSelected="{Binding IsTabSelected, Source={StaticResource availableWorkersViewModel}}">
+        <TabItem Header="Workers" IsSelected="{Binding AvailableWorkersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="WorkersPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Statistic" IsSelected="{Binding IsTabSelected, Source={StaticResource historyOrdersCollectionViewModel}}">
+        <TabItem Header="Statistic" IsSelected="{Binding HistoryOrdersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="StatisticPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Ranking" IsSelected="{Binding IsTabSelected, Source={StaticResource rankingViewModel}}">
+        <TabItem Header="Ranking" IsSelected="{Binding Ranking.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="RankingPage.xaml"></Frame>
         </TabItem>
     </TabControl>

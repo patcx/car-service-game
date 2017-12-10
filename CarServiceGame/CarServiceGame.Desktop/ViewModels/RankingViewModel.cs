@@ -30,11 +30,6 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        public RankingViewModel()
-        {
-            garageRepository = new GarageRepository();
-        }
-
         public RankingViewModel(IGarageRepository garageRepository)
         {
             this.garageRepository = garageRepository;
@@ -50,14 +45,15 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 progressDialog.Result.SetIndeterminate();
                 var orders = garageRepository.GetGaragesRanking(10);
-                progressDialog.Result.CloseAsync();
                 return orders;
 
             }).ContinueWith(x =>
             {
-                if (x.Result == null)
+                progressDialog.Result.CloseAsync();
+
+                if (x.Exception != null || x.Result == null)
                 {
-                    window.ShowMessageAsync("", "Error while refreshing data").Wait();
+                    window.ShowMessageAsync("", "Error while refreshing data");
                 }
                 else
                 {

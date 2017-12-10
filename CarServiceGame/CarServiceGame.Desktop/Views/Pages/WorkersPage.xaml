@@ -19,7 +19,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Hired Workers"></TextBlock>
-            <ListView Name="hiredListView" Grid.Row="1" ItemsSource="{Binding Garage.EmployeedWorkers, Source={StaticResource mainViewModel}}">
+            <ListView Name="hiredListView" Grid.Row="1" ItemsSource="{Binding MainViewModel.Garage.EmployeedWorkers, Source={StaticResource viewModelsLocator}}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
@@ -35,7 +35,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Margin="3" Content="Fire Worker" 
-                                            Command="{Binding Garage.FireWorker, Source={StaticResource mainViewModel}}" 
+                                            Command="{Binding MainViewModel.Garage.FireWorker, Source={StaticResource viewModelsLocator}}" 
                                             CommandParameter="{Binding}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -44,7 +44,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Margin="3" Content="Upgrade Worker" 
-                                            Command="{Binding Garage.UpgradeWorker, Source={StaticResource mainViewModel}}" 
+                                            Command="{Binding MainViewModel.Garage.UpgradeWorker, Source={StaticResource viewModelsLocator}}" 
                                             CommandParameter="{Binding}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -59,7 +59,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Unemployed Workers"></TextBlock>
-            <ListView Name="unemployedListView" Grid.Row="1" ItemsSource="{Binding AvailableWorkers, Source={StaticResource availableWorkersViewModel}}">
+            <ListView Name="unemployedListView" Grid.Row="1" ItemsSource="{Binding AvailableWorkersCollection.AvailableWorkers, Source={StaticResource viewModelsLocator}}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
@@ -74,7 +74,7 @@
                         <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Margin="3" Content="Hire Worker" Command="{Binding HireWorker, Source={StaticResource availableWorkersViewModel}}" CommandParameter="{Binding}"/>
+                                    <Button Margin="3" Content="Hire Worker" Command="{Binding AvailableWorkersCollection.HireWorker, Source={StaticResource viewModelsLocator}}" CommandParameter="{Binding}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

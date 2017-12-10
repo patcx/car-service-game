@@ -15,11 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Crimson.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <viewModels:MainViewModel x:Key="mainViewModel"/>
-            <viewModels:OrdersCollectionViewModel x:Key="ordersViewModel"/>
-            <viewModels:AvailableWorkersCollectionViewModel x:Key="availableWorkersViewModel"/>
-            <viewModels:HistoryOrdersCollectionViewModel x:Key="historyOrdersCollectionViewModel"/>
-            <viewModels:RankingViewModel x:Key="rankingViewModel"/>
+            <local:ViewModelsLocator x:Key="viewModelsLocator"></local:ViewModelsLocator>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

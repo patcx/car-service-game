@@ -12,7 +12,7 @@
       Title="Login">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center" MaxWidth="300" DataContext="{StaticResource mainViewModel}">
+        <StackPanel VerticalAlignment="Center" MaxWidth="300" DataContext="{Binding MainViewModel, Source={StaticResource viewModelsLocator}}">
             <TextBlock HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Login"></TextBlock>
             <TextBox Margin="3" mahApps:TextBoxHelper.Watermark="Warsztat" Text="{Binding LoginDetails.GarageName}"></TextBox>
             <PasswordBox Margin="3"  mahApps:TextBoxHelper.Watermark="Hasło">
