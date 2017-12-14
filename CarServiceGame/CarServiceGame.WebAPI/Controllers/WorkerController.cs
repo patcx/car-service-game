@@ -76,5 +76,22 @@ namespace CarServiceGame.WebAPI.Controllers
             }
         }
 
+        [HttpPost("api/v{version:apiVersion}/Workers/Upgrade")]
+        public IActionResult UpgradeWorker([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId, Guid workerId, decimal cost)
+        {
+            dynamic result = new ExpandoObject();
+            try
+            {
+                workerRepository.UpgradeWorker(garageId, workerId, cost);
+                result.status = "ok";
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                result.status = "error";
+                return BadRequest(result);
+            }
+        }
     }
 }

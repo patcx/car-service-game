@@ -100,5 +100,24 @@ namespace CarServiceGame.WebAPI.Controllers
             }
         }
 
+        [HttpPost("api/v{version:apiVersion}/Orders/Cancel")]
+        public IActionResult CancelOrder([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId, Guid orderId)
+        {
+            dynamic result = new ExpandoObject();
+
+            try
+            {
+                orderRepository.CancelOrder(garageId, orderId);
+                result.status = "ok";
+                return Ok(JsonConvert.SerializeObject(result));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                result.status = "error";
+                return BadRequest(result);
+            }
+        }
+
     }
 }

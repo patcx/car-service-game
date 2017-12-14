@@ -58,7 +58,7 @@ namespace CarServiceGame.WebAPI.Controllers
                 result.status = "error";
                 return Ok(JsonConvert.SerializeObject(result));
             }
-            
+
         }
 
 
@@ -129,7 +129,25 @@ namespace CarServiceGame.WebAPI.Controllers
                 result.status = "error";
                 return BadRequest(JsonConvert.SerializeObject(result));
             }
-           
+
+        }
+
+        [HttpGet("api/v{version:apiVersion}/Garage/Ranking")]
+        public IActionResult GetGarageSRanking(int count = 20)
+        {
+            dynamic result = new ExpandoObject();
+            try
+            {
+                var Ranking = garageRepository.GetGaragesRanking(count);
+                return Ok(JsonConvert.SerializeObject(Ranking));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                result.status = "error";
+                return BadRequest(JsonConvert.SerializeObject(result));
+            }
+
         }
     }
 }

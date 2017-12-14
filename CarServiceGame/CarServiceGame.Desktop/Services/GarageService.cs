@@ -80,7 +80,14 @@ namespace CarServiceGame.Desktop.Services
 
         public IEnumerable<GarageRanking> GetGaragesRanking(int count)
         {
-            throw new NotImplementedException();
+            using (var client = httpClientFactory.GetClient())
+            {
+                var responseTask = client.GetAsync($"{Config.Domain}api/v1/Garage/Ranking");
+                responseTask.Wait();
+                var response = responseTask.Result;
+                var responseString = response.Content.ReadAsString();
+                return JsonConvert.DeserializeObject<IEnumerable<GarageRanking>>(responseString);
+            }
         }
     }
 }

@@ -66,7 +66,17 @@ namespace CarServiceGame.Desktop.Services
 
         public void UpgradeWorker(Guid garageId, Guid workerId, decimal cost)
         {
-            throw new NotImplementedException();
+            using (var client = httpClientFactory.GetClient())
+            {
+                HttpContent content = new StringContent($"workerId={workerId}&cost={cost}", Encoding.ASCII, "application/x-www-form-urlencoded");
+                var responseTask = client.PostAsync($"{Config.Domain}api/v1/Workers/Upgrade", content);
+                responseTask.Wait();
+                var response = responseTask.Result;
+                var responseString = response.Content.ReadAsString();
+                dynamic obj = JsonConvert.DeserializeObject(responseString);
+                if (obj.status == "error")
+                    throw new Exception("Worker cannot be upgraded");
+            }
         }
     }
 }

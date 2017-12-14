@@ -43,7 +43,7 @@ namespace CarServiceGame.Domain.Concrete
 
         private void GenerateNewOrders()
         {
-            String[] names = { "Seat Ibiza", "Audi A4", "BMW M5", "Opel Insignia", "BMW X6", "Ford Focus", "Fiat Punto", "Fiat Multipla", "Citroen C4" , "Toyota Auris" };
+            String[] names = { "Seat Ibiza", "Audi A4", "BMW M5", "Opel Insignia", "BMW X6", "Ford Focus", "Fiat Punto", "Fiat Multipla", "Citroen C4", "Toyota Auris" };
             String[] desctiptions = { "Broken Engine", "Need to replace brakes", "Need to replace gearbox", "Broken Wheel", "Cannot start the car" };
 
             Random r = new Random();
@@ -57,7 +57,7 @@ namespace CarServiceGame.Domain.Concrete
                         Reward = r.Next(2, 101) * 100,
                         CarName = names[r.Next(names.Length)],
                         Description = desctiptions[r.Next(desctiptions.Length)],
-                        RequiredWork = r.Next(10001) ,
+                        RequiredWork = r.Next(10001),
                     };
                     context.RepairOrder.Add(order);
                 }
@@ -70,7 +70,7 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var repairProcesses = (from rp in context.RepairProcess
-                                       where rp.GarageId == garageId && rp.IsPickedUp == true && !rp.IsCancelled
+                                       where rp.GarageId == garageId && rp.IsPickedUp == true
                                        select new RepairProcess
                                        {
                                            CreatedDate = rp.CreatedDate,
@@ -94,7 +94,32 @@ namespace CarServiceGame.Domain.Concrete
 
                              ).Skip(skip).Take(take).ToArray();
 
-                return repairProcesses;
+                var cancelledProcesses = (from rp in context.RepairProcess
+                                          where rp.GarageId == garageId && rp.IsCancelled
+                                          select new RepairProcess
+                                          {
+                                              CreatedDate = rp.CreatedDate,
+                                              StallNumber = rp.StallNumber,
+                                              Order = new RepairOrder
+                                              {
+                                                  RequiredWork = rp.RepairOrder.RequiredWork,
+                                                  RepairOrderId = rp.RepairOrder.RepairOrderId,
+                                                  Description = rp.RepairOrder.Description,
+                                                  Reward = rp.RepairOrder.Reward / -10,
+                                                  CarName = rp.RepairOrder.CarName
+                                              },
+                                              AssignedWorker = new Worker
+                                              {
+                                                  WorkerId = rp.WorkerId,
+                                                  Salary = rp.Worker.Salary,
+                                                  Efficiency = rp.Worker.Efficiency,
+                                                  Name = rp.Worker.Name
+                                              }
+                                          }
+
+                             ).Skip(skip).Take(take).ToArray();
+
+                return cancelledProcesses.Concat(repairProcesses);
             }
         }
 
@@ -123,16 +148,16 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var models = (from rp in context.RepairProcess
-                                     where rp.RepairOrderId == orderId && rp.GarageId == garageId && rp.IsCancelled == false
-                                     select new
-                                     {
-                                         repairProcess = rp,
-                                         worker = rp.Worker,
-                                         order = rp.RepairOrder
-                                     }).FirstOrDefault();
+                              where rp.RepairOrderId == orderId && rp.GarageId == garageId && rp.IsCancelled == false
+                              select new
+                              {
+                                  repairProcess = rp,
+                                  worker = rp.Worker,
+                                  order = rp.RepairOrder
+                              }).FirstOrDefault();
 
                 if (models.order.RequiredWork / models.worker.Efficiency >
-                    (int) DateTime.Now.Subtract(models.repairProcess.CreatedDate).TotalSeconds)
+                    (int)DateTime.Now.Subtract(models.repairProcess.CreatedDate).TotalSeconds)
                 {
                     throw new Exception("Order cannot be finished");
                 }
