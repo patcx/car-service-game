@@ -78,6 +78,20 @@ namespace CarServiceGame.Desktop.Services
             }
         }
 
+        public void UpgradeGarage(Guid garageId)
+        {
+            using (var client = httpClientFactory.GetClient())
+            {
+                var responseTask = client.GetAsync($"{Config.Domain}api/v1/Garage/Upgrade");
+                responseTask.Wait();
+                var response = responseTask.Result;
+                var responseString = response.Content.ReadAsString();
+                dynamic obj = JsonConvert.DeserializeObject(responseString);
+                if (obj.status == "error")
+                    throw new Exception("Garage cannot be upgraded");
+            }
+        }
+ 
         public IEnumerable<GarageRanking> GetGaragesRanking(int count)
         {
             using (var client = httpClientFactory.GetClient())

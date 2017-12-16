@@ -19,12 +19,23 @@ namespace CarServiceGame.Desktop.ViewModels
 {
     public class GarageViewModel : ObservableObject
     {
-        private readonly int numberOfStalls = 4;
 
         private IWorkerRepository workersRepository;
         private IOrderRepository ordersRepository;
         private IGarageRepository garageRepository;
         private Garage model;
+        public int NumberOfStalls
+        {
+            get
+            {
+                return model.GarageLevel;
+            }
+            set
+            {
+                model.GarageLevel = value;
+                RaisePropertyChanged("NumberOfStalls");
+            }
+        }
 
         private RepairProcessViewModel[] stalls;
 
@@ -75,13 +86,13 @@ namespace CarServiceGame.Desktop.ViewModels
 
             EmployeedWorkers = new ObservableCollection<WorkerViewModel>(from w in model.EmployeedWorkers select new WorkerViewModel(w));
             RaisePropertyChanged("EmployeedWorkers");
+            RaisePropertyChanged("NumberOfStalls");
 
-            Stalls = new RepairProcessViewModel[numberOfStalls];
+            Stalls = new RepairProcessViewModel[NumberOfStalls];
             foreach (var v in model.RepairProcesses)
             {
-                Stalls[v.StallNumber] = new RepairProcessViewModel(v);
+                Stalls[v.StallNumber] = (new RepairProcessViewModel(v));
             }
-
             RaisePropertyChanged("Stalls");
             RaisePropertyChanged("AvailableWorkers");
         }
@@ -224,6 +235,41 @@ namespace CarServiceGame.Desktop.ViewModels
             }, scheduler);
 
         });
+
+        public ICommand UpgradeGarage => new RelayCommand(() =>
+        {
+            var window = (Application.Current.MainWindow as MetroWindow);
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading garage...", false);
+
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Run(() =>
+            {
+                progressDialog.Result.SetIndeterminate();
+
+                garageRepository.UpgradeGarage(model.GarageId);
+
+                progressDialog.Result.CloseAsync();
+
+            }).ContinueWith(x =>
+            {
+                if (x.Exception != null)
+                {
+                    window.ShowMessageAsync("", "Error while upgrading garage").Wait();
+                }
+                else
+                {
+                    NumberOfStalls += 2;
+                    RaisePropertyChanged("NumberOfStalls");
+                    var newStalls = new RepairProcessViewModel[NumberOfStalls];
+                    for (int i = 0; i < NumberOfStalls - 2; i++)
+                    {
+                        newStalls[i] = Stalls[i];
+                    }
+                    Stalls = newStalls;
+                }
+            }, scheduler);
+
+        }, () => model.GarageLevel < 20);
 
 
         public void AssignOrderToStall(int stallNumber, OrderViewModel order, WorkerViewModel worker)

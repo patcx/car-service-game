@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -20,8 +21,10 @@
             <Label Grid.Column="1" Content="{Binding Garage.Balance, StringFormat=C}" Margin="10" 
                    Foreground="Goldenrod" FontSize="34" FontWeight="Bold"/>
         </StackPanel>
-        <Label Grid.Row="1" Content="Completed Orders" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
-        <ListView Name="ordersListView" Grid.Row="2" ItemsSource="{Binding HistoryOrdersCollection.Orders, Source={StaticResource viewModelsLocator}}">
+        <Button  Margin="20" Grid.Row="1" Name="UpgradeGarage" Content="UpgradeGarage"
+                 Command="{Binding MainViewModel.Garage.UpgradeGarage, Source={StaticResource viewModelsLocator}}" ></Button>
+        <Label Grid.Row="2" Content="Completed Orders" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold"/>
+        <ListView Name="ordersListView" Grid.Row="3" ItemsSource="{Binding HistoryOrdersCollection.Orders, Source={StaticResource viewModelsLocator}}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="Data" DisplayMemberBinding="{Binding CreateDate}"/>

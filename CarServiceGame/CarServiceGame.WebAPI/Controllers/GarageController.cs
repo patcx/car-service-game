@@ -147,7 +147,24 @@ namespace CarServiceGame.WebAPI.Controllers
                 result.status = "error";
                 return BadRequest(JsonConvert.SerializeObject(result));
             }
+        }
 
+        [HttpGet("api/v{version:apiVersion}/Garage/Upgrade")]
+        public IActionResult UpgradeGarage([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId)
+        {
+            dynamic result = new ExpandoObject();
+            try
+            {
+                garageRepository.UpgradeGarage(garageId);
+                result.status = "ok";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                result.status = "error";
+                return BadRequest(JsonConvert.SerializeObject(result));
+            }
         }
     }
 }

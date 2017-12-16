@@ -10,6 +10,7 @@ namespace CarServiceGame.Domain.Entities
         public Guid GarageId { get; set; }
 
         public decimal CashBalance { get; set; }
+        public int GarageLevel { get; set; }
         public List<Worker> EmployeedWorkers { get; set; }
         public List<RepairProcess> RepairProcesses { get; set; }
 
@@ -23,6 +24,7 @@ namespace CarServiceGame.Domain.Entities
             GarageId = id;
             CashBalance = balance;
             EmployeedWorkers = new List<Worker>(workers);
+            GarageLevel = 4;
             if (repairs != null)
             {
                 if(repairs.Count()>4)
@@ -50,7 +52,12 @@ namespace CarServiceGame.Domain.Entities
 
         public void CancelOrder(Guid orderId)
         {
-            //TODO
+            RepairProcesses.RemoveAll(x => x.Order.RepairOrderId == orderId);
+        }
+
+        public void UpgradeGarage()
+        {
+            GarageLevel += 2;
         }
 
         public void SetCashBalance(decimal balance)

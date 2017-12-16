@@ -40,13 +40,26 @@
         </ListView>
         <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="10" Foreground="Crimson" FontSize="34" FontWeight="Bold" Text="Garage"></TextBlock>
         <Grid Grid.Column="1" Grid.Row="1" DataContext="{Binding MainViewModel, Source={StaticResource viewModelsLocator}}">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Button Content="Stall 1" Grid.Row="0" Margin="25" Click="Button1_Click" IsEnabled="{Binding Garage.Stalls[0], Converter={StaticResource IsNotNull}}">
+            <ListBox Name="StallsView" ItemsSource="{Binding Garage.Stalls}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="Stall" Margin="25" Click="Button1_Click" IsEnabled="{Binding Converter={StaticResource IsNotNull}}"></Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--<Button Content="Stall 1" Grid.Row="0" Margin="25" Click="Button1_Click" IsEnabled="{Binding Garage.Stalls[0], Converter={StaticResource IsNotNull}}">
 
             </Button>
             <Button Content="Stall 2" Grid.Row="1" Margin="25" Click="Button2_Click" IsEnabled="{Binding Garage.Stalls[1], Converter={StaticResource IsNotNull}}">
@@ -57,7 +70,7 @@
             </Button>
             <Button Content="Stall 4" Grid.Row="3" Margin="25" Click="Button4_Click" IsEnabled="{Binding Garage.Stalls[3], Converter={StaticResource IsNotNull}}">
 
-            </Button>
+            </Button>-->
         </Grid>
     </Grid>
 </mahApps:MetroWindow>

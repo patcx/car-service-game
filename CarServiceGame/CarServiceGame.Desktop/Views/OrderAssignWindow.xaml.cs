@@ -43,7 +43,9 @@ namespace CarServiceGame.Desktop.Views
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(0);
+            MessageBox.Show(e.OriginalSource.ToString());
+            MessageBox.Show(e.Handled.ToString());
+            MessageBox.Show(e.RoutedEvent.ToString());
         }
         private void Button2_Click(object sender, RoutedEventArgs e)
         {

@@ -37,6 +37,7 @@ namespace CarServiceGame.Domain.Concrete
                               select new Garage()
                               {
                                   GarageId = x.GarageId,
+                                  GarageLevel = x.GarageLevel,
                                   EmployeedWorkers = new List<Worker>(from worker in x.Worker
                                                                       select new Worker()
                                                                       {
@@ -118,6 +119,7 @@ namespace CarServiceGame.Domain.Concrete
                     Name = name,
                     Password = hashedPassword,
                     GarageId = Guid.NewGuid(),
+                    GarageLevel = 4
                 };
                 context.Garage.Add(garage);
                 try
@@ -156,6 +158,18 @@ namespace CarServiceGame.Domain.Concrete
             }
         }
 
+        public void UpgradeGarage(Guid garageId)
+        {
+            using (var context = GetContext())
+            {
+                var garage = (from g in context.Garage
+                               where g.GarageId == garageId
+                               select g).FirstOrDefault();
+                garage.GarageLevel += 2;
+                context.SaveChanges();
+            }
+        }
+
         public static string GetSha256FromString(string strData)
         {
             var message = Encoding.ASCII.GetBytes(strData);
@@ -169,5 +183,6 @@ namespace CarServiceGame.Domain.Concrete
             }
             return hex;
         }
+
     }
 }
