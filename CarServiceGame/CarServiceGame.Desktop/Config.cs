@@ -8,7 +8,7 @@ namespace CarServiceGame.Desktop
 {
     public class Config
     {
-        //public static string Domain = "http://145.239.86.224/carservice/";
-        public static string Domain = "http://localhost:57456/";
+        public static string Domain = "http://145.239.86.224/carservice/";
+        //public static string Domain = "http://localhost:57456/";
     }
 }

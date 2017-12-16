@@ -136,7 +136,8 @@ namespace CarServiceGame.Domain.Concrete
                     GarageId = garage.GarageId,
                     EmployeedWorkers = new List<Worker>(),
                     RepairProcesses = new List<RepairProcess>(),
-                    CashBalance = 0
+                    CashBalance = 0,
+                    GarageLevel = 4
                 };
             }
         }

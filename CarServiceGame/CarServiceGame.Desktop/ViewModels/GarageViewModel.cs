@@ -136,15 +136,16 @@ namespace CarServiceGame.Desktop.ViewModels
         public ICommand UpgradeWorker => new RelayCommand<WorkerViewModel>(w =>
         {
             var window = (Application.Current.MainWindow as MetroWindow);
-            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading worker...", false);
 
             var cost = w.Efficiency * 50;
 
             if (cost > GlobalResources.Garage.Balance)
             {
-                window.ShowMessageAsync("", "Not enough money to upgrade worker").Wait();
+                window.ShowMessageAsync("", "Not enough money to upgrade worker");
                 return;
             }
+
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading worker...", false);
 
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Run(() =>
@@ -152,7 +153,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 progressDialog.Result.SetIndeterminate();
 
                 workersRepository.UpgradeWorker(model.GarageId, w.GetModel().WorkerId, cost);
-
+                UpdateBalance();
                 progressDialog.Result.CloseAsync();
 
             }).ContinueWith(x =>
@@ -183,8 +184,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 progressDialog.Result.SetIndeterminate();
 
                 ordersRepository.FinishOrder(model.GarageId, rp.Order.GetModel().RepairOrderId);
-                var newBalance = garageRepository.GetGarageBalance(model.GarageId);
-                model.SetCashBalance(newBalance);
+                UpdateBalance();
 
                 progressDialog.Result.CloseAsync();
 
@@ -198,13 +198,20 @@ namespace CarServiceGame.Desktop.ViewModels
                 {
                     Stalls[rp.StallNumber].RepairProcess = null;
                     model.FinishOrder(rp.Order.GetModel().RepairOrderId);
-                    RaisePropertyChanged("Stalls");
-                    RaisePropertyChanged("AvailableWorkers");
-                    RaisePropertyChanged("Balance");
+                    base.RaisePropertyChanged("Stalls");
+                    base.RaisePropertyChanged("AvailableWorkers");
+                    base.RaisePropertyChanged("Balance");
                 }
             }, scheduler);
 
         });
+
+        private void UpdateBalance()
+        {
+            var newBalance = garageRepository.GetGarageBalance(model.GarageId);
+            model.SetCashBalance(newBalance);
+            RaisePropertyChanged("Balance");
+        }
 
         public ICommand CancelJob => new RelayCommand<RepairProcessViewModel>(rp =>
         {
@@ -217,8 +224,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 progressDialog.Result.SetIndeterminate();
 
                 ordersRepository.CancelOrder(model.GarageId, rp.Order.GetModel().RepairOrderId);
-                var newBalance = garageRepository.GetGarageBalance(model.GarageId);
-                model.SetCashBalance(newBalance);
+                UpdateBalance();
 
                 progressDialog.Result.CloseAsync();
 
@@ -226,7 +232,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 if (x.Exception != null)
                 {
-                    window.ShowMessageAsync("", "Error while canceling job").Wait();
+                    window.ShowMessageAsync("", "Error while canceling job");
                 }
                 else
                 {
@@ -243,30 +249,30 @@ namespace CarServiceGame.Desktop.ViewModels
         public ICommand UpgradeGarage => new RelayCommand(() =>
         {
             var window = (Application.Current.MainWindow as MetroWindow);
-            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading garage...", false);
 
             var cost = 1000 * model.GarageLevel;
 
             if (cost > model.CashBalance)
             {
-                window.ShowMessageAsync("", "Not Enough Money").Wait();
+                window.ShowMessageAsync("", "Not Enough Money");
                 return;
             }
 
+            var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading garage...", false);
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Run(() =>
             {
                 progressDialog.Result.SetIndeterminate();
 
                 garageRepository.UpgradeGarage(model.GarageId, cost);
-
+                UpdateBalance();
                 progressDialog.Result.CloseAsync();
 
             }).ContinueWith(x =>
             {
                 if (x.Exception != null)
                 {
-                    window.ShowMessageAsync("", "Error while upgrading garage").Wait();
+                    window.ShowMessageAsync("", "Error while upgrading garage");
                 }
                 else
                 {
