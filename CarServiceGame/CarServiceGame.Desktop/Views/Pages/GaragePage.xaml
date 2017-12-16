@@ -11,7 +11,7 @@
       Title="GaragePage">
 
     <Grid DataContext="{Binding MainViewModel, Source={StaticResource viewModelsLocator}}">
-        <ListBox Name="StallsView" ItemsSource="{Binding Garage.Stalls}">
+        <ListBox Name="ordersListView" ItemsSource="{Binding Garage.Stalls}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="Transparent" />
@@ -32,7 +32,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <UserControl>
-                        <stall:OrderTimer />
+                        <stall:OrderTimer RepairProcess="{Binding RepairProcess}" />
                     </UserControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -19,7 +19,7 @@
         <TabItem Header="Workers" IsSelected="{Binding AvailableWorkersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="WorkersPage.xaml"></Frame>
         </TabItem>
-        <TabItem Header="Statistic" IsSelected="{Binding HistoryOrdersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
+        <TabItem Header="Office" IsSelected="{Binding HistoryOrdersCollection.IsTabSelected, Source={StaticResource viewModelsLocator}}">
             <Frame Source="StatisticPage.xaml"></Frame>
         </TabItem>
         <TabItem Header="Ranking" IsSelected="{Binding Ranking.IsTabSelected, Source={StaticResource viewModelsLocator}}">

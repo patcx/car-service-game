@@ -43,21 +43,8 @@ namespace CarServiceGame.Desktop.Views
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(e.OriginalSource.ToString());
-            MessageBox.Show(e.Handled.ToString());
-            MessageBox.Show(e.RoutedEvent.ToString());
-        }
-        private void Button2_Click(object sender, RoutedEventArgs e)
-        {
-            Button_Click(1);
-        }
-        private void Button3_Click(object sender, RoutedEventArgs e)
-        {
-            Button_Click(2);
-        }
-        private void Button4_Click(object sender, RoutedEventArgs e)
-        {
-            Button_Click(3);
+            Button b = (Button)e.Source;
+            Button_Click((int)b.Tag);
         }
 
         private async void Button_Click(int stallNumber)

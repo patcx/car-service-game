@@ -37,9 +37,9 @@ namespace CarServiceGame.Desktop.ViewModels
             }
         }
 
-        private RepairProcessViewModel[] stalls;
+        private StallViewModel[] stalls;
 
-        public RepairProcessViewModel[] Stalls
+        public StallViewModel[] Stalls
         {
             get
             {
@@ -73,7 +73,7 @@ namespace CarServiceGame.Desktop.ViewModels
             {
                 return
                     new ObservableCollection<WorkerViewModel>(
-                        (EmployeedWorkers.Where(x => Stalls.All(t => t?.AssignedWorker.GetModel().WorkerId != x.GetModel().WorkerId))));
+                        (EmployeedWorkers.Where(x => Stalls.All(t => t.RepairProcess?.AssignedWorker.GetModel().WorkerId != x.GetModel().WorkerId))));
             }
         }
 
@@ -88,10 +88,14 @@ namespace CarServiceGame.Desktop.ViewModels
             RaisePropertyChanged("EmployeedWorkers");
             RaisePropertyChanged("NumberOfStalls");
 
-            Stalls = new RepairProcessViewModel[NumberOfStalls];
+            Stalls = new StallViewModel[NumberOfStalls];
+            for (int i=0;i<NumberOfStalls;i++)
+            {
+                Stalls[i] = new StallViewModel(i);
+            }
             foreach (var v in model.RepairProcesses)
             {
-                Stalls[v.StallNumber] = (new RepairProcessViewModel(v));
+                Stalls[v.StallNumber].RepairProcess = (new RepairProcessViewModel(v));
             }
             RaisePropertyChanged("Stalls");
             RaisePropertyChanged("AvailableWorkers");
@@ -192,7 +196,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    Stalls[rp.StallNumber] = null;
+                    Stalls[rp.StallNumber].RepairProcess = null;
                     model.FinishOrder(rp.Order.GetModel().RepairOrderId);
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
@@ -226,7 +230,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    Stalls[rp.StallNumber] = null;
+                    Stalls[rp.StallNumber].RepairProcess = null;
                     model.CancelOrder(rp.Order.GetModel().RepairOrderId);
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
@@ -260,11 +264,13 @@ namespace CarServiceGame.Desktop.ViewModels
                 {
                     NumberOfStalls += 2;
                     RaisePropertyChanged("NumberOfStalls");
-                    var newStalls = new RepairProcessViewModel[NumberOfStalls];
+                    var newStalls = new StallViewModel[NumberOfStalls];
                     for (int i = 0; i < NumberOfStalls - 2; i++)
                     {
                         newStalls[i] = Stalls[i];
                     }
+                    newStalls[NumberOfStalls - 2] = new StallViewModel(NumberOfStalls - 2);
+                    newStalls[NumberOfStalls - 1] = new StallViewModel(NumberOfStalls - 1);
                     Stalls = newStalls;
                 }
             }, scheduler);
@@ -294,7 +300,7 @@ namespace CarServiceGame.Desktop.ViewModels
                 }
                 else
                 {
-                    Stalls[stallNumber] = repairProcess;
+                    Stalls[stallNumber].RepairProcess = repairProcess;
                     model.AddRepairProcess(repairProcess.GetModel());
                     RaisePropertyChanged("Stalls");
                     RaisePropertyChanged("AvailableWorkers");
