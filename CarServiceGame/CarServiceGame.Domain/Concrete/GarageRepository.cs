@@ -158,7 +158,7 @@ namespace CarServiceGame.Domain.Concrete
             }
         }
 
-        public void UpgradeGarage(Guid garageId)
+        public void UpgradeGarage(Guid garageId, decimal cost)
         {
             using (var context = GetContext())
             {
@@ -166,8 +166,20 @@ namespace CarServiceGame.Domain.Concrete
                                where g.GarageId == garageId
                                select g).FirstOrDefault();
                 garage.GarageLevel += 2;
+                int level = garage.GarageLevel;
+                context.SaveChanges();
+
+                Db.GarageUpgrade gu = new Db.GarageUpgrade
+                {
+                    GarageUpgradeId = Guid.NewGuid(),
+                    Cost = cost,
+                    GarageId = garageId,
+                    ResultLevel = level
+                };
+                context.GarageUpgrade.Add(gu);
                 context.SaveChanges();
             }
+
         }
 
         public static string GetSha256FromString(string strData)

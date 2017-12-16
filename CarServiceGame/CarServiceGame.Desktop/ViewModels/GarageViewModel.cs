@@ -245,12 +245,20 @@ namespace CarServiceGame.Desktop.ViewModels
             var window = (Application.Current.MainWindow as MetroWindow);
             var progressDialog = window.ShowProgressAsync("Please wait...", "Upgrading garage...", false);
 
+            var cost = 1000 * model.GarageLevel;
+
+            if (cost > model.CashBalance)
+            {
+                window.ShowMessageAsync("", "Not Enough Money").Wait();
+                return;
+            }
+
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Run(() =>
             {
                 progressDialog.Result.SetIndeterminate();
 
-                garageRepository.UpgradeGarage(model.GarageId);
+                garageRepository.UpgradeGarage(model.GarageId, cost);
 
                 progressDialog.Result.CloseAsync();
 

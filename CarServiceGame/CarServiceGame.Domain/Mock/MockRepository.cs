@@ -116,7 +116,7 @@ namespace CarServiceGame.Domain.Mock
             return new List<GarageRanking>();
         }
 
-        public void UpgradeGarage(Guid garageId)
+        public void UpgradeGarage(Guid garageId, decimal cost)
         {
             garage.GarageLevel += 2;
         }

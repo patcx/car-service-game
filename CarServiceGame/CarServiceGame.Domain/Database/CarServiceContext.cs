@@ -11,6 +11,7 @@ namespace CarServiceGame.Domain.Database
         public virtual DbSet<RepairProcess> RepairProcess { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
         public virtual DbSet<WorkerUpgrade> WorkerUpgrade { get; set; }
+        public virtual DbSet<GarageUpgrade> GarageUpgrade { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -118,6 +119,7 @@ namespace CarServiceGame.Domain.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__WorkerUpg__Worke__59063A47");
             });
+
         }
     }
 }

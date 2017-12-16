@@ -78,11 +78,12 @@ namespace CarServiceGame.Desktop.Services
             }
         }
 
-        public void UpgradeGarage(Guid garageId)
+        public void UpgradeGarage(Guid garageId, decimal cost)
         {
             using (var client = httpClientFactory.GetClient())
             {
-                var responseTask = client.GetAsync($"{Config.Domain}api/v1/Garage/Upgrade");
+                HttpContent content = new StringContent($"cost={cost}", Encoding.ASCII, "application/x-www-form-urlencoded");
+                var responseTask = client.PostAsync($"{Config.Domain}api/v1/Garage/Upgrade", content);
                 responseTask.Wait();
                 var response = responseTask.Result;
                 var responseString = response.Content.ReadAsString();
