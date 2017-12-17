@@ -71,7 +71,7 @@ namespace CarServiceGame.UnitTests
                 context.SaveChanges();
             }
 
-            workerRepository.FireWorker(workerId);
+            workerRepository.FireWorker(garageId, workerId);
 
             Guid? workerGarageId;
             using (var context = new Db.CarServiceContext(options))
