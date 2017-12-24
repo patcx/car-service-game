@@ -1,0 +1,7 @@
+<div *ngIf="isValidToken(); else invalidToken">
+  <app-dashboard-page></app-dashboard-page>
+</div>
+
+<ng-template #invalidToken>
+  Invalid
+</ng-template>
