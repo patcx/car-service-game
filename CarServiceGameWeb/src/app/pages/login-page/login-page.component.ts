@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login-page',
@@ -7,13 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  name: string;
+  password: string;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
   }
 
   isValidToken() {
-    /// TODO
-    return true;
+    return this.loginService.isValidToken();
+  }
+
+  login() {
+    this.loginService.login(this.name, this.password);
   }
 }

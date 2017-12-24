@@ -3,5 +3,13 @@
 </div>
 
 <ng-template #invalidToken>
-  Invalid
+  <label> Login:
+    <input type="text" [(ngModel)]="name">
+  </label>
+  <br>
+  <label> Password:
+    <input type="password" [(ngModel)]="password">
+  </label>
+  <br>
+  <input type="button" class="btn btn-info" value="Login" (click)="login()">
 </ng-template>

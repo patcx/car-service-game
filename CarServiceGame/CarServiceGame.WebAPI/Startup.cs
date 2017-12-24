@@ -57,6 +57,10 @@ namespace CarServiceGame.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            // Dostosować do odpowiednich domen
+            app.UseCors(builder =>
+                 builder.WithOrigins("*"));
+
             app.UseAuthentication();
             app.UseMvc();
         }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -11,6 +12,7 @@ import { RankingPageComponent } from './pages/ranking-page/ranking-page.componen
 import { WorkersPageComponent } from './pages/workers-page/workers-page.component';
 import { OfficePageComponent } from './pages/office-page/office-page.component';
 import { LoginService } from './services/login.service';
+import { Http, HttpModule } from '@angular/http';
 
 
 const routes: Routes = [
@@ -35,7 +37,9 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    HttpModule,
   ],
   exports: [
     RouterModule

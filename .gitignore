@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /CarServiceGame/CarServiceGame.Desktop/ViewModels/WorkerViewTest.cs
 /CarServiceGame/CarServiceGame.Desktop/ViewModels/OrderViewTest.cs
+/*.rar
