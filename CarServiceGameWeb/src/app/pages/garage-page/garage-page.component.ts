@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IRankingService } from '../../interfaces/ranking-service';
 
 @Component({
   selector: 'app-garage-page',

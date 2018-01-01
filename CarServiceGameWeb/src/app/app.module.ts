@@ -15,6 +15,7 @@ import { LoginService } from './services/login.service';
 import { Http, HttpModule } from '@angular/http';
 import { RankingService } from './services/ranking.service';
 import { TokenService } from './services/token.service';
+import { CommonModule } from '@angular/common';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    CommonModule,
     HttpModule,
   ],
   exports: [

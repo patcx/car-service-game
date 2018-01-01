@@ -59,7 +59,7 @@ namespace CarServiceGame.WebAPI
 
             // Dostosować do odpowiednich domen
             app.UseCors(builder =>
-                 builder.WithOrigins("*"));
+                 builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseMvc();

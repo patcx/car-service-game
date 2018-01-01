@@ -1,6 +1,7 @@
 import { Component, OnInit, Injectable, Inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { TokenService } from '../../services/token.service';
+import { ILoginService } from '../../interfaces/login-service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,7 @@ export class LoginPageComponent implements OnInit {
   name: string;
   password: string;
 
-  constructor(@Inject('LoginService') private loginService: LoginService, private tokenService: TokenService) { }
+  constructor(@Inject('LoginService') private loginService: ILoginService, private tokenService: TokenService) { }
 
   ngOnInit() {
   }

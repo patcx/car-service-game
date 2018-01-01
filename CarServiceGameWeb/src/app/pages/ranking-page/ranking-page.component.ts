@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IRankingService } from '../../interfaces/ranking-service';
+import { SortingValue } from '../../services/ranking.service';
+import { FormsModule } from '@angular/forms';
+import { GarageRanking } from '../../model/garage-ranking';
 
 @Component({
   selector: 'app-ranking-page',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor( @Inject('RankingService') private rankingService: IRankingService) { }
 
   ngOnInit() {
+    this.rankingService.getRanking();
+  }
+
+  getGaragesRanking(): Array<GarageRanking> {
+    return this.rankingService.getGaragesRanking(SortingValue.CASH);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Headers } from '@angular/http';
 
 @Injectable()
 export class TokenService {
@@ -16,6 +17,14 @@ export class TokenService {
   }
 
   setToken(token): void {
+    console.log(token);
     this.token = token;
+  }
+
+  getTokenHeader(): Headers {
+    let headers = new Headers();
+    if (this.token == null) return null;
+    headers.append("Authorization", "Bearer " + this.getToken());
+    return headers;
   }
 }

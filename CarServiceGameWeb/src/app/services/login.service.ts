@@ -15,7 +15,6 @@ export class LoginService implements ILoginService{
   public login(name, password): void {
     let content = `name=${name}&password=${password}`;
     let headers = new Headers();
-    console.log(content);
     headers.append("Content-Type","application/x-www-form-urlencoded");
     let self = this;
     this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, {headers: headers}).subscribe(x => self.tokenService.setToken(x.json().token));
@@ -24,7 +23,6 @@ export class LoginService implements ILoginService{
    public createAccount(name, password): void {
     let content = `name=${name}&password=${password}`;
     let headers = new Headers();
-    console.log(content);
     headers.append("Content-Type","application/x-www-form-urlencoded");
     let self = this;
     this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Register`, content, {headers: headers}).subscribe(x => self.tokenService.setToken(x.json().token));
