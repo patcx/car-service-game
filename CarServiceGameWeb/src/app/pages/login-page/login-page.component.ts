@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login-page',
@@ -11,16 +12,28 @@ export class LoginPageComponent implements OnInit {
   name: string;
   password: string;
 
-  constructor(private loginService: LoginService) { }
+  constructor(@Inject('LoginService') private loginService: LoginService, private tokenService: TokenService) { }
 
   ngOnInit() {
   }
 
-  isValidToken() {
-    return this.loginService.isValidToken();
+  isValidToken(): boolean {
+    return this.tokenService.isValidToken();
   }
 
-  login() {
+  login(): void {
     this.loginService.login(this.name, this.password);
+  }
+  createAccount(): void {
+    if (this.passwordIsCorrect(this.password)) {
+      this.loginService.createAccount(this.name, this.password);
+    } else {
+      alert('Password should contains: uppercase letter, lowercase letter and digit');
+    }
+  }
+
+  passwordIsCorrect(password: string): boolean {
+    return true;
+    //TODO
   }
 }

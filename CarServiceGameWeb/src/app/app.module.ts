@@ -13,6 +13,8 @@ import { WorkersPageComponent } from './pages/workers-page/workers-page.componen
 import { OfficePageComponent } from './pages/office-page/office-page.component';
 import { LoginService } from './services/login.service';
 import { Http, HttpModule } from '@angular/http';
+import { RankingService } from './services/ranking.service';
+import { TokenService } from './services/token.service';
 
 
 const routes: Routes = [
@@ -45,7 +47,9 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    LoginService
+    [{provide: 'LoginService', useClass: LoginService}],
+    [{provide: 'RankingService', useClass: RankingService}],
+    TokenService
   ],
   bootstrap: [AppComponent]
 })
