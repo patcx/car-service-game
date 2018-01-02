@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IOfficeService } from '../../interfaces/office-service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-office-page',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfficePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject('OfficeService') private officeService: IOfficeService) { }
 
   ngOnInit() {
+    this.officeService.getGarageBalance();
+    this.officeService.getHistoryOrders();
+  }
+
+  getBalance() {
+    return this.officeService.getCashBalance();
   }
 
 }
