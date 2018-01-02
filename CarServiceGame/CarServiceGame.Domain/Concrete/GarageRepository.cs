@@ -47,7 +47,7 @@ namespace CarServiceGame.Domain.Concrete
                                                                           Name = worker.Name
                                                                       }),
                                   RepairProcesses = new List<RepairProcess>((from repairProcess in x.RepairProcess
-                                                                             where repairProcess.IsPickedUp == false  && !repairProcess.IsCancelled
+                                                                             where repairProcess.IsPickedUp == false && !repairProcess.IsCancelled
                                                                              select new RepairProcess
                                                                              {
                                                                                  Order = new RepairOrder()
@@ -146,15 +146,36 @@ namespace CarServiceGame.Domain.Concrete
         {
             using (var context = GetContext())
             {
-                var ranking =  new List<GarageRanking>(from garage in context.Garage
-                                                                     select new GarageRanking()
-                                                                     {
-                                                                         GarageId = garage.GarageId,
-                                                                         Name = garage.Name,
-                                                                         CashBalance = (from gb in context.GarageBalance
-                                                                                        where gb.GarageId == garage.GarageId
-                                                                                        select gb.Balance).FirstOrDefault()
-                                                                     }).Take(count);
+                var ranking = new List<GarageRanking>(from garage in context.Garage
+                                                      select new GarageRanking()
+                                                      {
+                                                          GarageId = garage.GarageId,
+                                                          Name = garage.Name,
+                                                          CashBalance = (from gb in context.GarageBalance
+                                                                         where gb.GarageId == garage.GarageId
+                                                                         select gb.Balance).FirstOrDefault(),
+                                                          NumberOfWorkers = (from w in context.Worker
+                                                                             where w.GarageId == garage.GarageId
+                                                                             select w.WorkerId).Count(),
+                                                          NumberOfCompletedOrders = (from rp in context.RepairProcess
+                                                                                    where rp.GarageId == garage.GarageId && rp.IsPickedUp == true
+                                                                                    select rp.RepairOrderId).Count(),
+                                                      }).Take(count);
+                foreach (var garage in ranking)
+                {
+                    int incompletedOrders = (from rp in context.RepairProcess
+                                             where rp.GarageId == garage.GarageId && rp.IsPickedUp == false
+                                             select rp.RepairOrderId).Count();
+                    int sumationOrders = (incompletedOrders + garage.NumberOfCompletedOrders);
+                    if (sumationOrders == 0)
+                    {
+                        garage.Efficiency = 0;
+                    }
+                    else
+                    {
+                        garage.Efficiency = (garage.NumberOfCompletedOrders * 100) / sumationOrders;
+                    }
+                }
                 return ranking.OrderByDescending(x => x.CashBalance);
             }
         }
@@ -164,8 +185,8 @@ namespace CarServiceGame.Domain.Concrete
             using (var context = GetContext())
             {
                 var garage = (from g in context.Garage
-                               where g.GarageId == garageId
-                               select g).FirstOrDefault();
+                              where g.GarageId == garageId
+                              select g).FirstOrDefault();
                 garage.GarageLevel += 2;
                 int level = garage.GarageLevel;
                 context.SaveChanges();

@@ -17,7 +17,6 @@ export class TokenService {
   }
 
   setToken(token): void {
-    console.log(token);
     this.token = token;
   }
 

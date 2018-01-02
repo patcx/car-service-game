@@ -9,17 +9,23 @@ namespace CarServiceGame.Domain.Entities
         public Guid GarageId { get; set; }
         public string Name { get; set; }
         public decimal CashBalance { get; set; }
+        public int NumberOfWorkers { get; set; }
+        public int NumberOfCompletedOrders { get; set; }
+        public int Efficiency { get; set; }
 
         public GarageRanking()
         {
 
         }
 
-        public GarageRanking(Guid garageId, string name, decimal cashBalance)
+        public GarageRanking(Guid garageId, string name, decimal cashBalance, int numberOfWorkers, int numberOfCompletedOrders, int efficiency)
         {
             GarageId = garageId;
             Name = name;
             CashBalance = cashBalance;
+            NumberOfWorkers = numberOfWorkers;
+            NumberOfCompletedOrders = numberOfCompletedOrders;
+            Efficiency = efficiency;
         }
 
     }

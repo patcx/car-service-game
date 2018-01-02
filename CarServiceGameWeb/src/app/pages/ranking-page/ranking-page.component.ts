@@ -7,18 +7,45 @@ import { GarageRanking } from '../../model/garage-ranking';
 @Component({
   selector: 'app-ranking-page',
   templateUrl: './ranking-page.component.html',
-  styleUrls: ['./ranking-page.component.css']
+  styleUrls: ['./ranking-page.component.css'],
 })
+
 export class RankingPageComponent implements OnInit {
 
-  constructor( @Inject('RankingService') private rankingService: IRankingService) { }
+  sortingValues: Array<any>;
+  selectedValue: SortingValue;
+
+  constructor( @Inject('RankingService') private rankingService: IRankingService) {
+  }
+
 
   ngOnInit() {
     this.rankingService.getRanking();
+    this.createSortingValues();
   }
 
-  getGaragesRanking(): Array<GarageRanking> {
-    return this.rankingService.getGaragesRanking(SortingValue.CASH);
+  getGaragesRanking() { // Wiem, nieładnie, jak starczy czasu przed kolokwiami, to naprawie :)
+    if (this.selectedValue == 0) {
+      return this.rankingService.getGaragesRanking(SortingValue.CASH);
+    } else if (this.selectedValue == 1) {
+      return this.rankingService.getGaragesRanking(SortingValue.WORKERS);
+    } else if (this.selectedValue == 2) {
+      return this.rankingService.getGaragesRanking(SortingValue.ORDERS);
+    } else if (this.selectedValue == 3) {
+      return this.rankingService.getGaragesRanking(SortingValue.EFFICIENCY);
+    } else if (this.selectedValue == 4) {
+      return this.rankingService.getGaragesRanking(SortingValue.NAME);
+    }
+  }
+
+  createSortingValues() {
+    this.selectedValue = SortingValue.ORDERS;
+    this.sortingValues = new Array();
+    this.sortingValues.push(SortingValue.CASH);
+    this.sortingValues.push(SortingValue.WORKERS);
+    this.sortingValues.push(SortingValue.ORDERS);
+    this.sortingValues.push(SortingValue.EFFICIENCY);
+    this.sortingValues.push(SortingValue.NAME);
   }
 
 }

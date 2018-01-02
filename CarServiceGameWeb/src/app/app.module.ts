@@ -16,6 +16,7 @@ import { Http, HttpModule } from '@angular/http';
 import { RankingService } from './services/ranking.service';
 import { TokenService } from './services/token.service';
 import { CommonModule } from '@angular/common';
+import { SortPipe } from './pages/ranking-page/sort.pipe';
 
 
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
     OrdersPageComponent,
     RankingPageComponent,
     WorkersPageComponent,
-    OfficePageComponent
+    OfficePageComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,

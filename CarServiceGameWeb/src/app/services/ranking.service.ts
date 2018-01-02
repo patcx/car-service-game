@@ -27,11 +27,13 @@ export class RankingService implements IRankingService {
     this.garages = new Array();
     let self = this;
     response.forEach(element => {
-      self.garages.push(new GarageRanking(element.Name, element.CashBalance, 0, 0, 0)); // TODO
+      self.garages.push(new GarageRanking(element.Name, element.CashBalance, element.NumberOfWorkers,
+        element.NumberOfCompletedOrders, element.Efficiency));
     });
   }
 
   getGaragesRanking(value: SortingValue): Array<GarageRanking> {
+    console.log(value);
     switch (value) {
       case SortingValue.CASH:
         return this.garages.sort((a, b) => a.balance < b.balance ? 1 : -1);
@@ -44,7 +46,6 @@ export class RankingService implements IRankingService {
       case SortingValue.NAME:
         return this.garages.sort((a, b) => a.garageName > b.garageName ? 1 : -1);
     }
-    return this.garages;
   }
 
 }

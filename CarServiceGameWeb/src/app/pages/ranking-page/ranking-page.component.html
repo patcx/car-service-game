@@ -1,9 +1,13 @@
+<select [(ngModel)]="this.selectedValue" (change)="getGaragesRanking()">
+  <option *ngFor="let key of this.sortingValues" [value]="key">{{key | sort}}</option>
+</select>
+<br>
 <table cellspacing="10" border="1">
   <tr *ngFor="let garage of this.getGaragesRanking()">
     <td>{{garage.garageName}} </td>
     <td>{{garage.balance}} </td>
     <td>{{garage.numberOfWorkers}} </td>
     <td>{{garage.numberOfCompletedOrders}} </td>
-    <td>{{garage.efficiency}} </td>
+    <td>{{garage.efficiency}}% </td>
   </tr>
 </table>
