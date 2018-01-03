@@ -1,21 +1,25 @@
 <div class="col-sm-12">
-    <div class="page-header">
-      <h3>Available orders</h3>
-    </div>
-    <table class="table table-striped">
-      <tr>
-        <th>Car name</th>
-        <th>Required work</th>
-        <th>Reward</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>{{garage.garageName}} </td>
-        <td>{{garage.balance}} </td>
-        <td>{{garage.numberOfWorkers}} </td>
-        <td>{{garage.numberOfCompletedOrders}} </td>
-        <td>{{garage.efficiency}}% </td>
-      </tr>
-    </table>
+  <div class="page-header">
+    <h3>Available orders</h3>
   </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Car name</th>
+      <th>Required work</th>
+      <th>Reward</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let order of this.getOrders()">
+      <td>{{order.carName}} </td>
+      <td>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(order.requiredWork)"></div>
+        </div>
+      </td>
+      <td>{{order.reward}} </td>
+      <td>{{order.description}} </td>
+      <td> </td>
+    </tr>
+  </table>
+</div>

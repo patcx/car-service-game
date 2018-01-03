@@ -18,6 +18,7 @@ import { TokenService } from './services/token.service';
 import { CommonModule } from '@angular/common';
 import { SortPipe } from './pages/ranking-page/sort.pipe';
 import { OfficeService } from './services/office.service';
+import { OrderService } from './services/order.service';
 
 
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
     [{provide: 'LoginService', useClass: LoginService}],
     [{provide: 'RankingService', useClass: RankingService}],
     [{provide: 'OfficeService', useClass: OfficeService}],
+    [{provide: 'OrderService', useClass: OrderService}],
     TokenService
   ],
   bootstrap: [AppComponent]
