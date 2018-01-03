@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IOfficeService } from '../../interfaces/office-service';
-import { TokenService } from '../../services/token.service';
-import { GarageViewModel } from '../../view-model/garage-view-model';
+import { IGarageService } from '../../interfaces/garage-service';
+import { IOrderService } from '../../interfaces/order-service';
 
 @Component({
   selector: 'app-office-page',
@@ -12,18 +11,25 @@ export class OfficePageComponent implements OnInit {
 
   private balance: number;
 
-  constructor(private garageViewModel: GarageViewModel, private orderViewModel) { }
+  constructor( @Inject("GarageService") private garageService: IGarageService,
+    @Inject('OrderService') private orderService: IOrderService) { }
 
   ngOnInit() {
     let self = this;
-    this.garageViewModel.getGarageBalance();
+    this.garageService.getGarageBalance().subscribe(x => self.balance = x.balance);
   }
 
   getBalance() {
-    return this.garageViewModel;
+    return this.balance;
   }
 
-  upgradeGarage() {
+  upgradeGarage(event) {
+    let cost = this.garageService.prepareUpgrade();
+    console.log(cost);
+    if (cost > this.balance) {
+      return;
+    }
+    this.garageService.upgradeGarage(cost);
   }
 
 }

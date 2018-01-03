@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
+import { Garage } from '../model/garage';
 
 @Injectable()
-export class TokenService {
+export class AccountService {
 
   private token: string;
+  private garage: Garage;
+
 
   constructor() { }
 
@@ -18,6 +21,14 @@ export class TokenService {
 
   setToken(token): void {
     this.token = token;
+  }
+
+  getGarage(): Garage {
+    return this.garage;
+  }
+
+  setGarage(garage: Garage): void {
+    this.garage = garage;
   }
 
   getTokenHeader(): Headers {

@@ -1,7 +1,8 @@
 import { Observable } from "rxjs";
 
 export interface IGarageService {
-    
-    upgradeGarage(): Observable<any>;
+
+    upgradeGarage(cost);
     getGarageBalance(): Observable<any>;
+    prepareUpgrade(): number;
 }

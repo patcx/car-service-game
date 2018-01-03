@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IRankingService } from '../interfaces/ranking-service';
 import { Http, Headers } from '@angular/http';
-import { TokenService } from './token.service';
+import { AccountService } from './account.service';
 import { environment } from '../../environments/environment';
 import { GarageRanking } from '../model/garage-ranking';
 
@@ -12,12 +12,12 @@ export class RankingService implements IRankingService {
   appVersion: string = environment.appVersion;
   garages: Array<GarageRanking>;
 
-  constructor(private http: Http, private tokenService: TokenService) {
+  constructor(private http: Http, private accountService: AccountService) {
     this.garages = new Array();
   }
 
   getRanking() {
-    let headers = this.tokenService.getTokenHeader();
+    let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
     this.http.get(environment.url + `/api/v${this.appVersion}/Garage/Ranking`, { headers: headers }).subscribe(x => self.createGaragesList(x.json()));

@@ -15,12 +15,8 @@ import { WorkersPageComponent } from './pages/workers-page/workers-page.componen
 import { OfficePageComponent } from './pages/office-page/office-page.component';
 import { LoginService } from './services/login.service';
 import { RankingService } from './services/ranking.service';
-import { TokenService } from './services/token.service';
+import { AccountService } from './services/account.service';
 import { SortPipe } from './pages/ranking-page/sort.pipe';
-import { HistoryOrdersComponent } from './pages/office-page/history-orders/history-orders.component';
-import { OrdersViewModel } from './view-model/orders-view-model';
-import { GarageViewModel } from './view-model/garage-view-model';
-import { WorkersViewModel } from './view-model/workers-view-model';
 import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
 
@@ -45,7 +41,6 @@ const routes: Routes = [
     WorkersPageComponent,
     OfficePageComponent,
     SortPipe,
-    HistoryOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,13 +57,7 @@ const routes: Routes = [
     [{provide: 'RankingService', useClass: RankingService}],
     [{provide: 'OrderService', useClass: OrderService}],
     [{provide: 'GarageService', useClass: GarageService}],
-    TokenService,
-
-    // ViewModels
-    GarageViewModel,
-    WorkersViewModel,
-    OrdersViewModel, 
-
+    AccountService,
   ],
   bootstrap: [AppComponent]
 })

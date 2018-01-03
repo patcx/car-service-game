@@ -1,24 +1,24 @@
-export class RepairOrder {
-    private _repairOrderId: string;
+export class Order {
+    private _orderId: string;
     private _carName: string;
     private _requiredWork: number;
     private _reward: number;
     private _description: string;
 
     constructor(id, name, requiredWork, reward, desc) {
-        this.repairOrderId = id;
+        this.orderId = id;
         this.carName = name;
         this.requiredWork = requiredWork;
         this.reward = reward;
         this.description = desc;
 	}
 
-	public get repairOrderId(): string {
-		return this._repairOrderId;
+	public get orderId(): string {
+		return this._orderId;
 	}
 
-	public set repairOrderId(value: string) {
-		this._repairOrderId = value;
+	public set orderId(value: string) {
+		this._orderId = value;
 	}
 
 	public get carName(): string {

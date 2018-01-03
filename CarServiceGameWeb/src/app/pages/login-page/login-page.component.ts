@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable, Inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { TokenService } from '../../services/token.service';
+import { AccountService } from '../../services/account.service';
 import { ILoginService } from '../../interfaces/login-service';
 
 @Component({
@@ -13,13 +13,13 @@ export class LoginPageComponent implements OnInit {
   name: string;
   password: string;
 
-  constructor(@Inject('LoginService') private loginService: ILoginService, private tokenService: TokenService) { }
+  constructor(@Inject('LoginService') private loginService: ILoginService, private accountService: AccountService) { }
 
   ngOnInit() {
   }
 
   isValidToken(): boolean {
-    return this.tokenService.isValidToken();
+    return this.accountService.isValidToken();
   }
 
   login(): void {

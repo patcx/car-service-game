@@ -1,11 +1,26 @@
-<div>
-  <nav>
-    <button [routerLink]="['Garage']" class="btn btn-warning">Garage</button>
-    <a [routerLink]="['Orders']" class="btn btn-warning">Order</a>
-    <a [routerLink]="['Workers']" class="btn btn-warning">Workers</a>
-    <a [routerLink]="['Office']" class="btn btn-info">Office</a>
-    <a [routerLink]="['Ranking']" class="btn btn-info">Ranking</a>
-  </nav>
-  <br>
-  <router-outlet></router-outlet>
-</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">CarServiceGame</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <a [routerLink]="['Garage']">Garage</a>
+      </li>
+      <li>
+        <a [routerLink]="['Orders']">Order</a>
+      </li>
+      <li>
+        <a [routerLink]="['Workers']">Workers</a>
+      </li>
+      <li>
+        <a [routerLink]="['Office']">Office</a>
+      </li>
+      <li>
+        <a [routerLink]="['Ranking']">Ranking</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

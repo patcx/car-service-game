@@ -3,17 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IGarageService } from '../interfaces/garage-service';
-import { TokenService } from './token.service';
+import { AccountService } from './account.service';
 
 @Injectable()
 export class GarageService implements IGarageService {
 
   appVersion = environment.appVersion;
 
-  constructor(private tokenService: TokenService, private http: Http) { }
+  constructor(private accountService: AccountService, private http: Http) { }
 
   getGarageBalance(): Observable<any> {
-    let headers = this.tokenService.getTokenHeader();
+    let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
     return new Observable(observer => {
@@ -22,7 +22,17 @@ export class GarageService implements IGarageService {
     });
   }
 
-  public upgradeGarage(): Observable<any> {
-    throw new Error('Not implemented yet.');
+  prepareUpgrade(): number {
+    return 1000 * this.accountService.getGarage().garageLevel;
+  }
+
+  public upgradeGarage(cost: number) {
+    let headers = this.accountService.getTokenHeader();
+    if (headers == null) return;
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    let self = this;
+    let content = `cost=${cost}`;
+    this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Upgrade`, content, { headers: headers })
+      .subscribe(x => console.log(x));
   }
 }

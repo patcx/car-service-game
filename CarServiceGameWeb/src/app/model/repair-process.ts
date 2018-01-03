@@ -1,15 +1,15 @@
-import { RepairOrder } from "./repair-order";
+import { Order } from "./order";
 import { Worker } from "./worker";
 
 export class RepairProcess {
-    private _order: RepairOrder;
+    private _order: Order;
     private _assignedWorker: Worker;
     private _stallNumber: number;
     private _createdDate: Date;
     private _isCancelled: boolean;
 
 
-	constructor(order: RepairOrder, assignedWorker: Worker, stallNumber: number, createdDate: Date, isCancelled: boolean) {
+	constructor(order: Order, assignedWorker: Worker, stallNumber: number, createdDate: Date, isCancelled: boolean) {
 		this._order = order;
 		this._assignedWorker = assignedWorker;
 		this._stallNumber = stallNumber;
@@ -18,11 +18,11 @@ export class RepairProcess {
 	}
     
 
-	public get order(): RepairOrder {
+	public get order(): Order {
 		return this._order;
 	}
 
-	public set order(value: RepairOrder) {
+	public set order(value: Order) {
 		this._order = value;
 	}
 
