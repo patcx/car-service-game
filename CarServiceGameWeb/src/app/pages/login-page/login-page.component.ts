@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   passwordIsCorrect(password: string): boolean {
-    return true;
-    //TODO
+    let reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
+    return reg.test(password);
   }
 }

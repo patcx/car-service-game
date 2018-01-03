@@ -23,7 +23,7 @@ export class RankingService implements IRankingService {
     this.http.get(environment.url + `/api/v${this.appVersion}/Garage/Ranking`, { headers: headers }).subscribe(x => self.createGaragesList(x.json()));
   }
 
-  createGaragesList(response) {
+  private createGaragesList(response) {
     this.garages = new Array();
     let self = this;
     response.forEach(element => {

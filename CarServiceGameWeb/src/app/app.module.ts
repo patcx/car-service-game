@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Http, HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -12,12 +14,15 @@ import { RankingPageComponent } from './pages/ranking-page/ranking-page.componen
 import { WorkersPageComponent } from './pages/workers-page/workers-page.component';
 import { OfficePageComponent } from './pages/office-page/office-page.component';
 import { LoginService } from './services/login.service';
-import { Http, HttpModule } from '@angular/http';
 import { RankingService } from './services/ranking.service';
 import { TokenService } from './services/token.service';
-import { CommonModule } from '@angular/common';
 import { SortPipe } from './pages/ranking-page/sort.pipe';
-import { OfficeService } from './services/office.service';
+import { HistoryOrdersComponent } from './pages/office-page/history-orders/history-orders.component';
+import { OrdersViewModel } from './view-model/orders-view-model';
+import { GarageViewModel } from './view-model/garage-view-model';
+import { WorkersViewModel } from './view-model/workers-view-model';
+import { GarageService } from './services/garage.service';
+import { OrderService } from './services/order.service';
 
 
 const routes: Routes = [
@@ -39,7 +44,8 @@ const routes: Routes = [
     RankingPageComponent,
     WorkersPageComponent,
     OfficePageComponent,
-    SortPipe
+    SortPipe,
+    HistoryOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +60,15 @@ const routes: Routes = [
   providers: [
     [{provide: 'LoginService', useClass: LoginService}],
     [{provide: 'RankingService', useClass: RankingService}],
-    [{provide: 'OfficeService', useClass: OfficeService}],
-    TokenService
+    [{provide: 'OrderService', useClass: OrderService}],
+    [{provide: 'GarageService', useClass: GarageService}],
+    TokenService,
+
+    // ViewModels
+    GarageViewModel,
+    WorkersViewModel,
+    OrdersViewModel, 
+
   ],
   bootstrap: [AppComponent]
 })

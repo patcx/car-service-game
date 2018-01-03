@@ -5,7 +5,7 @@ export class GarageRanking {
     numberOfCompletedOrders: number;
     efficiency: number;
 
-    constructor(name,balance,noOfWorkers,noOfCompletedOrders,efficiency) {
+    constructor(name, balance, noOfWorkers, noOfCompletedOrders, efficiency) {
         this.garageName = name;
         this.balance = balance;
         this.numberOfWorkers = noOfWorkers;
