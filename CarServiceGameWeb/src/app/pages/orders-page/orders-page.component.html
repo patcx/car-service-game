@@ -1,3 +1,21 @@
-<p>
-  orders-page works!
-</p>
+<div class="col-sm-12">
+    <div class="page-header">
+      <h3>Available orders</h3>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th>Car name</th>
+        <th>Required work</th>
+        <th>Reward</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>{{garage.garageName}} </td>
+        <td>{{garage.balance}} </td>
+        <td>{{garage.numberOfWorkers}} </td>
+        <td>{{garage.numberOfCompletedOrders}} </td>
+        <td>{{garage.efficiency}}% </td>
+      </tr>
+    </table>
+  </div>

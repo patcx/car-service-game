@@ -1,3 +1,42 @@
-<p>
-  workers-page works!
-</p>
+<div class="col-sm-6">
+  <div class="page-header">
+    <h3>Hired workers</h3>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Efficiency</th>
+      <th>Salary</th>
+      <th>Action</th>
+      <th>Upgrade</th>
+    </tr>
+    <tr>
+      <td>{{garage.garageName}} </td>
+      <td>{{garage.balance}} </td>
+      <td>{{garage.numberOfWorkers}} </td>
+      <td>{{garage.numberOfCompletedOrders}} </td>
+      <td>{{garage.efficiency}}% </td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="col-sm-6">
+  <div class="page-header">
+    <h3>Unemployed workers</h3>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Efficiency</th>
+      <th>Salary</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>{{garage.garageName}} </td>
+      <td>{{garage.balance}} </td>
+      <td>{{garage.numberOfWorkers}} </td>
+      <td>{{garage.numberOfCompletedOrders}} </td>
+    </tr>
+  </table>
+</div>
