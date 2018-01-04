@@ -18,7 +18,9 @@ export class GarageService implements IGarageService {
     let self = this;
     return new Observable(observer => {
       this.http.get(environment.url + `/api/v${this.appVersion}/Garage/Balance`, { headers: headers })
-        .subscribe(x => observer.next(x.json()));
+        .subscribe(x => {
+          observer.next(x.json())
+        });
     });
   }
 
@@ -33,6 +35,8 @@ export class GarageService implements IGarageService {
     let self = this;
     let content = `cost=${cost}`;
     this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Upgrade`, content, { headers: headers })
-      .subscribe(x => console.log(x));
+      .subscribe(x => {
+        console.log(x);
+      });
   }
 }

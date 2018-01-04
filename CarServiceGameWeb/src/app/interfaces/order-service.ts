@@ -4,7 +4,7 @@ import { RepairProcess } from "../model/repair-process";
 
 export interface IOrderService {
     getHistoryOrders(): Array<RepairProcess>;
-    getHistoryOrdersFromAPI();
+    getHistoryOrdersFromAPI(): Observable<any>;
     updateOrders();
     getOrders(): Array<Order>;
 }

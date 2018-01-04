@@ -19,6 +19,7 @@ import { AccountService } from './services/account.service';
 import { SortPipe } from './pages/ranking-page/sort.pipe';
 import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
+import { LoaderComponent } from './pages/loader/loader.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
     WorkersPageComponent,
     OfficePageComponent,
     SortPipe,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

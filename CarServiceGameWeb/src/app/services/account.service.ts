@@ -8,8 +8,8 @@ export class AccountService {
   private token: string;
   private garage: Garage;
 
-
-  constructor() { }
+  constructor() {
+  }
 
   isValidToken(): boolean {
     return this.token != null;

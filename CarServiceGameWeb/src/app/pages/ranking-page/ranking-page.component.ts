@@ -3,6 +3,7 @@ import { IRankingService } from '../../interfaces/ranking-service';
 import { SortingValue } from '../../services/ranking.service';
 import { FormsModule } from '@angular/forms';
 import { GarageRanking } from '../../model/garage-ranking';
+import { AbstractPage } from '../abstract-page/abstract-page';
 
 @Component({
   selector: 'app-ranking-page',
@@ -10,17 +11,19 @@ import { GarageRanking } from '../../model/garage-ranking';
   styleUrls: ['./ranking-page.component.css'],
 })
 
-export class RankingPageComponent implements OnInit {
+export class RankingPageComponent extends AbstractPage implements OnInit {
 
   sortingValues: Array<any>;
   selectedValue: SortingValue;
 
   constructor( @Inject('RankingService') private rankingService: IRankingService) {
+    super();
   }
 
-
   ngOnInit() {
-    this.rankingService.getRanking();
+    let self = this;
+    self.setLoading(true);
+    this.rankingService.getRanking().subscribe(x => self.setLoading(false));
     this.createSortingValues();
   }
 

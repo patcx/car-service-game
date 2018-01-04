@@ -1,35 +1,41 @@
-<div class="row">
-    <div class="col-sm-8">
-        <h4>Account balance</h4>
+<div [style.opacity]="this.getOpacity()">
+    <div class="row">
+        <div class="col-sm-8">
+            <h4>Account balance</h4>
+        </div>
+        <div class="col-sm-4">
+            <input type="button" class="btn btn-danger btn-block" value="Upgrade garage" (click)="this.upgradeGarage($event)">
+        </div>
     </div>
-    <div class="col-sm-4">
-        <input type="button" class="btn btn-danger btn-block" value="Upgrade garage" (click)="this.upgradeGarage($event)">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="well well-lg">${{this.getBalance()}}</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <tr>
+                    <th>Data</th>
+                    <th>Car name</th>
+                    <th>Profit</th>
+                    <th>Description</th>
+                    <th>Responsible worker</th>
+                </tr>
+                <tr *ngFor="let repairProcess of getHistoryOrders()">
+                    <td>{{repairProcess.CreatedDate | date:'dd MMM yyyy HH:mm'}} </td>
+                    <td>{{repairProcess.Order.CarName}} </td>
+                    <td>{{repairProcess.Order.Reward}} </td>
+                    <td>{{repairProcess.Order.Description}} </td>
+                    <td>{{repairProcess.AssignedWorker.Name}} </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-12">
-        <div class="well well-lg">${{this.getBalance()}}</div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-12">
-        <table class="table table-striped">
-            <tr>
-                <th>Data</th>
-                <th>Car name</th>
-                <th>Profit</th>
-                <th>Description</th>
-                <th>Responsible worker</th>
-            </tr>
-            <tr *ngFor="let repairProcess of getHistoryOrders()">
-                <td>{{repairProcess.CreatedDate}} </td>
-                <td>{{repairProcess.Order.CarName}} </td>
-                <td>{{repairProcess.Order.Reward}} </td>
-                <td>{{repairProcess.Order.Description}} </td>
-                <td>{{repairProcess.AssignedWorker.Name}} </td>
-            </tr>
-        </table>
-    </div>
+<div *ngIf="this.isLoading()">
+    <app-loader></app-loader>
 </div>

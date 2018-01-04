@@ -2,18 +2,21 @@ import { Component, OnInit, Injectable, Inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { AccountService } from '../../services/account.service';
 import { ILoginService } from '../../interfaces/login-service';
+import { AbstractPage } from '../abstract-page/abstract-page';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent extends AbstractPage implements OnInit {
 
   name: string;
   password: string;
 
-  constructor(@Inject('LoginService') private loginService: ILoginService, private accountService: AccountService) { }
+  constructor( @Inject('LoginService') private loginService: ILoginService, private accountService: AccountService) {
+    super();
+  }
 
   ngOnInit() {
   }
@@ -23,11 +26,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(): void {
-    this.loginService.login(this.name, this.password);
+    let self = this;
+    this.setLoading(true);
+    this.loginService.login(this.name, this.password).subscribe(() => { self.setLoading(false) });
   }
+
   createAccount(): void {
+    let self = this;
     if (this.passwordIsCorrect(this.password)) {
-      this.loginService.createAccount(this.name, this.password);
+      this.loginService.createAccount(this.name, this.password).subscribe(() => { self.setLoading(false) });;
     } else {
       alert('Password should contains: uppercase letter, lowercase letter and digit');
     }

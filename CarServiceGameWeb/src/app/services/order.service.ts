@@ -16,11 +16,13 @@ export class OrderService implements IOrderService {
 
   constructor(private http: Http, private accountService: AccountService) { }
 
-  updateOrders() {
+  updateOrders(): Observable<any> {
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
-    this.http.get(environment.url + `/api/v${this.appVersion}/Orders`, { headers: headers }).subscribe(x => self.createOrdersList(x.json()));
+    return this.http.get(environment.url + `/api/v${this.appVersion}/Orders`, { headers: headers }).map(x => {
+      self.createOrdersList(x.json())
+    });
   }
 
   getOrders() {
@@ -35,12 +37,18 @@ export class OrderService implements IOrderService {
     });
   }
 
-  getHistoryOrdersFromAPI() {
+  getHistoryOrdersFromAPI(): Observable<any> {
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
-    this.http.get(environment.url + `/api/v${this.appVersion}/Orders/History`, { headers: headers })
-      .subscribe(x => self.historyOrders = x.json());
+
+    return new Observable(observer => {
+      this.http.get(environment.url + `/api/v${this.appVersion}/Orders/History`, { headers: headers })
+        .subscribe(x => {
+          self.historyOrders = x.json()
+          observer.next();
+        })
+    });
   }
 
   getHistoryOrders(): Array<RepairProcess> {

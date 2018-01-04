@@ -17,11 +17,12 @@ export class RankingService implements IRankingService {
   }
 
   getRanking() {
-    console.log(this.accountService.getGarage())
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
-    this.http.get(environment.url + `/api/v${this.appVersion}/Garage/Ranking`, { headers: headers }).subscribe(x => self.createGaragesList(x.json()));
+    return this.http.get(environment.url + `/api/v${this.appVersion}/Garage/Ranking`, { headers: headers }).map(x => {
+      self.createGaragesList(x.json())
+    });
   }
 
   private createGaragesList(response) {
@@ -34,7 +35,6 @@ export class RankingService implements IRankingService {
   }
 
   getGaragesRanking(value: SortingValue): Array<GarageRanking> {
-    console.log(value);
     switch (value) {
       case SortingValue.CASH:
         return this.garages.sort((a, b) => a.Balance < b.Balance ? 1 : -1);

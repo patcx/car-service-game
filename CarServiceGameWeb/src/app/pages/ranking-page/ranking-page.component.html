@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" [style.opacity]="this.getOpacity()">
   <div class="col-sm-12">
 
     <table class="table table-striped">
@@ -30,4 +30,8 @@
     </table>
   </div>
 
+</div>
+
+<div *ngIf="this.isLoading()">
+    <app-loader></app-loader>
 </div>

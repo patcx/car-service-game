@@ -14,27 +14,32 @@ export class LoginService implements ILoginService {
 
   constructor(private http: Http, private accountService: AccountService) { }
 
-  public login(name, password): void {
+  public login(name, password): Observable<any> {
     let content = `name=${name}&password=${password}`;
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let self = this;
-    this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, { headers: headers }).subscribe(x => {
-      self.accountService.setToken(x.json().token);
-      let garage: Garage = x.json().garage;
-      self.accountService.setGarage(garage);
-      console.log(self.accountService.getGarage());
+    return new Observable(observer => {
+      this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, { headers: headers }).subscribe(x => {
+        self.accountService.setToken(x.json().token);
+        let garage: Garage = x.json().garage;
+        self.accountService.setGarage(garage);
+        observer.next();
+      })
     })
   };
 
-  public createAccount(name, password): void {
+  public createAccount(name, password): Observable<any> {
     let content = `name=${name}&password=${password}`;
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let self = this;
-    this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Register`, content, { headers: headers }).subscribe(x => {
-      self.accountService.setToken(x.json().token)
-      self.accountService.setGarage(x.json().garage);
+    return new Observable(observer => {
+      this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Register`, content, { headers: headers }).subscribe(x => {
+        self.accountService.setToken(x.json().token)
+        self.accountService.setGarage(x.json().garage);
+        observer.next();
+      });
     });
   }
 }
