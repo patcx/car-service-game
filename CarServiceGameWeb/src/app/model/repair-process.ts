@@ -18,43 +18,43 @@ export class RepairProcess {
 	}
     
 
-	public get order(): Order {
+	public get Order(): Order {
 		return this._order;
 	}
 
-	public set order(value: Order) {
+	public set Order(value: Order) {
 		this._order = value;
 	}
 
-	public get assignedWorker(): Worker {
+	public get AssignedWorker(): Worker {
 		return this._assignedWorker;
 	}
 
-	public set assignedWorker(value: Worker) {
+	public set AssignedWorker(value: Worker) {
 		this._assignedWorker = value;
 	}
 
-	public get stallNumber(): number {
+	public get StallNumber(): number {
 		return this._stallNumber;
 	}
 
-	public set stallNumber(value: number) {
+	public set StallNumber(value: number) {
 		this._stallNumber = value;
 	}
 
-	public get createdDate(): Date {
+	public get CreatedDate(): Date {
 		return this._createdDate;
 	}
 
-	public set createdDate(value: Date) {
+	public set CreatedDate(value: Date) {
 		this._createdDate = value;
 	}
 
-	public get isCancelled(): boolean {
+	public get IsCancelled(): boolean {
 		return this._isCancelled;
 	}
 
-	public set isCancelled(value: boolean) {
+	public set IsCancelled(value: boolean) {
 		this._isCancelled = value;
 	}
     

@@ -18,43 +18,43 @@ export class Garage {
 	}
     
 
-    get garageId(): string {
-        return this.garageId;
+    get GarageId(): string {
+        return this._garageId;
     }
 
-    set garageId(id: string) {
+    set GarageId(id: string) {
         this._garageId = id;
     }
 
-    get cashBalance(): number {
+    get CashBalance(): number {
         return this._cashBalance;
     }
 
-    set cashBalance(balance: number) {
+    set CashBalance(balance: number) {
         this._cashBalance = balance;
     }
 
-    get garageLevel(): number {
+    get GarageLevel(): number {
         return this._garageLevel;
     }
 
-    set garageLevel(level: number) {
+    set GarageLevel(level: number) {
         this._garageLevel = level;
     }
 
-    get employeedWorkers(): Array<Worker> {
+    get EmployeedWorkers(): Array<Worker> {
         return this._employeedWorkers;
     }
 
-    set employeedWorkers(workers: Array<Worker>) {
+    set EmployeedWorkers(workers: Array<Worker>) {
         this._employeedWorkers = workers;
     }
 
-    get repairProcesses(): Array<RepairProcess> {
+    get RepairProcesses(): Array<RepairProcess> {
         return this._repairProcesses
     }
 
-    set repairProcesses(processes: Array<RepairProcess>){
+    set RepairProcesses(processes: Array<RepairProcess>){
         this._repairProcesses = processes;
     }
 }

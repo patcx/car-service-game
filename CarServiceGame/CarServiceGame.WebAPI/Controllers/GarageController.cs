@@ -149,7 +149,7 @@ namespace CarServiceGame.WebAPI.Controllers
             }
         }
 
-        [HttpGet("api/v{version:apiVersion}/Garage/Upgrade")]
+        [HttpPost("api/v{version:apiVersion}/Garage/Upgrade")]
         public IActionResult UpgradeGarage([ModelBinder(BinderType = typeof(GarageIdBinder))]Guid garageId, decimal cost)
         {
             dynamic result = new ExpandoObject();

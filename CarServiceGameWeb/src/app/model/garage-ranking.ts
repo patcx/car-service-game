@@ -1,15 +1,15 @@
 export class GarageRanking {
-    garageName: string;
-    balance: number;
-    numberOfWorkers: number;
-    numberOfCompletedOrders: number;
-    efficiency: number;
+    GarageName: string;
+    Balance: number;
+    NumberOfWorkers: number;
+    NumberOfCompletedOrders: number;
+    Efficiency: number;
 
     constructor(name, balance, noOfWorkers, noOfCompletedOrders, efficiency) {
-        this.garageName = name;
-        this.balance = balance;
-        this.numberOfWorkers = noOfWorkers;
-        this.numberOfCompletedOrders = noOfCompletedOrders;
-        this.efficiency = efficiency;
+        this.GarageName = name;
+        this.Balance = balance;
+        this.NumberOfWorkers = noOfWorkers;
+        this.NumberOfCompletedOrders = noOfCompletedOrders;
+        this.Efficiency = efficiency;
     }
 }

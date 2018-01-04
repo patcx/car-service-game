@@ -21,7 +21,8 @@ export class LoginService implements ILoginService {
     let self = this;
     this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, { headers: headers }).subscribe(x => {
       self.accountService.setToken(x.json().token);
-      self.accountService.setGarage(x.json().garage);
+      let garage: Garage = x.json().garage;
+      self.accountService.setGarage(garage);
       console.log(self.accountService.getGarage());
     })
   };

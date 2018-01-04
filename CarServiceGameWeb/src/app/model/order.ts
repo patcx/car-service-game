@@ -6,50 +6,50 @@ export class Order {
     private _description: string;
 
     constructor(id, name, requiredWork, reward, desc) {
-        this.orderId = id;
-        this.carName = name;
-        this.requiredWork = requiredWork;
-        this.reward = reward;
-        this.description = desc;
+        this.OrderId = id;
+        this.CarName = name;
+        this.RequiredWork = requiredWork;
+        this.Reward = reward;
+        this.Description = desc;
 	}
 
-	public get orderId(): string {
+	public get OrderId(): string {
 		return this._orderId;
 	}
 
-	public set orderId(value: string) {
+	public set OrderId(value: string) {
 		this._orderId = value;
 	}
 
-	public get carName(): string {
+	public get CarName(): string {
 		return this._carName;
 	}
 
-	public set carName(value: string) {
+	public set CarName(value: string) {
 		this._carName = value;
 	}
 
-	public get requiredWork(): number {
+	public get RequiredWork(): number {
 		return this._requiredWork;
 	}
 
-	public set requiredWork(value: number) {
+	public set RequiredWork(value: number) {
 		this._requiredWork = value;
 	}
 
-	public get reward(): number {
+	public get Reward(): number {
 		return this._reward;
 	}
 
-	public set reward(value: number) {
+	public set Reward(value: number) {
 		this._reward = value;
 	}
 
-	public get description(): string {
+	public get Description(): string {
 		return this._description;
 	}
 
-	public set description(value: string) {
+	public set Description(value: string) {
 		this._description = value;
 	}
 

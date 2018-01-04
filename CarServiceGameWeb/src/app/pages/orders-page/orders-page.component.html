@@ -11,14 +11,14 @@
       <th>Action</th>
     </tr>
     <tr *ngFor="let order of this.getOrders()">
-      <td>{{order.carName}} </td>
+      <td>{{order.CarName}} </td>
       <td>
         <div class="progress">
-          <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(order.requiredWork)"></div>
+          <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(order.RequiredWork)"></div>
         </div>
       </td>
-      <td>{{order.reward}} </td>
-      <td>{{order.description}} </td>
+      <td>{{order.Reward}} </td>
+      <td>{{order.Description}} </td>
       <td> </td>
     </tr>
   </table>

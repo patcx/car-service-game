@@ -23,7 +23,7 @@ export class GarageService implements IGarageService {
   }
 
   prepareUpgrade(): number {
-    return 1000 * this.accountService.getGarage().garageLevel;
+    return 1000 * this.accountService.getGarage().GarageLevel;
   }
 
   public upgradeGarage(cost: number) {

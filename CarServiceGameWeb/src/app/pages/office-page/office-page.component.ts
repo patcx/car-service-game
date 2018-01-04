@@ -25,7 +25,6 @@ export class OfficePageComponent implements OnInit {
 
   upgradeGarage(event) {
     let cost = this.garageService.prepareUpgrade();
-    console.log(cost);
     if (cost > this.balance) {
       return;
     }

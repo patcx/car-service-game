@@ -17,6 +17,7 @@ export class RankingService implements IRankingService {
   }
 
   getRanking() {
+    console.log(this.accountService.getGarage())
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
@@ -36,15 +37,15 @@ export class RankingService implements IRankingService {
     console.log(value);
     switch (value) {
       case SortingValue.CASH:
-        return this.garages.sort((a, b) => a.balance < b.balance ? 1 : -1);
+        return this.garages.sort((a, b) => a.Balance < b.Balance ? 1 : -1);
       case SortingValue.WORKERS:
-        return this.garages.sort((a, b) => a.numberOfWorkers < b.numberOfWorkers ? 1 : -1);
+        return this.garages.sort((a, b) => a.NumberOfWorkers < b.NumberOfWorkers ? 1 : -1);
       case SortingValue.ORDERS:
-        return this.garages.sort((a, b) => a.numberOfCompletedOrders < b.numberOfCompletedOrders ? 1 : -1);
+        return this.garages.sort((a, b) => a.NumberOfCompletedOrders < b.NumberOfCompletedOrders ? 1 : -1);
       case SortingValue.EFFICIENCY:
-        return this.garages.sort((a, b) => a.efficiency < b.efficiency ? 1 : -1);
+        return this.garages.sort((a, b) => a.Efficiency < b.Efficiency ? 1 : -1);
       case SortingValue.NAME:
-        return this.garages.sort((a, b) => a.garageName > b.garageName ? 1 : -1);
+        return this.garages.sort((a, b) => a.GarageName > b.GarageName ? 1 : -1);
     }
   }
 
