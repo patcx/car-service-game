@@ -31,4 +31,7 @@ export class OfficePageComponent implements OnInit {
     this.garageService.upgradeGarage(cost);
   }
 
+  getHistoryOrders() {
+    this.orderService.getHistoryOrders();
+  }
 }
