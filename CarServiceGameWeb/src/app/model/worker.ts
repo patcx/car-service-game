@@ -6,41 +6,41 @@ export class Worker {
 
 
     constructor(id, name, efficiency, salary) {
-        this.workerId = id;
-        this.name = name;
-        this.efficiency = efficiency;
-        this.salary = salary;
+        this.WorkerId = id;
+        this.Name = name;
+        this.Efficiency = efficiency;
+        this.Salary = salary;
     }
 
-    public get workerId(): string {
+    public get WorkerId(): string {
         return this._workerId;
     }
 
-    public set workerId(value: string) {
+    public set WorkerId(value: string) {
         this._workerId = value;
     }
 
-    public get name(): string {
+    public get Name(): string {
         return this._name;
     }
 
-    public set name(value: string) {
+    public set Name(value: string) {
         this._name = value;
     }
 
-    public get efficiency(): number {
+    public get Efficiency(): number {
         return this._efficiency;
     }
 
-    public set efficiency(value: number) {
+    public set Efficiency(value: number) {
         this._efficiency = value;
     }
 
-    public get salary(): number {
+    public get Salary(): number {
         return this._salary;
     }
 
-    public set salary(value: number) {
+    public set Salary(value: number) {
         this._salary = value;
     }
 

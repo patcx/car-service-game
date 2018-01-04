@@ -57,4 +57,12 @@ export class Garage {
     set RepairProcesses(processes: Array<RepairProcess>){
         this._repairProcesses = processes;
     }
+
+    addWorker(worker: Worker){
+        this._employeedWorkers.splice(0, 0, worker);
+    }
+
+    removeWorker(worker: Worker){
+        this._employeedWorkers = this._employeedWorkers.filter(x=>x.WorkerId != worker.WorkerId);
+    }
 }

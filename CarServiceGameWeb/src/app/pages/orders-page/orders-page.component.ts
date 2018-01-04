@@ -10,18 +10,18 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 })
 export class OrdersPageComponent implements OnInit {
 
-  constructor( @Inject('OrderService') private orderService: IOrderService, private _sanitizer : DomSanitizer) { }
+  constructor( @Inject('OrderService') private orderService: IOrderService, private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.orderService.updateOrders();
   }
 
-  getOrders() : Order[] {
+  getOrders(): Order[] {
     return this.orderService.getOrders();
   }
 
   getWidth(width) {
-    return this._sanitizer.bypassSecurityTrustStyle(width/100 + '%');
-}
+    return this._sanitizer.bypassSecurityTrustStyle(width / 100 + '%');
+  }
 
 }

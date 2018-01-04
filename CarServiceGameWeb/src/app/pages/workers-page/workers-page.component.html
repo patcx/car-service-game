@@ -2,22 +2,32 @@
   <div class="page-header">
     <h3>Hired workers</h3>
   </div>
-  <table class="table table-striped">
-    <tr>
-      <th>Name</th>
-      <th>Efficiency</th>
-      <th>Salary</th>
-      <th>Action</th>
-      <th>Upgrade</th>
-    </tr>
-    <tr>
-      <!-- <td>{{garage.garageName}} </td>
-      <td>{{garage.balance}} </td>
-      <td>{{garage.numberOfWorkers}} </td>
-      <td>{{garage.numberOfCompletedOrders}} </td>
-      <td>{{garage.efficiency}}% </td> -->
-    </tr>
-  </table>
+  <div style="overflow: auto; max-height: 700px;">
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Efficiency</th>
+        <th>Salary</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let worker of this.getWorkersFromGarage()">
+        <td>{{worker.Name}} </td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(worker.Efficiency)"></div>
+          </div>
+        </td>
+        <td>${{worker.Salary}} </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="this.fire(worker)">Fire</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="this.upgrade(worker)">Upgrade</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 
@@ -25,18 +35,26 @@
   <div class="page-header">
     <h3>Unemployed workers</h3>
   </div>
-  <table class="table table-striped">
-    <tr>
-      <th>Name</th>
-      <th>Efficiency</th>
-      <th>Salary</th>
-      <th>Action</th>
-    </tr>
-    <tr>
-      <!-- <td>{{garage.garageName}} </td>
-      <td>{{garage.balance}} </td>
-      <td>{{garage.numberOfWorkers}} </td>
-      <td>{{garage.numberOfCompletedOrders}} </td> -->
-    </tr>
-  </table>
+  <div style="overflow: auto; max-height: 700px;">
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Efficiency</th>
+        <th>Salary</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let worker of this.getAvailableWorkers()">
+        <td>{{worker.Name}} </td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(worker)"></div>
+          </div>
+        </td>
+        <td>${{worker.Salary}} </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="this.employ(worker)">Employ</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
