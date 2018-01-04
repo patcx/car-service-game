@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { IGarageService } from '../../interfaces/garage-service';
 import { IOrderService } from '../../interfaces/order-service';
+import { RepairProcess } from '../../model/repair-process';
 
 @Component({
   selector: 'app-office-page',
@@ -17,6 +18,7 @@ export class OfficePageComponent implements OnInit {
   ngOnInit() {
     let self = this;
     this.garageService.getGarageBalance().subscribe(x => self.balance = x.balance);
+    this.orderService.getHistoryOrdersFromAPI();
   }
 
   getBalance() {
@@ -31,7 +33,7 @@ export class OfficePageComponent implements OnInit {
     this.garageService.upgradeGarage(cost);
   }
 
-  getHistoryOrders() {
-    this.orderService.getHistoryOrders();
+  getHistoryOrders(): Array<RepairProcess> {
+    return this.orderService.getHistoryOrders();
   }
 }

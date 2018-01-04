@@ -23,12 +23,12 @@
                 <th>Description</th>
                 <th>Responsible worker</th>
             </tr>
-            <tr *ngFor="">
-                <!-- <td>{{garage.garageName}} </td>
-                <td>{{garage.balance}} </td>
-                <td>{{garage.numberOfWorkers}} </td>
-                <td>{{garage.numberOfCompletedOrders}} </td>
-                <td>{{garage.efficiency}}% </td> -->
+            <tr *ngFor="let repairProcess of getHistoryOrders()">
+                <td>{{repairProcess.CreatedDate}} </td>
+                <td>{{repairProcess.Order.CarName}} </td>
+                <td>{{repairProcess.Order.Reward}} </td>
+                <td>{{repairProcess.Order.Description}} </td>
+                <td>{{repairProcess.AssignedWorker.Name}} </td>
             </tr>
         </table>
     </div>

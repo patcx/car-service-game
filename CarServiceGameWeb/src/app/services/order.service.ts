@@ -5,13 +5,14 @@ import { Order } from '../model/order'
 import { AccountService } from './account.service';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { RepairProcess } from '../model/repair-process';
 
 @Injectable()
 export class OrderService implements IOrderService {
 
   appVersion: string = environment.appVersion;
   orders: Array<Order>;
-  historyOrders: Array<Order>;
+  historyOrders: Array<RepairProcess>;
 
   constructor(private http: Http, private accountService: AccountService) { }
 
@@ -38,13 +39,11 @@ export class OrderService implements IOrderService {
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     let self = this;
-    return new Observable(observer => {
-      this.http.get(environment.url + `/api/v${this.appVersion}/Orders/History`, { headers: headers })
-        .subscribe(x => observer.next(x.json()));
-    });
+    this.http.get(environment.url + `/api/v${this.appVersion}/Orders/History`, { headers: headers })
+      .subscribe(x => self.historyOrders = x.json());
   }
 
-  getHistoryOrders() {
+  getHistoryOrders(): Array<RepairProcess> {
     return this.historyOrders;
   }
 }
