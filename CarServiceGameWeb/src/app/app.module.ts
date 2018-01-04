@@ -20,6 +20,7 @@ import { SortPipe } from './pages/ranking-page/sort.pipe';
 import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
 import { LoaderComponent } from './pages/loader/loader.component';
+import { WorkerService } from './services/worker.service';
 
 
 const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
     [{provide: 'RankingService', useClass: RankingService}],
     [{provide: 'OrderService', useClass: OrderService}],
     [{provide: 'GarageService', useClass: GarageService}],
+    [{provide: 'WorkerService', useClass: WorkerService}],
     AccountService,
   ],
   bootstrap: [AppComponent]
