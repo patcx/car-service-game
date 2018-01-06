@@ -5,8 +5,8 @@ export class Garage {
     private _garageId: string; // TODO: find better data type for guid
     private _cashBalance: number;
     private _garageLevel: number;
-    private _employeedWorkers: Array<Worker>
-    private _repairProcesses: Array<RepairProcess>
+    private _employeedWorkers: Array<Worker>;
+    private _repairProcesses: Array<RepairProcess>;
 
 
     constructor(garageId: string, cashBalance: number, garageLevel: number) {
@@ -51,18 +51,10 @@ export class Garage {
     }
 
     get RepairProcesses(): Array<RepairProcess> {
-        return this._repairProcesses
+        return this._repairProcesses;
     }
 
     set RepairProcesses(processes: Array<RepairProcess>) {
         this._repairProcesses = processes;
-    }
-
-    addWorker(worker: Worker) {
-        this._employeedWorkers.splice(0, 0, worker);
-    }
-
-    removeWorker(worker: Worker) {
-        this._employeedWorkers = this._employeedWorkers.filter(x => x.WorkerId != worker.WorkerId);
     }
 }

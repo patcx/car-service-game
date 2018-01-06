@@ -1,10 +1,8 @@
 .loading{
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
+    position:absolute;
+    top:0px;
+    left:50%;
+    width:940px;  /* adjust as per your needs */
+    height:400px;   /* adjust as per your needs */
+    margin-left:-470px;   /* negative half of width above */
 }

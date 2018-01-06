@@ -20,7 +20,9 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   }
 
   ngOnInit() {
-    this.workerService.updateAvailableWorkers();
+    this.setLoading(true);
+    let self = this;
+    this.workerService.updateAvailableWorkers().subscribe(x=>self.setLoading(false));
   }
 
   getAvailableWorkers(): Worker[] {
@@ -37,19 +39,65 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   }
 
   fire(worker: Worker) {
-    this.workerService.fireWorker(worker.WorkerId);
-    let garage: Garage = this.accountService.getGarage();
-    garage.removeWorker(worker);
+
+    this.workerService.fireWorker(worker.WorkerId).subscribe(x => {
+
+      if (x.status == 'ok') {
+        let garage = this.accountService.getGarage();
+        var i = garage.EmployeedWorkers.findIndex(x => worker.WorkerId == x.WorkerId);
+        garage.EmployeedWorkers.splice(i, 1);
+        this.workerService.getWorkers().splice(0, 0, worker);
+      }
+      else {
+        alert('Cannot fire the worker');
+      }
+    }, error => {
+      alert('Cannot fire the worker');
+    });
+
+
   }
 
   employ(worker: Worker) {
-    this.workerService.employWorker(worker.WorkerId);
-    let garage: Garage = this.accountService.getGarage();
-    garage.addWorker(worker);
+    this.workerService.employWorker(worker.WorkerId).subscribe(x => {
+
+      if (x.status == 'ok') {
+        let garage = this.accountService.getGarage();
+        garage.EmployeedWorkers.splice(0, 0, worker);
+        var i = this.workerService.getWorkers().findIndex(x => worker.WorkerId == x.WorkerId);
+        this.workerService.getWorkers().splice(i, 1);
+      }
+      else {
+        alert('Cannot employ the worker');
+
+      }
+
+    }, error => {
+      alert('Cannot employ the worker');
+    });
   }
 
   upgrade(worker: Worker) {
-    this.workerService.upgradeWorker(worker.WorkerId);
+
+    if (worker.Efficiency * 50 > this.accountService.getGarage().CashBalance) {
+      alert('Not enough money to upgrade the worker');
+      return;
+    }
+
+
+    this.workerService.upgradeWorker(worker).subscribe(x => {
+
+      if (x.status == 'ok') {
+        worker.Efficiency += 10;
+      }
+      else {
+        alert('Cannot upgrade the worker');
+
+      }
+
+    }, error => {
+      alert('Cannot upgrade the worker');
+    });
   }
 
 }

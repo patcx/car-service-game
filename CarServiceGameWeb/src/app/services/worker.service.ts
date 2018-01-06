@@ -19,7 +19,7 @@ export class WorkerService implements IWorkerService {
         let headers = this.accountService.getTokenHeader();
         if (headers == null) return;
         let self = this;
-        this.http.get(environment.url + `/api/v${this.appVersion}/Workers`, { headers: headers }).subscribe(x => self.createWorkersList(x.json()));
+        return this.http.get(environment.url + `/api/v${this.appVersion}/Workers`, { headers: headers }).map(x => self.createWorkersList(x.json()));
     }
     
     getWorkers(){
@@ -34,13 +34,13 @@ export class WorkerService implements IWorkerService {
         });
     }
 
-    fireWorker(workerId: any) {
+    fireWorker(workerId: any){
         let headers = this.accountService.getTokenHeader();
         if (headers == null) return;
         headers.append("Content-Type", "application/x-www-form-urlencoded");
         let self = this;
         let content = `workerId=${workerId}`;
-        this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Fire`, content, { headers: headers}).subscribe(x=>console.log(x));
+        return this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Fire`, content, { headers: headers}).map(x=>x.json());
     }
 
     employWorker(workerId: any) {
@@ -49,15 +49,16 @@ export class WorkerService implements IWorkerService {
         headers.append("Content-Type", "application/x-www-form-urlencoded");
         let self = this;
         let content = `workerId=${workerId}`;
-        this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Employ`, content, { headers: headers}).subscribe(x=>console.log(x));
+        return this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Employ`, content, { headers: headers}).map(x=>x.json());
+        
     }
-    upgradeWorker(workerId: any) {
-        let cost = 100
+    upgradeWorker(worker: Worker) {
+        let cost = 50 * worker.Efficiency;
         let headers = this.accountService.getTokenHeader();
         if (headers == null) return;
         headers.append("Content-Type", "application/x-www-form-urlencoded");
         let self = this;
-        let content = `workerId=${workerId}&cost=${cost}`;
-        this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Upgrade`, content, { headers: headers}).subscribe(x=>console.log(x));
+        let content = `workerId=${worker.WorkerId}&cost=${cost}`;
+        return this.http.post(environment.url + `/api/v${this.appVersion}/Workers/Upgrade`, content, { headers: headers}).map(x=>x.json());
     }
 }

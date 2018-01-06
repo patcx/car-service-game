@@ -6,5 +6,5 @@ export interface IWorkerService {
     getWorkers(): Array<Worker>;
     fireWorker(workerId);
     employWorker(workerId);
-    upgradeWorker(workerId);
+    upgradeWorker(worker : Worker);
 }
