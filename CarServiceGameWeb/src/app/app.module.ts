@@ -21,6 +21,7 @@ import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
 import { LoaderComponent } from './pages/loader/loader.component';
 import { WorkerService } from './services/worker.service';
+import { StallComponent } from './pages/garage-page/stall/stall.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
     OfficePageComponent,
     SortPipe,
     LoaderComponent,
+    StallComponent,
   ],
   imports: [
     BrowserModule,

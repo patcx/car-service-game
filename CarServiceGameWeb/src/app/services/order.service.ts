@@ -54,4 +54,28 @@ export class OrderService implements IOrderService {
   getHistoryOrders(): Array<RepairProcess> {
     return this.historyOrders;
   }
+
+  completeOrder(orderId: string): Observable<any> {
+    let headers = this.accountService.getTokenHeader();
+    if (headers == null) return;
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    let self = this;
+    let content = `orderId=${orderId}`;
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Orders/Finish`, content, { headers: headers })
+    .map(x => console.log(x));
+  }
+
+  immediatelyCompleteOrder(orderId: string) : Observable<any>{
+    return null;
+  }
+
+  cancelOrder(orderId: string): Observable<any> {
+    let headers = this.accountService.getTokenHeader();
+    if (headers == null) return;
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    let self = this;
+    let content = `orderId=${orderId}`;
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Orders/Cancel`, content, { headers: headers })
+    .map(x => console.log(x));
+  }
 }

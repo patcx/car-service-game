@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { IWorkerService } from '../../interfaces/worker-service';
 import { WorkerService } from '../../services/worker.service';
 import { AbstractPage } from '../abstract-page/abstract-page';
+import { Garage } from '../../model/garage';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
 
   constructor( @Inject("WorkerService") private workerService: IWorkerService, private accountService: AccountService, private _sanitizer: DomSanitizer) {
     super();
-   }
+  }
 
   ngOnInit() {
     this.workerService.updateAvailableWorkers();
@@ -27,24 +28,27 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   }
 
   getWorkersFromGarage(): Worker[] {
-    return this.accountService.getGarage().EmployeedWorkers;
+    let ret = this.accountService.getGarage().EmployeedWorkers;
+    return ret;
   }
 
   getWidth(width) {
     return this._sanitizer.bypassSecurityTrustStyle(width + '%');
   }
 
-  fire(worker:Worker) {
+  fire(worker: Worker) {
     this.workerService.fireWorker(worker.WorkerId);
-    this.accountService.getGarage().removeWorker(worker);
+    let garage: Garage = this.accountService.getGarage();
+    garage.removeWorker(worker);
   }
 
-  employ(worker:Worker) {
+  employ(worker: Worker) {
     this.workerService.employWorker(worker.WorkerId);
-    this.accountService.getGarage().addWorker(worker);    
+    let garage: Garage = this.accountService.getGarage();
+    garage.addWorker(worker);
   }
 
-  upgrade(worker:Worker) {
+  upgrade(worker: Worker) {
     this.workerService.upgradeWorker(worker.WorkerId);
   }
 

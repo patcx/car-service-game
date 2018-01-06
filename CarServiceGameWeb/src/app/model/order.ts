@@ -6,18 +6,18 @@ export class Order {
     private _description: string;
 
     constructor(id, name, requiredWork, reward, desc) {
-        this.OrderId = id;
+        this.RepairOrderId = id;
         this.CarName = name;
         this.RequiredWork = requiredWork;
         this.Reward = reward;
         this.Description = desc;
 	}
 
-	public get OrderId(): string {
+	public get RepairOrderId(): string {
 		return this._orderId;
 	}
 
-	public set OrderId(value: string) {
+	public set RepairOrderId(value: string) {
 		this._orderId = value;
 	}
 
