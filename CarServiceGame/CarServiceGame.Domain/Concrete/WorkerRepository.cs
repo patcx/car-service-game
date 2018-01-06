@@ -84,6 +84,9 @@ namespace CarServiceGame.Domain.Concrete
                               where w.WorkerId == workerId && w.GarageId == garageId
                               select w).FirstOrDefault();
 
+                if(worker.Efficiency + 10 > 100)
+                    throw new Exception("Worker cannot be upgrades");
+
                 worker.Efficiency += 10;
                 context.SaveChanges();
             }

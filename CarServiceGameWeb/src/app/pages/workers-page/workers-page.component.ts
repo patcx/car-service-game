@@ -16,7 +16,7 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
 
   constructor( @Inject("WorkerService") private workerService: IWorkerService, private accountService: AccountService, private _sanitizer: DomSanitizer) {
     super();
-   }
+  }
 
   ngOnInit() {
     this.workerService.updateAvailableWorkers();
@@ -34,18 +34,66 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
     return this._sanitizer.bypassSecurityTrustStyle(width + '%');
   }
 
-  fire(worker:Worker) {
-    this.workerService.fireWorker(worker.WorkerId);
-    this.accountService.getGarage().removeWorker(worker);
+  fire(worker: Worker) {
+
+    this.workerService.fireWorker(worker.WorkerId).subscribe(x => {
+
+      if (x.status == 'ok') {
+        let garage = this.accountService.getGarage();
+        var i = garage.EmployeedWorkers.findIndex(x => worker.WorkerId == x.WorkerId);
+        garage.EmployeedWorkers.splice(i, 1);
+        this.workerService.getWorkers().splice(0, 0, worker);
+      }
+      else {
+        alert('Cannot fire the worker');
+      }
+    }, error => {
+      alert('Cannot fire the worker');
+    });
+
+
   }
 
-  employ(worker:Worker) {
-    this.workerService.employWorker(worker.WorkerId);
-    this.accountService.getGarage().addWorker(worker);    
+  employ(worker: Worker) {
+    this.workerService.employWorker(worker.WorkerId).subscribe(x => {
+
+      if (x.status == 'ok') {
+        let garage = this.accountService.getGarage();
+        garage.EmployeedWorkers.splice(0, 0, worker);
+        var i = this.workerService.getWorkers().findIndex(x => worker.WorkerId == x.WorkerId);
+        this.workerService.getWorkers().splice(i, 1);
+      }
+      else {
+        alert('Cannot employ the worker');
+
+      }
+
+    }, error => {
+      alert('Cannot employ the worker');
+    });
   }
 
-  upgrade(worker:Worker) {
-    this.workerService.upgradeWorker(worker.WorkerId);
+  upgrade(worker: Worker) {
+
+    if (worker.Efficiency * 50 > this.accountService.getGarage().CashBalance) {
+      alert('Not enough money to upgrade the worker');
+      return;
+    }
+
+
+    this.workerService.upgradeWorker(worker).subscribe(x => {
+
+      if (x.status == 'ok') {
+        worker.Efficiency += 10;
+      }
+      else {
+        alert('Cannot upgrade the worker');
+
+      }
+
+    }, error => {
+      alert('Cannot upgrade the worker');
+    });
   }
 
 }
