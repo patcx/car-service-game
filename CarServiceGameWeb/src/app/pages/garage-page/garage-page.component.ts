@@ -25,7 +25,6 @@ export class GaragePageComponent extends AbstractPage implements OnInit {
   }
 
   createStalls() {
-    console.log(this.accountService.getGarage());
     if (this.stalls == null) {
       this.stalls = new Array();
       this.numberOfStalls = this.accountService.getGarage().GarageLevel;

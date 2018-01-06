@@ -5,6 +5,7 @@ import { AccountService } from './account.service';
 import { environment } from '../../environments/environment';
 import { GarageRanking } from '../model/garage-ranking';
 
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RankingService implements IRankingService {

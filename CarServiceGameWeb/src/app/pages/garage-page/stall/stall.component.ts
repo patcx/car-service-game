@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { IOrderService } from '../../../interfaces/order-service';
 import { AccountService } from '../../../services/account.service';
 
+import 'rxjs/add/observable/timer';
+
 @Component({
   selector: 'app-stall',
   templateUrl: './stall.component.html',

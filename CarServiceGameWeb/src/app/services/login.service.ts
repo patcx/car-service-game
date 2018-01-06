@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ILoginService } from '../interfaces/login-service';
 import { AccountService } from './account.service';
 import { Garage } from '../model/garage';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LoginService implements ILoginService {
@@ -19,13 +21,12 @@ export class LoginService implements ILoginService {
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let self = this;
-    return new Observable(observer => {
-      this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, { headers: headers }).subscribe(x => {
-        self.accountService.setToken(x.json().token);
-        let garage: Garage = x.json().garage;
-        self.accountService.setGarage(garage);
-        observer.next();
-      })
+
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Garage`, content, { headers: headers }).map(x => {
+      self.accountService.setToken(x.json().token);
+      let garage: Garage = x.json().garage;
+      self.accountService.setGarage(garage);
+      return x.json();
     })
   };
 
@@ -34,12 +35,10 @@ export class LoginService implements ILoginService {
     let headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let self = this;
-    return new Observable(observer => {
-      this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Register`, content, { headers: headers }).subscribe(x => {
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Register`, content, { headers: headers }).map(x => {
         self.accountService.setToken(x.json().token)
         self.accountService.setGarage(x.json().garage);
-        observer.next();
+        return x.json();
       });
-    });
   }
 }

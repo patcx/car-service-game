@@ -6,6 +6,8 @@ import { AccountService } from '../services/account.service';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class WorkerService implements IWorkerService {
     
