@@ -19,7 +19,9 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   }
 
   ngOnInit() {
-    this.workerService.updateAvailableWorkers();
+    this.setLoading(true);
+    let self = this;
+    this.workerService.updateAvailableWorkers().subscribe(x=>self.setLoading(false));
   }
 
   getAvailableWorkers(): Worker[] {

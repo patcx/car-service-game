@@ -19,7 +19,7 @@ export class WorkerService implements IWorkerService {
         let headers = this.accountService.getTokenHeader();
         if (headers == null) return;
         let self = this;
-        this.http.get(environment.url + `/api/v${this.appVersion}/Workers`, { headers: headers }).subscribe(x => self.createWorkersList(x.json()));
+        return this.http.get(environment.url + `/api/v${this.appVersion}/Workers`, { headers: headers }).map(x => self.createWorkersList(x.json()));
     }
     
     getWorkers(){
