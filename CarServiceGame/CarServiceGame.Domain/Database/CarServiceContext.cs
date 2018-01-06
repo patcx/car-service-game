@@ -7,11 +7,12 @@ namespace CarServiceGame.Domain.Database
     public partial class CarServiceContext : DbContext
     {
         public virtual DbSet<Garage> Garage { get; set; }
+        public virtual DbSet<GarageUpgrade> GarageUpgrade { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<RepairOrder> RepairOrder { get; set; }
         public virtual DbSet<RepairProcess> RepairProcess { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
         public virtual DbSet<WorkerUpgrade> WorkerUpgrade { get; set; }
-        public virtual DbSet<GarageUpgrade> GarageUpgrade { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,6 +40,40 @@ namespace CarServiceGame.Domain.Database
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<GarageUpgrade>(entity =>
+            {
+                entity.Property(e => e.GarageUpgradeId).ValueGeneratedNever();
+
+                entity.Property(e => e.Cost).HasColumnType("decimal(18, 0)");
+
+                entity.HasOne(d => d.Garage)
+                    .WithMany(p => p.GarageUpgrade)
+                    .HasForeignKey(d => d.GarageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__GarageUpg__Garag__5CD6CB2B");
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.HasKey(e => e.GarageBonusId);
+
+                entity.Property(e => e.GarageBonusId).ValueGeneratedNever();
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.HasOne(d => d.Garage)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.GarageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Payment__GarageI__70DDC3D8");
             });
 
             modelBuilder.Entity<RepairOrder>(entity =>
@@ -119,7 +154,6 @@ namespace CarServiceGame.Domain.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__WorkerUpg__Worke__59063A47");
             });
-
         }
     }
 }
