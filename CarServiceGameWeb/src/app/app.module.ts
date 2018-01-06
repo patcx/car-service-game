@@ -21,6 +21,8 @@ import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
 import { LoaderComponent } from './pages/loader/loader.component';
 import { WorkerService } from './services/worker.service';
+import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
+import { PaymentService } from './services/payment.service';
 
 
 const routes: Routes = [
@@ -29,6 +31,7 @@ const routes: Routes = [
   { path: 'Workers', component: WorkersPageComponent },
   { path: 'Office', component: OfficePageComponent },
   { path: 'Ranking', component: RankingPageComponent },
+  { path: 'Payment', component: PaymentPageComponent },
 ];
 
 
@@ -44,6 +47,7 @@ const routes: Routes = [
     OfficePageComponent,
     SortPipe,
     LoaderComponent,
+    PaymentPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,7 @@ const routes: Routes = [
     [{provide: 'OrderService', useClass: OrderService}],
     [{provide: 'GarageService', useClass: GarageService}],
     [{provide: 'WorkerService', useClass: WorkerService}],
+    [{provide: 'PaymentService', useClass: PaymentService}],
     AccountService,
   ],
   bootstrap: [AppComponent]

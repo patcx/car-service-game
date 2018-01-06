@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CarServiceGame.Domain.Concrete;
 using CarServiceGame.Domain.Contracts;
 using CarServiceGame.Domain.Database;
+using CarServiceGame.Domain.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,11 +42,19 @@ namespace CarServiceGame.WebAPI
                     options.TokenValidationParameters = tokenValidationParameters;
                 });
 
+            services.Configure<MailCredentialsOptions>(x =>
+            {
+                x.User = "t";
+                x.Password = "tp";
+            });
+
             services.AddMvc();
             services.AddApiVersioning();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IGarageRepository, GarageRepository>();
             services.AddTransient<IWorkerRepository, WorkerRepository>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
+            services.AddTransient<IMailClient, GmailMailClient>();
 
         }
 
