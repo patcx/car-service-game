@@ -7,4 +7,7 @@ export interface IOrderService {
     getHistoryOrdersFromAPI(): Observable<any>;
     updateOrders();
     getOrders(): Array<Order>;
+    completeOrder(orderId: string): Observable<any>;
+    immediatelyCompleteOrder(orderId: string): Observable<any>;
+    cancelOrder(orderId: string): Observable<any>;
 }

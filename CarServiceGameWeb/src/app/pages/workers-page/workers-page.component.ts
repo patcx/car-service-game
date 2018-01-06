@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { IWorkerService } from '../../interfaces/worker-service';
 import { WorkerService } from '../../services/worker.service';
 import { AbstractPage } from '../abstract-page/abstract-page';
+import { Garage } from '../../model/garage';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   }
 
   getWorkersFromGarage(): Worker[] {
-    return this.accountService.getGarage().EmployeedWorkers;
+    let ret = this.accountService.getGarage().EmployeedWorkers;
+    return ret;
   }
 
   getWidth(width) {

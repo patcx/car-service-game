@@ -1,0 +1,10 @@
+<div *ngFor="let stall of getStalls()" class="stalls col-sm-6 col-xs-12 well">
+    <div class="row">
+        <h2>
+            <div class="text-center">
+                <span class="label label-info">Stall {{stall.number + 1}}</span>
+            </div>
+        </h2>
+        <app-stall [stall]="stall.order"></app-stall>
+    </div>
+</div>
