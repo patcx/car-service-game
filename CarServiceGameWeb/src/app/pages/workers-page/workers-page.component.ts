@@ -24,7 +24,7 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
     let self = this;
     this.workerService.updateAvailableWorkers().subscribe(x=>self.setLoading(false), error=>{
       self.setLoading(false);
-      alert("Error in loading workers");
+      alert("Error while loading workers");
     });
   }
 

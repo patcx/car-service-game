@@ -30,15 +30,16 @@ export class GarageService implements IGarageService {
     return 1000 * this.accountService.getGarage().GarageLevel;
   }
 
-  public upgradeGarage(cost: number) {
+  public upgradeGarage(cost: number) : Observable<any> {
     let headers = this.accountService.getTokenHeader();
     if (headers == null) return;
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     let self = this;
     let content = `cost=${cost}`;
-    this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Upgrade`, content, { headers: headers })
-      .subscribe(x => {
-        console.log(x);
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Garage/Upgrade`, content, { headers: headers })
+      .map(x => {
+        self.accountService.getGarage().GarageLevel += 2;
+        return x.json();
       });
   }
 }
