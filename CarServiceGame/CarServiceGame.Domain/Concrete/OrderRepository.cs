@@ -138,6 +138,16 @@ namespace CarServiceGame.Domain.Concrete
 
             using (var context = GetContext())
             {
+                bool isBusy = (from rp in context.RepairProcess
+                               where rp.WorkerId == workerId &&
+                                     rp.GarageId == garageId &&
+                                     rp.IsPickedUp == false && rp.IsCancelled == false
+                               select rp.RepairOrderId).Any();
+
+                if (isBusy)
+                    throw new Exception("worker is working");
+
+
                 context.RepairProcess.Add(repairProcess);
                 context.SaveChanges();
             }
