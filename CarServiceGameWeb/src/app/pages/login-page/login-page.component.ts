@@ -29,14 +29,12 @@ export class LoginPageComponent extends AbstractPage implements OnInit {
     let self = this;
     this.setLoading(true);
     this.loginService.login(this.name, this.password).subscribe((x) => {
-      console.log(x);
       if (x.status != 'ok') {
         alert("Cannot login");
       }
       self.setLoading(false)
     },
       error => {
-        console.log(error);
         self.setLoading(false);
         alert("Cannot login");
       });

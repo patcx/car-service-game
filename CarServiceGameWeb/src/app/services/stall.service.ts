@@ -13,25 +13,12 @@ export class StallService implements IStallService {
   constructor(private accountService: AccountService) { }
 
   createStalls() {
-    if (this.stalls == null) {
-      this.stalls = new Array();
-      this.numberOfStalls = this.accountService.getGarage().GarageLevel;
-      for (let i = 0; i < this.numberOfStalls; i++) {
-        this.stalls.push(new Stall(i));
-      }
-      let self = this;
+    let newStalls: Array<Stall> = new Array();
+    this.numberOfStalls = this.accountService.getGarage().GarageLevel;
+    for (let i = 0; i < this.numberOfStalls; i++) {
+      newStalls.push(new Stall(i));
     }
-    else {
-      let tmpNumber = this.accountService.getGarage().GarageLevel;
-      if (tmpNumber != this.numberOfStalls) {
-        let newStalls: Array<Stall> = new Array();
-        this.numberOfStalls = this.accountService.getGarage().GarageLevel;
-        for (let i = 0; i < this.numberOfStalls; i++) {
-          newStalls.push(this.stalls[i]);
-        }
-        this.stalls = newStalls;
-      }
-    }
+    this.stalls = newStalls;
     this.accountService.getGarage().RepairProcesses.forEach(x => this.stalls[x.StallNumber].order = x);
   }
 

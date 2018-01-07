@@ -64,10 +64,10 @@ export class OrderService implements IOrderService {
     let self = this;
     let content = `orderId=${orderId}`;
     return this.http.post(environment.url + `/api/v${this.appVersion}/Orders/Finish`, content, { headers: headers })
-    .map(x => console.log(x));
+      .map(x => console.log(x));
   }
 
-  immediatelyCompleteOrder(orderId: string) : Observable<any>{
+  immediatelyCompleteOrder(orderId: string): Observable<any> {
     return null;
   }
 
@@ -78,6 +78,16 @@ export class OrderService implements IOrderService {
     let self = this;
     let content = `orderId=${orderId}`;
     return this.http.post(environment.url + `/api/v${this.appVersion}/Orders/Cancel`, content, { headers: headers })
-    .map(x => console.log(x));
+      .map(x => console.log(x));
+  }
+
+  asignOrder(orderId, workerId, stallNumber) {
+    let headers = this.accountService.getTokenHeader();
+    if (headers == null) return;
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    let self = this;
+    let content = `workerId=${workerId}&orderId=${orderId}&stallNumber=${stallNumber}`;
+    return this.http.post(environment.url + `/api/v${this.appVersion}/Orders/Assign`, content, { headers: headers })
+      .map(x => x.json());
   }
 }

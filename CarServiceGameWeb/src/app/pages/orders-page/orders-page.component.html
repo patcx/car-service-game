@@ -1,4 +1,4 @@
-<div class="col-sm-12" [style.opacity]="this.getOpacity()">
+<div *ngIf="notOrderSelected(); else orderSelected" class="col-sm-12" [style.opacity]="this.getOpacity()">
   <div class="page-header">
     <h3>Available orders</h3>
   </div>
@@ -17,13 +17,64 @@
           <div class="progress-bar" role="progressbar" [style.width]="this.getWidth(order.RequiredWork)"></div>
         </div>
       </td>
-      <td>{{order.Reward}} </td>
+      <td>${{order.Reward}} </td>
       <td>{{order.Description}} </td>
-      <td> </td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="this.accept(order)">Take Order</button>
+      </td>
     </tr>
   </table>
 </div>
 
+<ng-template #orderSelected>
+  <div class="row" [style.opacity]="this.getOpacity()">
+    <div class="col-sm-6 col-xs-6">
+      <div class="page-header">
+        <h3>Hired workers</h3>
+      </div>
+      <div style="overflow: auto; max-height: 700px;">
+        <table class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Efficiency</th>
+            <th>Salary</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let worker of this.getWorkers()">
+            <td>{{worker.Name}} </td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width]="this.getWidthEfficiency(worker.Efficiency)"></div>
+              </div>
+            </td>
+            <td>${{worker.Salary}} </td>
+            <td>
+              <div *ngIf="isSelectedWorker(worker); else notSelected">
+                  <button type="button" class="btn btn-success" (click)="this.selectWorker(worker)">Selected Worker</button>
+              </div>
+              <ng-template #notSelected>
+                  <button type="button" class="btn btn-danger" (click)="this.selectWorker(worker)">Select Worker</button>
+              </ng-template>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6 text-center">
+      <span class="label label-info">Click on stall to asign order</span>
+      <br>
+      <br>
+      <div *ngFor="let stall of getStalls()">
+        <div class="col-md-6 col-xs-6">
+          <div class="text-center">
+            <button [disabled]="disabledStall(stall)" type="button" class="btn btn-success" (click)="this.assignToStall(stall)">Stall {{stall.number + 1}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
 <div *ngIf="this.isLoading()">
-    <app-loader></app-loader>
+  <app-loader></app-loader>
 </div>

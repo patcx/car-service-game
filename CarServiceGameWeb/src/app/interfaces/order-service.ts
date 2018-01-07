@@ -10,4 +10,5 @@ export interface IOrderService {
     completeOrder(orderId: string): Observable<any>;
     immediatelyCompleteOrder(orderId: string): Observable<any>;
     cancelOrder(orderId: string): Observable<any>;
+    asignOrder(orderId, workerId, stallNumber): Observable<any>;
 }

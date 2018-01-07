@@ -29,7 +29,7 @@ export class OfficePageComponent extends AbstractPage implements OnInit {
       self.setLoading(!getBalanceComplete && !getHistoryComplete);
     },  error=> {
       self.setLoading(false);
-      alert("Error in loading balance");
+      alert("Error while loading balance");
     }
   );
     this.orderService.getHistoryOrdersFromAPI().subscribe(x => {
@@ -37,7 +37,7 @@ export class OfficePageComponent extends AbstractPage implements OnInit {
       self.setLoading(!getBalanceComplete && !getHistoryComplete);
     }, error=> {
       self.setLoading(false);
-      alert("Error in loading balance");
+      alert("Error while loading balance");
     });;
   }
 
@@ -50,7 +50,12 @@ export class OfficePageComponent extends AbstractPage implements OnInit {
     if (cost > this.balance) {
       return;
     }
-    this.garageService.upgradeGarage(cost);
+    let self = this;
+    this.setLoading(true);
+    this.garageService.upgradeGarage(cost).subscribe(x=> self.setLoading(false), error=> {
+      alert("Error while upgrading garage");
+      self.setLoading(false);
+    });
   }
 
   getHistoryOrders(): Array<RepairProcess> {

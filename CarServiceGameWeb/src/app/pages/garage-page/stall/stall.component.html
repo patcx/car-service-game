@@ -9,7 +9,7 @@
   <div>
     <div class="alert alert-success">
       <div *ngIf="!isOrderFinished(); else info" class="text-center">
-        {{this.timerValue | date:'HH:mm:ss'}}
+        {{this.timerValue | date:'mm:ss'}}
       </div>
       <ng-template #info>
         <div class="text-center">
@@ -18,15 +18,14 @@
       </ng-template>
     </div>
     <div class="row">
-      <div class="col-sm-4 col-xs-4 text-center" *ngIf="isOrderFinished(); else notFinished">
-        <button class="btn btn-success" (click)="completeOrder()">Finish Order</button>
-      </div>
-      <ng-template #notFinished class="col-sm-4 col-xs-4 text-center">
-        <button class="btn btn-success" (click)="immediatelyCompleteOrder()">Immediately Finish Order</button>
-      </ng-template>
-      <div class="col-sm-4 col-sm-offset-6 col-xs-4 col-xs-offset-6 text-center">
-        <button [disabled]="isOrderFinished()" class="btn btn-danger" (click)="cancelOrder()">Cancel Order</button>
-      </div>
+      <span class="col-sm-4 col-xs-4 text-center">{{this.stall.Order.CarName}}</span>
+      <span class="col-sm-4 col-xs-4 text-center">{{this.stall.Order.Description}}</span>
+      <span class="col-sm-4 col-xs-4 text-center">{{this.stall.AssignedWorker.Name}}</span>
     </div>
+    <br>
+      <div class="text-center">
+        <button *ngIf="isOrderFinished()" class="btn btn-success" (click)="completeOrder()">Finish Order</button>
+        <button *ngIf="!isOrderFinished()" class="btn btn-danger" (click)="cancelOrder()">Cancel Order</button>
+      </div>
   </div>
 </ng-template>

@@ -73,8 +73,10 @@ export class StallComponent implements OnInit {
   }
 
   orderRemoveFromGarage(id) {
+    console.log(this.accountService.getGarage().RepairProcesses);
     this.stall = null;
     let processes = this.accountService.getGarage().RepairProcesses.filter(x => x.Order.RepairOrderId != id);
     this.accountService.getGarage().RepairProcesses = processes;
+    console.log(this.accountService.getGarage().RepairProcesses);
   }
 }
