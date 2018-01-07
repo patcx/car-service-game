@@ -21,12 +21,10 @@ import { GarageService } from './services/garage.service';
 import { OrderService } from './services/order.service';
 import { LoaderComponent } from './pages/loader/loader.component';
 import { WorkerService } from './services/worker.service';
-<<<<<<< HEAD
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PaymentService } from './services/payment.service';
-=======
 import { StallComponent } from './pages/garage-page/stall/stall.component';
->>>>>>> 94e9decd6b4b2805b8947fdda83abea99e8e3bf9
+
 
 
 const routes: Routes = [
