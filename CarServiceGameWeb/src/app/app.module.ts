@@ -49,11 +49,8 @@ const routes: Routes = [
     OfficePageComponent,
     SortPipe,
     LoaderComponent,
-<<<<<<< HEAD
     PaymentPageComponent,
-=======
     StallComponent,
->>>>>>> 94e9decd6b4b2805b8947fdda83abea99e8e3bf9
   ],
   imports: [
     BrowserModule,

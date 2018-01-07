@@ -28,13 +28,31 @@ export class LoginPageComponent extends AbstractPage implements OnInit {
   login(): void {
     let self = this;
     this.setLoading(true);
-    this.loginService.login(this.name, this.password).subscribe(() => { self.setLoading(false) });
+    this.loginService.login(this.name, this.password).subscribe((x) => {
+      if (x.status != 'ok') {
+        alert("Cannot login");
+      }
+      self.setLoading(false)
+    },
+      error => {
+        self.setLoading(false);
+        alert("Cannot login");
+      });
   }
 
   createAccount(): void {
     let self = this;
     if (this.passwordIsCorrect(this.password)) {
-      this.loginService.createAccount(this.name, this.password).subscribe(() => { self.setLoading(false) });;
+      this.loginService.createAccount(this.name, this.password).subscribe((x) => {
+        if (x.status != 'ok') {
+          alert("Cannot create account");
+        }
+        self.setLoading(false)
+      },
+        error => {
+          self.setLoading(false);
+          alert("Cannot create account");
+        });
     } else {
       alert('Password should contains: uppercase letter, lowercase letter and digit');
     }

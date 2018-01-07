@@ -22,7 +22,10 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
   ngOnInit() {
     this.setLoading(true);
     let self = this;
-    this.workerService.updateAvailableWorkers().subscribe(x=>self.setLoading(false));
+    this.workerService.updateAvailableWorkers().subscribe(x=>self.setLoading(false), error=>{
+      self.setLoading(false);
+      alert("Error in loading workers");
+    });
   }
 
   getAvailableWorkers(): Worker[] {

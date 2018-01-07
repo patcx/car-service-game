@@ -23,7 +23,12 @@ export class RankingPageComponent extends AbstractPage implements OnInit {
   ngOnInit() {
     let self = this;
     self.setLoading(true);
-    this.rankingService.getRanking().subscribe(x => self.setLoading(false));
+    this.rankingService.getRanking().subscribe(x => self.setLoading(false), 
+    error=> {
+      self.setLoading(false);
+      alert("Error in loading ranking");
+    }
+    );
     this.createSortingValues();
   }
 

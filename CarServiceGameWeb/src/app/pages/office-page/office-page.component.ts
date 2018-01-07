@@ -27,10 +27,17 @@ export class OfficePageComponent extends AbstractPage implements OnInit {
       self.balance = x.balance;
       getBalanceComplete = true;
       self.setLoading(!getBalanceComplete && !getHistoryComplete);
-    });
+    },  error=> {
+      self.setLoading(false);
+      alert("Error in loading balance");
+    }
+  );
     this.orderService.getHistoryOrdersFromAPI().subscribe(x => {
       getHistoryComplete = true;
       self.setLoading(!getBalanceComplete && !getHistoryComplete);
+    }, error=> {
+      self.setLoading(false);
+      alert("Error in loading balance");
     });;
   }
 

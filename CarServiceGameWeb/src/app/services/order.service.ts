@@ -7,6 +7,8 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { RepairProcess } from '../model/repair-process';
 
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class OrderService implements IOrderService {
 

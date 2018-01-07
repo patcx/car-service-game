@@ -5,6 +5,8 @@ import { environment } from '../../environments/environment';
 import { IGarageService } from '../interfaces/garage-service';
 import { AccountService } from './account.service';
 
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class GarageService implements IGarageService {
 

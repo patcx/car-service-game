@@ -18,7 +18,11 @@ export class OrdersPageComponent extends AbstractPage implements OnInit {
   ngOnInit() {
     this.setLoading(true);
     let self = this;
-    this.orderService.updateOrders().subscribe(x => self.setLoading(false));
+    this.orderService.updateOrders().subscribe(x => self.setLoading(false), 
+    error=> {
+      self.setLoading(false);
+      alert("Error in loading orders");
+    });
   }
 
   getOrders(): Order[] {
