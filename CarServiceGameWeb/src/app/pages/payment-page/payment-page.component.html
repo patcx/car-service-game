@@ -21,3 +21,7 @@
       <input type="button" class="btn btn-primary btn-block" (click)="this.processCode()" value="Submit">
     </div>
   </div>
+
+  <div *ngIf="this.isLoading()">
+    <app-loader></app-loader>
+  </div>

@@ -27,6 +27,7 @@ import { StallComponent } from './pages/garage-page/stall/stall.component';
 import { StallService } from './services/stall.service';
 
 
+
 const routes: Routes = [
   { path: 'Garage', component: GaragePageComponent },
   { path: 'Orders', component: OrdersPageComponent },

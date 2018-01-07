@@ -44,8 +44,8 @@ namespace CarServiceGame.WebAPI
 
             services.Configure<MailCredentialsOptions>(x =>
             {
-                x.User = "t";
-                x.Password = "tp";
+                x.User = "carservicegame@gmail.com";
+                x.Password = "Qaz123123";
             });
 
             services.AddMvc();

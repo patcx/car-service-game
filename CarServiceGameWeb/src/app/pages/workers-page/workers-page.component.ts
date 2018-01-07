@@ -87,10 +87,11 @@ export class WorkersPageComponent extends AbstractPage implements OnInit {
       return;
     }
 
-
+    let self = this;
     this.workerService.upgradeWorker(worker).subscribe(x => {
 
       if (x.status == 'ok') {
+        self.accountService.getGarage().CashBalance -= worker.Efficiency * 50;
         worker.Efficiency += 10;
       }
       else {
