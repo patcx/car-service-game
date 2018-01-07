@@ -53,7 +53,7 @@ namespace CarServiceGame.Domain.Concrete
         {
             using (var context = GetContext())
             {
-                var payment = context.Payment.First(x => x.GarageId == garageId && x.Code == code);
+                var payment = context.Payment.First(x => x.GarageId == garageId && x.Code == code && x.IsActivated == false);
                 payment.IsActivated = true;
                 context.SaveChanges();
             }
