@@ -24,6 +24,7 @@ import { WorkerService } from './services/worker.service';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PaymentService } from './services/payment.service';
 import { StallComponent } from './pages/garage-page/stall/stall.component';
+import { StallService } from './services/stall.service';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
     [{provide: 'GarageService', useClass: GarageService}],
     [{provide: 'WorkerService', useClass: WorkerService}],
     [{provide: 'PaymentService', useClass: PaymentService}],
+    [{provide: 'StallService', useClass: StallService}],
     AccountService,
   ],
   bootstrap: [AppComponent]
